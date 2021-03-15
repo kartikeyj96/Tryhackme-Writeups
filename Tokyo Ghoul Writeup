@@ -116,6 +116,7 @@ I downloaded all the files:
 3.a jpg image
 
 i run the binary, it was asking me for a password, so i strings the binary and note all those words which are looking like passwords:
+(or you can use ghidra also for decompiling it)
 
 ┌──(kali㉿kali)-[~/tokyo]
 └─$ ./need_to_talk                                                                                                                                                  1 ⨯
@@ -123,7 +124,7 @@ Hey Kaneki finnaly you want to talk
 Unfortunately before I can give you the kagune you need to give me the paraphrase
 Do you have what I'm looking for?
 
-> kamishiro
+> REDACTED
 Good job. I believe this is what you came for:
 You_found_1t
                                                                                                                                                                         
