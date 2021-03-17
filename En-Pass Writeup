@@ -346,7 +346,6 @@ Response Code: 200	Length: 2563	Path: /403.php;/..
 Response Code: 200	Length: 2563	Path: /403.php;/../
 Response Code: 400	Length: 306	Path: /403.php;/../../
 Response Code: 200	Length: 2563	Path: /403.php;/../..//
-Response Code: 400	Length: 306	Path: /403.php;/.././../
 Response Code: 200	Length: 2563	Path: /403.php;/../.;/../
 Response Code: 200	Length: 2563	Path: /403.php;/..//
 Response Code: 200	Length: 2563	Path: /403.php;/..//%2e%2e/
