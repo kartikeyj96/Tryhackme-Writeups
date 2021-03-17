@@ -305,7 +305,6 @@ Response Code: 400	Length: 306	Path: /%2e%2e/403.php
 Response Code: 400	Length: 306	Path: /../403.php
 Response Code: 200	Length: 2563	Path: /
 Response Code: 400	Length: 306	Path: /%2e%2e/403.php
-Response Code: 400	Length: 306	Path: /../../../403.php
 Response Code: 400	Length: 306	Path: /../..//../403.php
 Response Code: 400	Length: 306	Path: /../../403.php
 Response Code: 400	Length: 306	Path: /../..;/403.php
