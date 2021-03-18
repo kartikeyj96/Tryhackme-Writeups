@@ -122,7 +122,7 @@ Using default input encoding: UTF-8
 Loaded 1 password hash (md5crypt, crypt(3) $1$ (and variants) [MD5 128/128 SSE2 4x3])
 Will run 2 OpenMP threads
 Press 'q' or Ctrl-C to abort, almost any other key for status
-9972761drmfsls   (developers)
+REDACTED   (developers)
 1g 0:00:00:46 DONE (2021-03-18 12:45) 0.02147g/s 46406p/s 46406c/s 46406C/s 9975934..99686420
 Use the "--show" option to display all of the cracked passwords reliably
 Session completed
