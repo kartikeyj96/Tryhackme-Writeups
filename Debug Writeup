@@ -146,7 +146,7 @@ nothin interesting.........
 
 I FOUND THE JAMES USER HASH IN THE .htpasswd FILE:
 www-data@osboxes:/var/www/html$ cat .htpasswd 
-james:$apr1$zPZMix2A$d8fBXH0em33bfI9UTt9Nq1
+james:REDACTED
 www-data@osboxes:/var/www/html$ 
 
 
