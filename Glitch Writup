@@ -30,12 +30,12 @@ CHECKING THE SOURCE CODE, I FOUND SOME JS CODE:
 
 AFTER NAVIGATING THROUGH THE '/api/access', WE GOT A TOKEN VALUE ENCODED IN BASE64:
 
-{"token":"dGhpc19pc19ub3RfcmVhbA=="}
+{"token":"REDECTED"}
 
 DECODING IT, WE GET THE TOKEN VALUE:
 =====================================================
 ┌──(kali㉿kali)-[~]
-└─$ echo -n "dGhpc19pc19ub3RfcmVhbA==" | base64 -d                                                                                1 ⨯
+└─$ echo -n "REDACTED" | base64 -d                                                                                1 ⨯
 this_is_not_real                                                                                                                            ========================================================
 
 
