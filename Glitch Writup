@@ -127,7 +127,7 @@ Total requests: 4614
 ID           Response   Lines    Word       Chars       Payload                                                                                                
 =====================================================================
 
-000000915:   500        10 L     64 W       1081 Ch     "cmd"                                                   
+000000915:   500        10 L     64 W       1081 Ch     "REDACTED"                                                   
 
 Total time: 78.20104
 Processed Requests: 4614
