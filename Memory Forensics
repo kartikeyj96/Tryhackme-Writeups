@@ -1,0 +1,124 @@
+Memory Forensics
+
+
+TASK 1:
+
+--Profile Type
+====================================
+┌──(kali㉿kali)-[/opt/volatility-2.6]
+└─$ sudo ./volatility -f ~/Downloads/Snapshot6.vmem imageinfo                                              
+Volatility Foundation Volatility Framework 2.6
+INFO    : volatility.debug    : Determining profile based on KDBG search...
+          Suggested Profile(s) : Win7SP1x64, Win7SP0x64, Win2008R2SP0x64, Win2008R2SP1x64_23418, Win2008R2SP1x64, Win7SP1x64_23418
+                     AS Layer1 : WindowsAMD64PagedMemory (Kernel AS)
+                     AS Layer2 : FileAddressSpace (/home/kali/Downloads/Snapshot6.vmem)
+                      PAE type : No PAE
+                           DTB : 0x187000L
+                          KDBG : 0xf80002c4a0a0L
+          Number of Processors : 1
+     Image Type (Service Pack) : 1
+                KPCR for CPU 0 : 0xfffff80002c4bd00L
+             KUSER_SHARED_DATA : 0xfffff78000000000L
+           Image date and time : 2020-12-27 06:20:05 UTC+0000
+     Image local date and time : 2020-12-26 22:20:05 -0800
+
+========================================
+
+
+---HashDump
+======================================
+┌──(kali㉿kali)-[/opt/volatility-2.6]
+└─$ sudo ./volatility -f ~/Downloads/Snapshot6.vmem --profile=Win7SP1x64 hashdump
+Volatility Foundation Volatility Framework 2.6
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+John:1001:aad3b435b51404eeaad3b435b51404ee:47fbd6536d7868c873d5ea455f2fc0c9:::
+HomeGroupUser$:1002:aad3b435b51404eeaad3b435b51404ee:91c34c06b7988e216c3bfeb9530cabfb:::
+======================================
+
+
+TASK 2:
+
+--Profile Type
+=====================================
+┌──(kali㉿kali)-[/opt/volatility-2.6]
+└─$ sudo ./volatility -f ~/Downloads/Snapshot19.vmem imageinfo              
+Volatility Foundation Volatility Framework 2.6
+INFO    : volatility.debug    : Determining profile based on KDBG search...
+          Suggested Profile(s) : Win7SP1x64, Win7SP0x64, Win2008R2SP0x64, Win2008R2SP1x64_23418, Win2008R2SP1x64, Win7SP1x64_23418
+                     AS Layer1 : WindowsAMD64PagedMemory (Kernel AS)
+                     AS Layer2 : FileAddressSpace (/home/kali/Downloads/Snapshot19.vmem)
+                      PAE type : No PAE
+                           DTB : 0x187000L
+                          KDBG : 0xf80002bfd0a0L
+          Number of Processors : 1
+     Image Type (Service Pack) : 1
+                KPCR for CPU 0 : 0xfffff80002bfed00L
+             KUSER_SHARED_DATA : 0xfffff78000000000L
+           Image date and time : 2020-12-27 23:06:01 UTC+0000
+     Image local date and time : 2020-12-28 00:06:01 +0100
+
+====================================
+
+--Machine Last Use Timimg
+=======================================
+┌──(kali㉿kali)-[/opt/volatility-2.6]
+└─$ sudo ./volatility -f ~/Downloads/Snapshot19.vmem --profile=Win7SP1x64 shutdowntime
+[sudo] password for kali: 
+Volatility Foundation Volatility Framework 2.6
+Registry: SYSTEM
+Key Path: ControlSet001\Control\Windows
+Key Last updated: 2020-12-27 22:50:12 UTC+0000
+Value Name: ShutdownTime
+Value: 2020-12-27 22:50:12 UTC+0000
+=====================================
+
+
+--John's clipbaord
+=========================================
+┌──(kali㉿kali)-[/opt/volatility-2.6]
+└─$ sudo ./volatility -f ~/Downloads/Snapshot19.vmem --profile=Win7SP1x64 clipboard   
+Volatility Foundation Volatility Framework 2.6
+Session    WindowStation Format                         Handle Object             Data                                              
+---------- ------------- ------------------ ------------------ ------------------ --------------------------------------------------
+         1 WinSta0       0xc009L                      0x110105 0xfffff900c0172210                                                   
+         1 WinSta0       CF_TEXT                        0xc0ae ------------------                                                   
+         1 WinSta0       0x0L                   0x200000000000 ------------------                                                   
+         1 WinSta0       CF_UNICODETEXT               0x2c00ed 0xfffff900c2a1a3d0 THM{You_found_me}                                 
+         1 WinSta0       CF_TEXT                        0xc013 ------------------                                                   
+         1 WinSta0       0xe00f1L               0x200000000001 ------------------                                                   
+         1 WinSta0       CF_LOCALE                     0x700f7 0xfffff900c2ab5380                                                   
+         1 ------------- ------------------            0xe00f1 0xfffff900c0636170                                                   
+                                                                                                                                                                        
+=========================================
+
+
+TASK 3:
+
+--Profile Type:
+===============================
+┌──(kali㉿kali)-[/opt/volatility-2.6]
+└─$ sudo ./volatility -f ~/Downloads/Snapshot14.vmem imageinfo                      
+Volatility Foundation Volatility Framework 2.6
+INFO    : volatility.debug    : Determining profile based on KDBG search...
+          Suggested Profile(s) : Win7SP1x64, Win7SP0x64, Win2008R2SP0x64, Win2008R2SP1x64_23418, Win2008R2SP1x64, Win7SP1x64_23418
+                     AS Layer1 : WindowsAMD64PagedMemory (Kernel AS)
+                     AS Layer2 : FileAddressSpace (/home/kali/Downloads/Snapshot14.vmem)
+                      PAE type : No PAE
+                           DTB : 0x187000L
+                          KDBG : 0xf80002c4d0a0L
+          Number of Processors : 1
+     Image Type (Service Pack) : 1
+                KPCR for CPU 0 : 0xfffff80002c4ed00L
+             KUSER_SHARED_DATA : 0xfffff78000000000L
+           Image date and time : 2020-12-27 13:41:31 UTC+0000
+     Image local date and time : 2020-12-27 05:41:31 -0800
+===============================
+
+--truecrypt password:
+===============================
+┌──(kali㉿kali)-[/opt/volatility-2.6]
+└─$ sudo ./volatility -f ~/Downloads/Snapshot14.vmem --profile=Win7SP1x64 truecryptpassphrase
+Volatility Foundation Volatility Framework 2.6
+Found at 0xfffff8800512bee4 length 11: forgetmenot
+===============================
