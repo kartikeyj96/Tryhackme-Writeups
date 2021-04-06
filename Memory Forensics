@@ -121,5 +121,5 @@ INFO    : volatility.debug    : Determining profile based on KDBG search...
 ┌──(kali㉿kali)-[/opt/volatility-2.6]
 └─$ sudo ./volatility -f ~/Downloads/Snapshot14.vmem --profile=Win7SP1x64 truecryptpassphrase
 Volatility Foundation Volatility Framework 2.6
-Found at 0xfffff8800512bee4 length 11: forgetmenot
+Found at 0xfffff8800512bee4 length 11: REDACTED
 ===============================
