@@ -71,7 +71,7 @@ Registry: SYSTEM
 Key Path: ControlSet001\Control\Windows
 Key Last updated: 2020-12-27 22:50:12 UTC+0000
 Value Name: ShutdownTime
-Value: 2020-12-27 22:50:12 UTC+0000
+Value:REDACTED UTC+0000
 =====================================
 
 
@@ -85,7 +85,7 @@ Session    WindowStation Format                         Handle Object           
          1 WinSta0       0xc009L                      0x110105 0xfffff900c0172210                                                   
          1 WinSta0       CF_TEXT                        0xc0ae ------------------                                                   
          1 WinSta0       0x0L                   0x200000000000 ------------------                                                   
-         1 WinSta0       CF_UNICODETEXT               0x2c00ed 0xfffff900c2a1a3d0 THM{You_found_me}                                 
+         1 WinSta0       CF_UNICODETEXT               0x2c00ed 0xfffff900c2a1a3d0 THM{REDACTED}                                 
          1 WinSta0       CF_TEXT                        0xc013 ------------------                                                   
          1 WinSta0       0xe00f1L               0x200000000001 ------------------                                                   
          1 WinSta0       CF_LOCALE                     0x700f7 0xfffff900c2ab5380                                                   
