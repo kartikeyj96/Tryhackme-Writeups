@@ -245,7 +245,7 @@ system("pkill -9 -t pts/0" <no return ...>
 GOT THE PASSWORD!!
 =============================================
 hakanbey@ubuntu:~$ /usr/bin/binary 
-I think you should enter the correct string here ==>warzoneinadana
+I think you should enter the correct string here ==>REDACTED
 Hint! : Hexeditor 00000020 ==> ???? ==> /home/hakanbey/Desktop/root.jpg (CyberChef)
 
 Copy /root/root.jpg ==> /home/hakanbey/root.jpg
