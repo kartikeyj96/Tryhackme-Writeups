@@ -59,7 +59,7 @@ I USE STEGSEEK TO CRACK THE PASSPHRASE:
 StegSeek version 0.5
 Progress: 95.15% (384297 bytes)           
 
-[i] --> Found passphrase: "123adanaantinwar"
+[i] --> Found passphrase: "REDACTED"
 [i] Original filename: "user-pass-ftp.txt"
 [i] Extracting to "out.txt"
 
@@ -67,14 +67,14 @@ THIS IS BASE64 ENCODING:
 
 ┌──(kali㉿kali)-[~/different]
 └─$ cat out.txt                          
-RlRQLUxPR0lOClVTRVI6IGhha2FuZnRwClBBU1M6IDEyM2FkYW5hY3JhY2s=
+REDACTED
                                                                                                                                                                         
 
 ┌──(kali㉿kali)-[~/different]
 └─$ cat out.txt| base64-d                                                                                    1 ⨯
 FTP-LOGIN
-USER: hakanftp
-PASS: 123adanacrack                                                                                                                                                                        
+USER: REDACTED
+PASS: REDACTED                                                                                                                                                                        
 
 GOT THE FTP CREDS!!
 
