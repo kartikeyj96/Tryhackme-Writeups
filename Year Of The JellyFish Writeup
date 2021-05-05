@@ -238,14 +238,12 @@ GOBUSTER SCANS:(robyns-petshop.thm)
 /themes (Status: 301)
 /vendor (Status: 301)
 
-
+GOT SOME INFO ABOUT THIS CMS:
+========================================
 
 Pico is a stupidly simple, blazing fast, flat file CMS. See http://picocms.org/ for more info.
-
 `PicoDeprecated`'s purpose is to maintain backward compatibility to older versions of Pico, by re-introducing characteristics that were removed from Pico's core. It for example triggers old events (like the `before_render` event used before Pico 1.0) and reads config files that were written in PHP (`config/config.php`, used before Pico 2.0).
-
-Please refer to [`picocms/Pico`](https://github.com/picocms/Pico) to get info about how to contribute or getting help.
-
+Please refer to [`picocms/Pico`](https://github.com/picocms/Pico) to get info about how to contribute or getting help. 
 
 INFO:
 ==================
@@ -299,8 +297,8 @@ Released: 2020-08-29
 
 No changes
 
-
-BUT CAN'T FIND ANY VULNERABILITY:
+#########
+CAN'T FIND ANY VULNERABILITY:(A RABBIT HOLE)
 
 BUT WE HAVE OTHER DOMAINS ALSO, LETS ENUMERATE THEM ALSO:
 ===============================
@@ -318,7 +316,7 @@ Monitorr 1.7.6m - Remote Code Execution (Unauthenticated)        | php/webapps/4
 
 LETS TRY THESE EXPLOITS:
 AS WE DON"T HAVE CREDENTIALS WE MUST USE THE SECOND EXPLOIT
-BUT THESE EXPLOIT WONT WORK AS THE SSL CERTIFICATE
+BUT THESE EXPLOIT WONT WORK BECAUSE OF THE SSL CERTIFICATE VERIFICATION
 
 SO WE HAVE TO DO THIS EXPLOIT MANUALLY:
 
@@ -338,14 +336,14 @@ Cache-Control: max-age=0
 
 WE CAN SEE THE COOKIE NAME 'isHuman' WHICH IS SET TO 1
 
-I READ THE POC OF THIS EXPLOIT AND FOUND AN 'assets' DIRECTORY, IN WHICH I CAN REGISTER MY SELF AND THEN LOGIN TO ACCESS THE SERVICE 
-CONFIGURATION FILE ON THE MAIN PAGE (settings.php)
+I READ THE POC OF THIS EXPLOIT AND FOUND AN 'assets' DIRECTORY, IN WHICH I CAN REGISTER MY SELF AND THEN LOGIN TO ACCESS THE "SERVICE 
+CONFIGURATION" FILE ON THE MAIN PAGE (settings.php)
 
-FIRST I CREATE AN ACCOUNT THEN LOGGED IN, THEN NAVIGATE TO THE /settings.php THEN SERVICE CONFIGURATION TAB
-NOW WE CAN UPLOAD AN IMAGE, AND CHECK HOW TO BYPASS SO THAT WE CAN UPLOAD OUR REVERSE SHELL
+FIRST I CREATE AN ACCOUNT THEN LOGGED IN, THEN NAVIGATE TO THE /settings.php, THEN CLICK THE "SERVICE CONFIGURATION" TAB
+NOW WE CAN UPLOAD AN IMAGE, AND WE HAVE TO CHECK HOW TO BYPASS THE IMAGE FILTER SO THAT WE CAN UPLOAD OUR REVERSE SHELL
 
 I CLICK ON 'IMAGE' OPTION, THEN SELECT AN .png FILE WHICH UPLOADS SUCCESSFULLY
-BUT WHEN I UPLOAD .php OR .png.php FILE IT CAUGHT IT AND BLOCK OUR REQUEST
+BUT WHEN I UPLOAD .php OR .png.php FILE IT GET CAUGHT AND BLOCK OUR REQUEST
 
 IN BURP,
 I USE THIS REQUEST:
