@@ -75,8 +75,7 @@ credentials.bak: ASCII text
                                                                                                                                                                         
 ┌──(kali㉿kali)-[/tmp/mount]
 └─$ cat credentials.bak 
-paradoxial.test
-ShibaPretzel79
+REDACTED
                     
 
 AFTER GETTING THESE CREDS, I CHECK THE PORT 8080 FOR FURTHER ENUMERATION
@@ -236,7 +235,7 @@ print(password)
 
 ┌──(kali㉿kali)-[~/coconit]
 └─$ python3 code.py
-cherrycoke
+REDACTED
 
 
 
@@ -245,6 +244,7 @@ LETS TRY TO GET TO THE SZYMEX ACCOUNT
 FIRST ACCORDING TO THE ROOM , I CREATED A SSH KEY PAIR AND SSH INTO THE PARADOX ACCOUNT 
 
 YES WE ARE IN!!
+
 GOT THE SECOND FLAG
 
 NOW ITS TIME FOT TUX ACCOUNT:
@@ -281,19 +281,11 @@ szymex@cchq:/home/tux/tuxling_1$ cat nootcode.c
 #define nOot return
 #define noOt (
 #define nooT )
-#define NOOOT "f96"
-#define NooT ;
-#define Nooot nuut
-#define NOot {
-#define nooot key
-#define NoOt }
-#define NOOt void
-#define NOOT "NOOT!\n"
-#define nooOT "050a"
+--[snip]--
 #define noOT printf
 #define nOOT 0
 #define nOoOoT "What does the penguin say?\n"
-#define nout "d61"
+
 
 noot Noot noOt nooT NOot
     noOT noOt nOoOoT nooT NooT
@@ -310,7 +302,7 @@ NOOt Nooot noOt nooT NOot
     noOT noOt NOOT nooT NooT
 NoOt
 szymex@cchq:/home/tux/tuxling_1$ 
-
+==============================================
 
 szymex@cchq:/home/tux/tuxling_1$ cat note 
 Noot noot! You found me. 
@@ -336,7 +328,7 @@ int main () {
 }
 
 void key () {
-    printf("f96050ad61");
+    printf("REDACTED");
 }
 
 void nuut() {
@@ -352,7 +344,7 @@ Hi! Kowalski here.
 I was practicing my act of disappearance so good job finding me.
 
 Here take this,
-The last fragment is: 637b56db1552
+The last fragment is: REDACTED
 
 Combine them all and visit the station.
 szymex@cchq:/home/tux/tuxling_3$ 
@@ -382,7 +374,6 @@ I've encrypted it with Penguin Grade Protection (PGP).
 You can have the key fragment if you can decrypt it.
 Good luck and keep on nooting!
 
-szymex@cchq:/media/tuxling_2$ 
 ===================================================
 
 FIRST IMPORT THE PRIVATE KEY:
@@ -399,18 +390,18 @@ THEN DECRYPT THE FILE:
 szymex@cchq:/media/tuxling_2$ gpg -d fragment.asc 
 gpg: encrypted with 3072-bit RSA key, ID 97D48EB17511A6FA, created 2021-02-20
       "TuxPingu"
-The second key fragment is: 6eaf62818d
+The second key fragment is: REDACTED
 
 
 
 WE GOT ALL THREE CODES, LETS COMBINE THEM:
-f96050ad616eaf62818d637b56db1552
+REDACTED
 
 I THINK THIS IS A MD5 HASH
 
 
 CRACKING IT USING THE TOOL ON HASHES.ORG:
-f96050ad616eaf62818d637b56db1552:tuxykitty
+REDACRED:REDACTED
 
 
 LETS GET TO TUX!!
@@ -437,7 +428,7 @@ CHECKING THE GIT LOGS AND CHANGES MADE IN THE REPO I FOUND SOMETHING JUICY:
 -pw = input("Password: ")
 -
 -for i in range(0,2):
--    if pw != "slowroastpork":
+-    if pw != "REDACTED":
 -        pw = input("Password: ")
 -    else:
 -        if uname == "varg":
