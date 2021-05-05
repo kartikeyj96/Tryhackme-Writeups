@@ -455,7 +455,7 @@ To run a command as administrator (user "root"), use "sudo <command>".
 See "man sudo_root" for details.
 
 dirty_sock@petshop:/tmp/dirty_sock-master$ sudo cat /root/root.txt
-THM{ZWM5N2ViY2QxNjE4MjkxOWRiYWQ4NjUx}
+THM{REDACTED}
 
 GOT THE ROOT FLAG
 
