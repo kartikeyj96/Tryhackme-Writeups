@@ -1,5 +1,7 @@
 Unstable Twin
 
+LINK:https://tryhackme.com/room/unstabletwin
+
 NMAP RESULTS:
 
 Nmap scan report for 10.10.252.75
@@ -233,18 +235,12 @@ RESPONSE:
 
 [
   [
-    "1:1:I have left my notes on the server.  They will me help get the family back together. ,1:2:My Password is eaf0651dabef9c7de8a70843030924d335a2a8ff5fd1b13c4cb099e66efe25ecaa607c4b7dd99c43b0c01af669c90fd6a14933422cf984324f645b84427343f4\n", 
+    "1:1:I have left my notes on the server.  They will me help get the family back together. ,1:2:My Password is REDACTED\n", 
     2
   ]
 ]
 
-
-LETS CRACK THIS PASSWORD..
-eaf0651dabef9c7de8a70843030924d335a2a8ff5fd1b13c4cb099e66efe25ecaa607c4b7dd99c43b0c01af669c90fd6a14933422cf984324f645b84427343f4:experiment
-
-
-THE CREDS ARE:
-mary_ann:experiment
+AFTER CRACKING THIS HASH ONLINE IN HASHES.ORG
 
 
 WE ARE IN:
