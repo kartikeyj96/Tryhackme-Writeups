@@ -257,21 +257,18 @@ FOUND THIS NOTE:
 ==========================
 [mary_ann@UnstableTwin ~]$ cat server_notes.txt 
 Now you have found my notes you now you need to put my extended family together.
-
 We need to GET their IMAGE for the family album.  These can be retrieved by NAME.
-
 You need to find all of them and a picture of myself!
-[mary_ann@UnstableTwin ~]$
 
-
+=============================================================================================
 AFTER READING THIS NOTE, WE CAN SEE SOME "KEYWORDS" WHICH ARE HIGHLIGHTED IN "BOLD", LIKE:
 1.GET
 2.IMAGE
 3.NAME
 ------------------------------
-GET MEANS THE GET PARAMETER
-IMAGE MEANS, THOSE IMAGES WE GOT IN THE /opt DIRECTORY
-NAME MEANS WE CAN FETCH THEM USING THE NAMES WE GOT THEM IN THE "USERS" TABLE(MAYBE NAME CAN ALSO BE USE AS A GET PARAMETER?)
+a.GET MEANS THE GET PARAMETER
+b.IMAGE MEANS, THOSE IMAGES WE GOT IN THE /opt DIRECTORY
+c.NAME MEANS WE CAN FETCH THEM USING THE NAMES WE GOT THEM IN THE "USERS" TABLE (MAYBE NAME CAN ALSO BE USE AS A GET PARAMETER?)
 ------------------------------
 
 LETS TRY TO FETCH THESE IMAGES FROM CURL COMMAND
