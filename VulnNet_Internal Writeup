@@ -194,7 +194,7 @@ If you have any questions, please text or phone us.
 Purge regularly data that is not needed anymore
 
 # cat services.txt 
-THM{0a09d51e488f5fa105d8d866a497440a}
+THM{REDACTED}
 
 
 #####GOT THE FIRST FLAG######
@@ -229,17 +229,15 @@ AFTER DOWNLOADING THE REDIS-CLI, LOGGING INTO THE SERVER:
 ==============================================================
 
 
-# redis-cli -h 10.10.183.132 -a 'B65Hx562F@ggAZ@F'
+# redis-cli -h 10.10.183.132 -a 'REDACTED'
 Warning: Using a password with '-a' or '-u' option on the command line interface may not be safe.
 10.10.183.132:6379> config get *
   1) "dbfilename"
   2) "dump.rdb"
-  3) "requirepass"
-  4) "B65Hx562F@ggAZ@F"
-  5) "masterauth"
-  6) ""
-  7) "cluster-announce-ip"
-  8) ""
+  3) "requirepass"]
+  
+ --[snip]--
+ 
   9) "unixsocket"
  10) ""
 --[snip]--
@@ -262,7 +260,7 @@ SELECTING THE FIRST DATABASE, WE HAVE THE 'INTERNAL FLAG' FILE
 LETS CHECK ITS CONTENTS
 
 10.10.183.132:6379> get "internal flag"
-"THM{ff8e518addbbddb74531a724236a8221}"
+"THM{REDACTED}"
 10.10.183.132:6379>
 
 #########GOT THE SECOND FLAG#########
@@ -316,16 +314,13 @@ USING THIS COMMAND LIKE THIS:
 =================================
 
 10.10.212.222:6379> lrange authlist 1 1000
-1) "QXV0aG9yaXphdGlvbiBmb3IgcnN5bmM6Ly9yc3luYy1jb25uZWN0QDEyNy4wLjAuMSB3aXRoIHBhc3N3b3JkIEhjZzNIUDY3QFRXQEJjNzJ2Cg=="
-2) "QXV0aG9yaXphdGlvbiBmb3IgcnN5bmM6Ly9yc3luYy1jb25uZWN0QDEyNy4wLjAuMSB3aXRoIHBhc3N3b3JkIEhjZzNIUDY3QFRXQEJjNzJ2Cg=="
-3) "QXV0aG9yaXphdGlvbiBmb3IgcnN5bmM6Ly9yc3luYy1jb25uZWN0QDEyNy4wLjAuMSB3aXRoIHBhc3N3b3JkIEhjZzNIUDY3QFRXQEJjNzJ2Cg=="
-
+1) "REDACTED"
 
 THESE ARE ALL SAME BASE64 HASHES, LETS DECODE THEM
 ====================================================
 
-# echo -n "QXV0aG9yaXphdGlvbiBmb3IgcnN5bmM6Ly9yc3luYy1jb25uZWN0QDEyNy4wLjAuMSB3aXRoIHBhc3N3b3JkIEhjZzNIUDY3QFRXQEJjNzJ2Cg==" | base64 -d
-Authorization for rsync://rsync-connect@127.0.0.1 with password Hcg3HP67@TW@Bc72v
+# echo -n "REDACTED" | base64 -d
+Authorization for rsync://rsync-connect@127.0.0.1 with password REDACTED
 
 WE SOME CREDS FOR "RSYNC" SERVER
 LETS TRY TO AUTHENTICATE WITH THEM
