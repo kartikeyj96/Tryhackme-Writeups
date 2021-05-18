@@ -1,5 +1,5 @@
 # Tryhackme-Writeups
-Writeups of my every tryhackme room completed till now
+Writeups of my every tryhackme room(excluding walkthrough rooms) completed till now
 
 ABOUT ME:
 Myself Kartikey Jain,
